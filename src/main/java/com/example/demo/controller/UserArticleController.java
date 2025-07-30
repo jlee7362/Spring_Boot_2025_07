@@ -4,12 +4,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
+import com.example.demo.vo.Article;
 
 @Controller
-public class UserHomeController {
-	int count = 10;
+public class UserArticleController {
 	
 	@RequestMapping("/usr/home/getArticle")
 	@ResponseBody
@@ -17,16 +15,9 @@ public class UserHomeController {
 		Article article = new Article (1, "제목1", "내용1");
 		
 		System.out.println(article);
+		
 		return article;
 	}
 	
 }
 
-@Data
-@AllArgsConstructor
-class Article{
-	int id;
-	String title;
-	String body;
-	
-}
