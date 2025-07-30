@@ -4,29 +4,29 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+
 @Controller
 public class UserHomeController {
-	int count = 0;
+	int count = 10;
 	
-	@RequestMapping("/usr/home/setCountValue")
+	@RequestMapping("/usr/home/getArticle")
 	@ResponseBody
-	public String setCountValue(int value) {
-		this.count = value;
-		return "count값 "+value+"(으)로 설정.";
-	}
-	
-	@RequestMapping("/usr/home/getCount")
-	@ResponseBody
-	public String getCount() {
+	public Article getArticle() {
+		Article article = new Article (1, "제목1", "내용1");
 		
-		return ("count : " + this.count);
+		System.out.println(article);
+		return article;
 	}
+	
+}
 
-	@RequestMapping("/usr/home/setCount")
-	@ResponseBody
-	public String setCount() {
-		this.count = 0;
-		return "count값 초기화";
-	}
+@Data
+@AllArgsConstructor
+class Article{
+	int id;
+	String title;
+	String body;
 	
 }
