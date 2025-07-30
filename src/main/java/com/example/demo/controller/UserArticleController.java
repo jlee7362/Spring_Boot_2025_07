@@ -34,14 +34,12 @@ public class UserArticleController {
 	
 	private Article writeArticle(String title, String body) {
 		int id = ++this.lastArticleId;
-		
 		Article article = new Article(id, title, body);
 		
 		this.articles.add(article);
 		
 		return article;
 	}
-	
 
 	@RequestMapping("/usr/article/doAdd")
 	@ResponseBody
@@ -55,7 +53,26 @@ public class UserArticleController {
 	public List<Article> getArticles() {
 		return this.articles;
 	}
+	private Article getArticleById(int id) {
+		for(Article article : articles) {
+			if(article.getId()==id) {
+				return article;
+			}
+		}
+		return null;
+	}
 	
+	@RequestMapping("/usr/article/doDelete")
+	@ResponseBody
+	public String doDelete(int id) {
+		Article article = getArticleById(id);
+		if(article == null) {
+			return id+"번 글이 없습니다.";
+		}else {
+			articles.remove(article);
+		}
+		return id+"번 글이 삭제되었습니다.";
+	}
 	
 }
 
