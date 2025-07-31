@@ -24,8 +24,8 @@ public class UserArticleController{
 		if(article == null) {
 			return id+"번 글이 없습니다.";
 		}else {
-			article.setTitle(title);
-			article.setBody(body);
+			articleService.modifyArticle(id, title, body);
+		
 		}
 		return article;
 	}
@@ -33,11 +33,12 @@ public class UserArticleController{
 	@RequestMapping("/usr/article/doDelete")
 	@ResponseBody
 	public String doDelete(int id) {
+		
 		Article article = articleService.getArticleById(id);
 		if(article == null) {
 			return id+"번 글이 없습니다.";
 		}else {
-			articleService.articles.remove(article);
+			articleService.deleteArticle(id);
 		}
 		return id+"번 글이 삭제되었습니다.";
 	}
@@ -51,7 +52,7 @@ public class UserArticleController{
 	@RequestMapping("/usr/article/getArticles")
 	@ResponseBody
 	public List<Article> getArticles() {
-		return articleService.articles;
+		return articleService.getArticles();
 	}
 
 	
