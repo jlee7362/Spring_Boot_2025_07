@@ -35,6 +35,7 @@ public class UserArticleController{
 	public String doDelete(int id) {
 		
 		Article article = articleService.getArticleById(id);
+		
 		if(article == null) {
 			return id+"번 글이 없습니다.";
 		}else {

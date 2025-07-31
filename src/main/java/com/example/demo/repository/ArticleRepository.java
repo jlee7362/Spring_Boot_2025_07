@@ -1,60 +1,31 @@
 package com.example.demo.repository;
 
-
-
-import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.stereotype.Component;
+import org.apache.ibatis.annotations.Delete;
+import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import com.example.demo.vo.Article;
 
-@Component
-public class ArticleRepository {
+@Mapper
+public interface ArticleRepository {
 
-	public int lastArticleId;
-	public List<Article> articles;
+//	@Insert("INSERT INTO `article` SET `regDate` = NOW(), `updateDate` = NOW(), `title` = #{title}, `body` = #{body};")
+	public int writeArticle(String title, String body);
 
-	public ArticleRepository() {
-		this.lastArticleId = 0;
-		this.articles = new ArrayList<>();
-	}
+//	@Delete("DELETE FROM `article` WHERE `id` = #{id}")
+	public void deleteArticle(int id);
 
-	public Article writeArticle(String title, String body) {
-		int id = ++this.lastArticleId;
+//	@Update("UPDATE `article` SET `updateDate` = NOW(), `title` = #{title}, `body` = #{body} WHERE `id` = #{id}")
+	public Object modifyArticle(int id, String title, String body);
 
-		Article article = new Article(id, title, body);
-		this.articles.add(article);
+//	@Select("SELECT * FROM `article` WHERE `id` = #{id}")
+	public Article getArticleById(int id);
 
-		return article;
-	}
-
-	public Article getArticleById(int id) {
-		for (Article article : articles) {
-			if (article.getId() == id) {
-				return article;
-			}
-		}
-		return null;
-	}
-
-	public List<Article> getArticles() {
-		return articles;
-	}
-
-	public Object modifyArticle(int id, String title, String body) {
-		
-		Article article = getArticleById(id);
-		article.setTitle(title);
-		article.setBody(body);
-		
-		return null;
-		
-	}
-
-	public void deleteArticle(int id) {
-		Article article = getArticleById(id);
-		articles.remove(article);
-	}
+//	@Select("SELECT * FROM `article`")
+	public List<Article> getArticles();
 
 }
