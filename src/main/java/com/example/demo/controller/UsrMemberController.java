@@ -18,9 +18,12 @@ public class UsrMemberController {
 	@ResponseBody
 	public Member doJoin(String loginId, String loginPw, String name, String nickname, String cellphoneNum, String email){
 		
-		memberService.doJoin(loginId, loginPw, name, nickname, cellphoneNum, email);
-		Member member = null;
-		return member;
+		int id = memberService.doJoin(loginId, loginPw, name, nickname, cellphoneNum, email);
+		
+		System.out.println("id : "+ id);
+		
+		Member member = memberService.getMemberById(id);
+		return null;
 	}
 
 }
