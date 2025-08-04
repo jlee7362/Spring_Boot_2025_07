@@ -23,7 +23,7 @@ public class UsrMemberController {
 		System.out.println("id : "+ id);
 		
 		Member member = memberService.getMemberById(id);
-		return null;
+		return member;
 	}
 
 }
