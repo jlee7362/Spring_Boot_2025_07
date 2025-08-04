@@ -1,4 +1,4 @@
-DROP DATABASE `spring_2025_08`;
+DROP DATABASE IF EXISTS`spring_2025_08`;
 CREATE DATABASE `spring_2025_08`;
 USE `spring_2025_08`;
 
@@ -18,7 +18,10 @@ CREATE TABLE `member` (
     `updateDate` DATETIME NOT NULL,
     `loginId` CHAR(100) NOT NULL,
     `loginPw` CHAR(100) NOT NULL,
-    `name` CHAR(100) NOT NULL
+    `name` CHAR(100) NOT NULL,
+    `nickname` CHAR(20) NOT NULL,
+    `cellphoneNum` CHAR(20) NOT NULL,
+    `email` CHAR(20) NOT NULL
 );
 
 
@@ -42,21 +45,35 @@ SET `regDate` = NOW(),
 INSERT INTO `member`
 SET `regDate` = NOW(),
     `updateDate` = NOW(),
+    `loginId` = 'admin',
+    `loginPw` = 'admin',
+    `name` = '관리자',
+    `nickname` = '관리자_닉네임',
+    `cellphoneNum` = '010-123-4567',
+    `email` = 'admin@gmail.com';
+    
+INSERT INTO `member`
+SET `regDate` = NOW(),
+    `updateDate` = NOW(),
     `loginId` = 'test1',
     `loginPw` = 'test1',
-    `name` = '홍길동';
+    `name` = 'test1',
+    `nickname` = '회원1_닉네임',
+    `cellphoneNum` = '010-111-1111',
+    `email` = 'test1@gmail.com';
+
 INSERT INTO `member`
 SET `regDate` = NOW(),
     `updateDate` = NOW(),
     `loginId` = 'test2',
     `loginPw` = 'test2',
-    `name` = '김철수';
-
-
-SELECT *
-FROM `article`;
-SELECT *
-FROM `member`;
+    `name` = 'test2',
+    `nickname` = '회원2_닉네임',
+    `cellphoneNum` = '010-222-2222',
+    `email` = 'test2@gmail.com';
+    
+SELECT * FROM `article`;
+SELECT * FROM `member`;
 
 ALTER TABLE `article` ADD COLUMN `memberId` INT NOT NULL AFTER `updateDate`;
 
@@ -84,3 +101,8 @@ SET `regDate` = NOW(),
     `loginId` = CONCAT('id', SUBSTRING(RAND() * 1000 FROM 1 FOR 3)),
     `loginPw` = CONCAT('pw', SUBSTRING(RAND() * 1000 FROM 1 FOR 3)),
     `name` = CONCAT('이름', SUBSTRING(RAND() * 1000 FROM 1 FOR 2));
+    `nickname` = '회원2_닉네임';
+    `cellphoneNum` = '010-222-2222';
+    `email` = 'test2@gmail.com';
+    
+    
