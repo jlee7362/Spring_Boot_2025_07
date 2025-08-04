@@ -5,9 +5,8 @@
 
 <mapper namespace="com.example.demo.repository.ArticleRepository">
     <insert id="writeArticle" parameterType="map">
-    	INSERT INTO `article`
-    	SET
-    	regDate = NOW(),
+    INSERT INTO `article`
+    SET regDate = NOW(),
     	updateDate = NOW(),
     	title = #{title},
     	body = #{body}
@@ -16,25 +15,28 @@
     <update id="modifyArticle" parameterType="map">
     UPDATE `article`
 	SET `updateDate` = NOW(), 
-	`title` = #{title}, 
-	`body` = #{body} 
+		`title` = #{title}, 
+		`body` = #{body} 
 	WHERE `id` = #{id}"
     </update>
     
     <select id="getArticleById" parameterType="int">
-    SELECT * FROM `article` 
+    SELECT * 
+    FROM `article` 
     WHERE `id` = #{id}"
     </select>
-    
     
     <select id="getArticles" resultType="com.example.demo.vo.Article">
     SELECT * 
     FROM `article`
     </select>
     
-    
     <delete id="deleteArticle" parameterType="int">
         DELETE FROM article 
         WHERE id = #{id}
     </delete>
+    
+    
 </mapper>
+
+
