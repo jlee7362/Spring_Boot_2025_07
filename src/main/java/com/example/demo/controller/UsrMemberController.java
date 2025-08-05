@@ -18,16 +18,36 @@ public class UsrMemberController {
 	@RequestMapping("/usr/member/doJoin")
 	@ResponseBody
 	public Object doJoin(String loginId, String loginPw, String name, String nickname, String cellphoneNum, String email){
-		
 		int id = memberService.doJoin(loginId, loginPw, name, nickname, cellphoneNum, email);
-		
 		//중복된 데이터 체크 알림
 		System.out.println("id : "+ id);
 		if(id == -1) {
 			return "이미 사용중인 아이디입니다.";
 		}
+		//입력값이 null인지 체크
+		if(loginId==null || loginId.trim().length()==0) {
+			return "아이디를 입력하세요";
+		}
+		if(loginPw==null || loginPw.trim().length()==0) {
+			return "비밀번호를 입력하세요";
+		}
+		if(name==null || name.trim().length()==0) {
+			return "이름을 입력하세요";
+		}
+		if(nickname==null || nickname.trim().length()==0) {
+			return "별명을 입력하세요";
+		}
+		if(cellphoneNum==null || cellphoneNum.trim().length()==0) {
+			return "전화번호를 입력하세요";
+		}
+		if(email==null || email.trim().length()==0) {
+			return "이메일을 입력하세요";
+		}
+		
+		
 		Member member = memberService.getMemberById(id);
 		return member;
 	}
+	
 
 }
