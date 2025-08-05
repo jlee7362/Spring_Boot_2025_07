@@ -47,19 +47,7 @@ public class UsrMemberController {
 		}
 		Member member = memberService.getMemberById((int) doJoinRd.getData1());
 		
-		
-//		int id = memberService.doJoin(loginId, loginPw, name, nickname, cellphoneNum, email);
-//
-//		// 중복된 데이터 체크 알림
-//		System.out.println("id : " + id);
-//		if (id == -1) {
-//			return Ut.f("이미 사용 중인 아이디입니다.(%s)", loginId);
-//		}
-//		if (id == -2) {
-//			return Ut.f("이름(%s)과 이메일(%s)이 중복되었습니다. 다시 입력하세요.", name, email);
-//		}
-//
-//		Member member = memberService.getMemberById(id);
+
 
 		return ResultData.newData(doJoinRd, member);
 	}

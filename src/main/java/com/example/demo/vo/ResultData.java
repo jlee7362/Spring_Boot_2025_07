@@ -2,13 +2,11 @@ package com.example.demo.vo;
 
 import lombok.Getter;
 
+@Getter
 public class ResultData {
 	
-	@Getter
 	private String resultCode;
-	@Getter
 	private String msg;
-	@Getter
 	private Object data1;
 	
 	public static ResultData from(String resultCode, String msg) {
@@ -30,7 +28,6 @@ public class ResultData {
 	public boolean isFail() {
 		return isSuccess()==false;
 	}
-	
 	
 	public static ResultData newData(ResultData rd, Object newData) {
 		return from(rd.getResultCode(),rd.getMsg(), newData);

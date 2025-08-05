@@ -38,6 +38,9 @@
 		FROM `article`
 	</select>
 
+	<select id="getLastInsertId">
+		SELECT LAST_INSERT_ID()
+	</select>
 
 	<delete id="deleteArticle" parameterType="int">
 		DELETE FROM article
