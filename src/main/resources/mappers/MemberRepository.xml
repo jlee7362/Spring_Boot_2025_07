@@ -24,16 +24,25 @@
 		FROM `member`
 		WHERE `id` = #{id}
 	</select>
-	
-	<select id="getLastInsertId" >
+
+	<select id="getMemberByNameAndEmail" parameterType="String"
+		resultType="com.example.demo.vo.Member">
+		SELECT *
+		FROM `member`
+		WHERE `name` = #{name} AND `email` =#{email}
+	</select>
+
+	<select id="getLastInsertId">
 		SELECT LAST_INSERT_ID()
 	</select>
-	
+
 	<select id="getMemberByLoginId" parameterType="String"
 		resultType="com.example.demo.vo.Member">
 		SELECT *
 		FROM `member`
 		WHERE `loginId` = #{loginId}
 	</select>
+
+
 
 </mapper>

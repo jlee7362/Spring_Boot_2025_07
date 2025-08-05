@@ -8,22 +8,29 @@ import com.example.demo.vo.Member;
 
 @Service
 public class MemberService {
-	
+
 	@Autowired
 	private MemberRepository memberRepository;
-	
+
 	public int doJoin(String loginId, String loginPw, String name, String nickname, String cellphoneNum, String email) {
 		
-		//아이디 중복체크
+		// 로그인 중복체크
 		Member existsMember = memberRepository.getMemberByLoginId(loginId);
 		if(existsMember != null) {
 			return -1;
 		}
-		memberRepository.doJoin(loginId, loginPw, name, nickname, cellphoneNum, email);
+		// 이름 + 이메일 중복체크 
+		existsMember = memberRepository.getMemberByNameAndEmail(name, email);
+		if(existsMember != null) {
+			return -2;
+		}
 		
+
+		memberRepository.doJoin(loginId, loginPw, name, nickname, cellphoneNum, email);
+
 		return memberRepository.getLastInsertId();
 	}
-	
+
 	public Member getMemberById(int id) {
 		return memberRepository.getMemberById(id);
 	}
