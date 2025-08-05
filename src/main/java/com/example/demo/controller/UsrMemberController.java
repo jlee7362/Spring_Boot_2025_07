@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.example.demo.service.MemberService;
 import com.example.demo.vo.Member;
 
+
 @Controller
 public class UsrMemberController {
 
