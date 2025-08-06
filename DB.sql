@@ -18,7 +18,7 @@ CREATE TABLE `member` (
     `updateDate` DATETIME NOT NULL,
     `loginId` CHAR(100) NOT NULL,
     `loginPw` CHAR(100) NOT NULL,
-    `authLevel` SMALLINT(2) UNSIGNED DEFAULT 3 COMMENT '권한 레벨(3=회원, 7=관리자)',
+    `authLevel` SMALLINT(2) UNSIGNED DEFAULT 3 COMMENT '권한 여부(3=회원, 7=관리자)',
     `name` CHAR(100) NOT NULL,
     `nickname` CHAR(20) NOT NULL,
     `cellphoneNum` CHAR(20) NOT NULL,
@@ -78,18 +78,25 @@ SET `regDate` = NOW(),
     `cellphoneNum` = '010-222-2222',
     `email` = 'test2@gmail.com';
     
-SELECT * FROM `article`;
-SELECT * FROM `member`;
-
-ALTER TABLE `article` ADD COLUMN `memberId` INT NOT NULL AFTER `updateDate`;
-
-UPDATE `article`
-SET `memberId` = 1
-WHERE `id` IN (1,2);
+    
+ALTER TABLE `article`ADD COLUMN `memberId` INT UNSIGNED NOT NULL AFTER `updateDate`;
 
 UPDATE `article`
 SET `memberId` = 2
-WHERE `id` = 3;
+WHERE `id` IN (1,2);
+
+UPDATE `article`
+SET `memberId` = 1
+WHERE `id` IN (3);
+
+
+SELECT * FROM `article`;
+SELECT * FROM `member`;
+DELETE FROM `member` WHERE `id` >3;
+
+SELECT *
+FROM `member`
+WHERE `name` = 'test1' AND `email` = 'test1@gmail.com';
 
 ###############################################
 # 게시글 데이터 대량 생성
