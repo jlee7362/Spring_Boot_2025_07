@@ -3,18 +3,18 @@ package com.example.demo.vo;
 import lombok.Getter;
 
 @Getter
-public class ResultData {
+public class ResultData <DT> {
 	
 	private String resultCode;
 	private String msg;
-	private Object data1;
+	private DT data1;
 	
-	public static ResultData from(String resultCode, String msg) {
+	public static <DT>ResultData<DT> from(String resultCode, String msg) {
 		return from(resultCode,msg,null);
 	}
 	
-	public static ResultData from(String resultCode, String msg, Object data) {
-		ResultData rd = new ResultData();
+	public static <DT>ResultData<DT> from(String resultCode, String msg, DT data) {
+		ResultData<DT> rd = new ResultData<DT>();
 		rd.resultCode = resultCode;
 		rd.msg = msg;
 		rd.data1 = data;
@@ -29,7 +29,7 @@ public class ResultData {
 		return isSuccess()==false;
 	}
 	
-	public static ResultData newData(ResultData rd, Object newData) {
+	public static <DT>ResultData<DT> newData(ResultData rd, DT newData) {
 		return from(rd.getResultCode(),rd.getMsg(), newData);
 	}
 
