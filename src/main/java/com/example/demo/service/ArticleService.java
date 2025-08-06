@@ -23,7 +23,7 @@ public class ArticleService {
 	public ResultData writeArticle(int memberId, String title, String body) {
 		articleRepository.writeArticle(memberId, title, body);
 		int id = articleRepository.getLastInsertId();
-		return ResultData.from("S-1", Ut.f("%d번 글이 등록되었습니다.", id),id);
+		return ResultData.from("S-1", Ut.f("%d번 글이 등록되었습니다.", id),id, "등록된 게시글의 id");
 	}
 
 	public List<Article> getArticles() {

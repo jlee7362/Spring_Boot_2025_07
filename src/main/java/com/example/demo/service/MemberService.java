@@ -30,7 +30,7 @@ public class MemberService {
 		
 		int id = memberRepository.getLastInsertId();
 		
-		return ResultData.from("S-1", "회원가입 성공", id);
+		return ResultData.from("S-1", "회원가입 성공", id, "새 회원 id");
 		
 	}
 

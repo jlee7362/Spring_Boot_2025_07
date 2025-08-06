@@ -37,7 +37,7 @@ public class UsrMemberController {
 	
 	@RequestMapping("/usr/member/doLogin")
 	@ResponseBody
-	public ResultData<String> doLogin(HttpSession session, String loginId, String loginPw) {
+	public ResultData<Member> doLogin(HttpSession session, String loginId, String loginPw) {
 		
 		boolean isLogined = false;
 		
@@ -64,7 +64,7 @@ public class UsrMemberController {
 		
 		session.setAttribute("loginedMemberId", member.getId());
 		
-		return ResultData.from("S-1", Ut.f("%s님 환영합니다.", member.getNickname()));
+		return ResultData.from("S-1", Ut.f("%s님 환영합니다.", member.getNickname()), member, "로그인 한 회원");
 		
 	}
 	
@@ -100,6 +100,6 @@ public class UsrMemberController {
 		Member member = memberService.getMemberById((int) doJoinRd.getData1());
 
 
-		return ResultData.newData(doJoinRd, member);
+		return ResultData.newData(doJoinRd, member, "새로 가입한 회원");
 	}
 }	
