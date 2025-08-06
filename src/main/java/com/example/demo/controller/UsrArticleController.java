@@ -26,7 +26,7 @@ public class UsrArticleController {
 
 	@RequestMapping("/usr/article/doModify")
 	@ResponseBody
-	public ResultData<Integer> doModify(HttpSession session, int id, String title, String body) {
+	public ResultData doModify(HttpSession session, int id, String title, String body) {
 		// 로그인 체크
 		boolean isLogined = false;
 		int loginedMemberId = -1;
@@ -36,19 +36,25 @@ public class UsrArticleController {
 			loginedMemberId = (int) session.getAttribute("loginedMemberId");
 		}
 		if (isLogined == false) {
-			return ResultData.from("F-A", "권한이 없습니다.");
+			return ResultData.from("F-A", "로그인 하고 오세요.");
 		}
 
 		Article article = articleService.getArticleById(id);
 		if (article == null) {
 			return ResultData.from("F-1", Ut.f("%d번 글이 없습니다.", id));
-		} else {
-			articleService.modifyArticle(id, title, body);
-
 		}
+
+		// 권한 체크
+		ResultData loginedMemberAuthCkeckRd = articleService.loginedMemberAuthCkeck(loginedMemberId, article);
+
+		if(loginedMemberAuthCkeckRd.getResultCode().startsWith("F")) {
+			return ResultData.from("F-A", loginedMemberAuthCkeckRd.getMsg());
+		}
+		articleService.modifyArticle(id, title, body);
+
 		article = articleService.getArticleById(id);
 
-		return ResultData.from("S-1", Ut.f("%d번 글이 수정되었습니다.", id));
+		return ResultData.from(loginedMemberAuthCkeckRd.getResultCode(), loginedMemberAuthCkeckRd.getMsg(), article);
 	}
 
 	@RequestMapping("/usr/article/doDelete")
@@ -64,19 +70,26 @@ public class UsrArticleController {
 			loginedMemberId = (int) session.getAttribute("loginedMemberId");
 		}
 		if (isLogined == false) {
-			return ResultData.from("F-A", "권한이 없습니다.");
+			return ResultData.from("F-A", "로그인 하고 오세요.");
 		}
 
 		Article article = articleService.getArticleById(id);
 
 		if (article == null) {
 			return ResultData.from("F-1", Ut.f("%d번 글이 없습니다.", id));
-		} else {
-			articleService.deleteArticle(id);
 		}
-		article = articleService.getArticleById(id);
+		
+		// 권한 체크
+		ResultData loginedMemberAuthCkeckRd = articleService.loginedMemberAuthCkeck(loginedMemberId, article);
 
-		return ResultData.from("S-1", Ut.f("%d번 글이 삭제되었습니다.", id));
+		if(loginedMemberAuthCkeckRd.getResultCode().startsWith("F")) {
+			return ResultData.from("F-A", loginedMemberAuthCkeckRd.getMsg());
+		}
+		
+		articleService.deleteArticle(id);
+
+
+		return ResultData.from("S-1", Ut.f("%d번 글을 삭제했습니다.", id));
 	}
 
 	@RequestMapping("/usr/article/doWrite")

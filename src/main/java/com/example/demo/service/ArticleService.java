@@ -43,4 +43,12 @@ public class ArticleService {
 		
 	}
 
+	public ResultData loginedMemberAuthCkeck(int loginedMemberId, Article article) {
+		if(article.getMemberId()!=loginedMemberId) {
+			return ResultData.from("F-A", Ut.f("%d번 게시글 권한이 없음.", article.getId()));
+		}
+		
+		return ResultData.from("S-1", Ut.f("%d번 게시글을 수정함", article.getId()));
+	}
+
 }
