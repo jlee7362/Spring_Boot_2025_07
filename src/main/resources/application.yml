@@ -1,9 +1,14 @@
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: "jdbc:mysql://127.0.0.1:3306/spring_2025_08?useUnicode=true&characterEncoding=utf8&autoReconnect=true&serverTimezone=Asia/Seoul"
+    url: jdbc:mysql://127.0.0.1:3306/spring_2025_08?useUnicode=true&characterEncoding=utf8&autoReconnect=true&serverTimezone=Asia/Seoul
     username: root
-    password: ""
+    password: ""  # 비밀번호가 없다면 빈 문자열, 있으면 넣기
+  mvc:
+    view:
+      prefix: /WEB-INF/jsp
+      suffix: .jsp
+
 mybatis:
   type-aliases-package: com.example.demo.vo
   mapper-locations: classpath:mappers/**/*.xml
