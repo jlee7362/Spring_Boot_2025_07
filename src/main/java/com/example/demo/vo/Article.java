@@ -13,14 +13,15 @@ import lombok.NoArgsConstructor;
 @Builder
 public class Article {
 	
-	int id;
-	String title;
-	String body;
-	LocalDateTime regDate;
-	LocalDateTime updateDate;
+	private int id;
+	private String title;
+	private String body;
+	private LocalDateTime regDate;
+	private LocalDateTime updateDate;
 	
-	int memberId;
-
+	private int memberId;
+	private String extra__writer;
+	
 	public Article(String title, String body) {
 		this.title = title;
 		this.body = body;

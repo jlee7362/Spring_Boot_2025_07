@@ -6,11 +6,11 @@
 <c:set var="pageTitle" value="ARTICLE LIST"></c:set>
 <%@ include file="../common/head.jspf"%>
 
-	<h1>ARTICLE LIST</h1>
-
-	<table border="1" cellspacing="0" cellpadding="5" style="width: 100%; border-collapse: collapse;">
-		<thead>
-			<tr>
+<h1>ARTICLE LIST</h1>
+<section class="mt-8 text-xl px-4">
+	<table class="mx-auto" cellpadding="5">
+		<thead >
+			<tr >
 				<th>ID</th>
 				<th>Registration Date</th>
 				<th>Title</th>
@@ -23,12 +23,13 @@
 				<tr>
 					<td>${article.id }</td>
 					<td>${article.regDate }</td>
-					<td>${article.title }</td>
+					<td><a class="hover:underline" href="../article/detail?id=${article.id}">${article.title }</a></td>
 					<td>${article.memberId }</td>
 				</tr>
-
+		
 			</c:forEach>
-
+		
 		</tbody>
 	</table>
+</section>
 <%@ include file="../common/foot.jspf"%>
