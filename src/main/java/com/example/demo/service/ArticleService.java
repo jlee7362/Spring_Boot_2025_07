@@ -30,12 +30,20 @@ public class ArticleService {
 		return articleRepository.getArticles();
 	}
 
-	public Article getArticleById(int loginedMemberId, int id) {
+	public Article getArticleById(int id) {
 		Article article = articleRepository.getArticleById(id);
+		
+		return article;
+	}
+	
+	public Article getForPrintArticle(int loginedMemberId, int id) {
+		Article article = articleRepository.getForPrintArticle(id);
+		
 		updateForPrintData(loginedMemberId, article);
 		
 		return article;
 	}
+	
 
 	private void updateForPrintData(int loginedMemberId, Article article) {
 		if(article == null) {

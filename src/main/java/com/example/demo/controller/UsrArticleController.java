@@ -46,16 +46,16 @@ public class UsrArticleController {
 		}
 
 		// 권한 체크
-		ResultData loginedMemberAuthCkeckRd = articleService.userCanModify(loginedMemberId, article);
+		ResultData userCanModify = articleService.userCanModify(loginedMemberId, article);
 
-		if (loginedMemberAuthCkeckRd.getResultCode().startsWith("F")) {
-			return ResultData.from("F-A", loginedMemberAuthCkeckRd.getMsg());
+		if (userCanModify.getResultCode().startsWith("F")) {
+			return ResultData.from("F-A", userCanModify.getMsg());
 		}
 		articleService.modifyArticle(id, title, body);
 
 		article = articleService.getArticleById(id);
 
-		return ResultData.from(loginedMemberAuthCkeckRd.getResultCode(), loginedMemberAuthCkeckRd.getMsg(), article,
+		return ResultData.from(userCanModify.getResultCode(), userCanModify.getMsg(), article,
 				"수정한 글");
 	}
 
@@ -82,10 +82,10 @@ public class UsrArticleController {
 		}
 
 		// 권한 체크
-		ResultData loginedMemberAuthCkeckRd = articleService.userCanModify(loginedMemberId, article);
+		ResultData userCanModify = articleService.userCanModify(loginedMemberId, article);
 
-		if (loginedMemberAuthCkeckRd.getResultCode().startsWith("F")) {
-			return ResultData.from("F-A", loginedMemberAuthCkeckRd.getMsg());
+		if (userCanModify.getResultCode().startsWith("F")) {
+			return ResultData.from("F-A", userCanModify.getMsg());
 		}
 
 		articleService.deleteArticle(id);
@@ -134,12 +134,11 @@ public class UsrArticleController {
 			loginedMemberId = (int) session.getAttribute("loginedMemberId");
 		}
 
-	Article article = articleService.getArticleById(loginedMemberId, id);
-//		if (article == null) {
-//			return ResultData.from("F-1", Ut.f("%d번 게시글은 없습니다.", id));
-//		}
+	Article article = articleService.getForPrintArticle(loginedMemberId, id);
 
-	model.addAttribute("article",article);return"/usr/article/detail";
+	model.addAttribute("article",article);
+	
+	return"/usr/article/detail";
 	}
 
 	@RequestMapping("/usr/article/list")

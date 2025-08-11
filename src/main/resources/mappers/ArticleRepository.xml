@@ -11,7 +11,8 @@
 		regDate = NOW(),
 		updateDate = NOW(),
 		memberId = #{memberId},
-		title = #{title},
+		title =
+		#{title},
 		body
 		= #{body}
 	</insert>
@@ -21,12 +22,12 @@
 		<set>
 			<if test="title != null and title !=''">`title` = #{title},</if>
 			<if test="body != null and body !=''">`body` = #{body},</if>
-		`updateDate` = NOW()
+			`updateDate` = NOW()
 		</set>
 		WHERE `id`=#{id}
 	</update>
 
-	<select id="getArticleById" parameterType="int"
+	<select id="getForPrintArticle" parameterType="int"
 		resultType="com.example.demo.vo.Article">
 		SELECT a.*, m.nickname AS extra__writer
 		FROM `article` a
@@ -35,6 +36,22 @@
 		WHERE a.`id` = #{id}
 	</select>
 
+	<select id="getArticleById" parameterType="int"
+		resultType="com.example.demo.vo.Article">
+		SELECT *
+		FROM `article`
+		WHERE `id` = #{id}
+	</select>
+
+	<select id="getForPrintArticles"
+		resultType="com.example.demo.vo.Article">
+		SELECT a.*, m.nickname AS extra__writer
+		FROM `article` a
+		INNER JOIN `member` m
+		ON a.memberId = m.id
+		ORDER BY a.id DESC
+	</select>
+	
 	<select id="getArticles"
 		resultType="com.example.demo.vo.Article">
 		SELECT a.*, m.nickname AS extra__writer

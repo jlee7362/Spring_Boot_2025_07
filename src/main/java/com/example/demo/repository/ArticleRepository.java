@@ -20,5 +20,7 @@ public interface ArticleRepository {
 	public List<Article> getArticles();
 
 	public int getLastInsertId();
+	
+	public Article getForPrintArticle(int id);
 
 }
