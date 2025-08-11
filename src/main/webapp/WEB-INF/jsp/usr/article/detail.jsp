@@ -1,38 +1,58 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <c:set var="pageTitle" value="ARTICLE DETAIL"></c:set>
 
 <%@ include file="../common/head.jspf"%>
 
-<h1>ARTICLE DETAIL</h1>
-<section class="mt-8 text-xl px-4">
-	<table class="mx-auto" cellpadding="5">
-		<tbody>
-				<tr>
-					<th>ID</th>
-					<td>${article.id }</td>
-				</tr>
-				<tr>
-					<th>Registration Date</th>
-					<td>${article.regDate }</td>
-				</tr>
-				<tr>
-					<th>Title</th>
-					<td>${article.title }</td>
-				</tr>
-				<tr>
-					<th>Writer</th>
-					<td>${article.extra__writer}</td>
-				</tr>
-
-		</tbody>
+<h1 class="justify-self-center text-3xl my-6">Article Detail</h1>
+<div class="flex flex-col items-start w-fit mx-auto justify-self-center" >
+	<table class="justify-self-center border-2 shadow-md">
+		<tr>
+			<th class="px-8 border-2 text-gray-900">ID</th>
+			<th class="px-8 border-2 text-xl">${article.id }번글</th>
+		</tr>
+		<tr>
+			<th class="px-8 border-2 text-gray-900">Registration Date</th>
+			<th class="px-8 border-2 text-xl">${article.regDate }</th>
+		</tr>
+		<tr>
+			<th class="px-8 border-2 text-gray-900">Update Date</th>
+			<th class="px-8 border-2 text-xl">${article.updateDate }</th>
+		</tr>
+		<tr>
+			<th class="px-8 border-2 text-gray-900">Title</th>
+			<th class="px-8 border-2 text-xl">${article.title }</th>
+		</tr>
+		<tr>
+			<th class="px-8 py-5 border-2 text-gray-900">Body</th>
+			<th class="p-10 border-2 text-xl">${article.body }</th>
+		</tr>
+		<tr>
+			<th class="px-8 border-2 text-gray-900">Member ID</th>
+			<th class="px-8 border-2 text-xl">${article.memberId }</th>
+		</tr>
 	</table>
-	<div class="btns">
-	<button type="button" onClick="history.back()">뒤로가기</button>
-	<a href="modify?id=${article.id }">수정</a>
-	<a href="delete?id=${article.id }">삭제</a>
+	<div class="flex w-full justify-end">
+		<nav class="flex space-x-2">
+			<button type="button"
+				class="mt-4 px-4 py-2 bg-gray-100 rounded 
+           hover:bg-gray-300 shadow-md
+           transform transition duration-150 hover:-translate-y-0.5 hover:shadow-lg"
+				onclick="history.back()">뒤로가기</button>
+			
+			<c:if test="${article.userCanModify}"><a class="mt-4 px-4 py-2 bg-gray-100 rounded 
+           hover:bg-gray-300 shadow-md
+           transform transition duration-150 hover:-translate-y-0.5 hover:shadow-lg"
+				href="modify?id=${article.id }">수정</a></c:if>
+			
+			<a
+				class="mt-4 px-4 py-2 bg-gray-100 rounded 
+           hover:bg-gray-300 shadow-md
+           transform transition duration-150 hover:-translate-y-0.5 hover:shadow-lg"
+				href="delete?id=${article.id }">삭제</a>
+		</nav>
 	</div>
-	
-</section>
+
+</div>
 <%@ include file="../common/foot.jspf"%>

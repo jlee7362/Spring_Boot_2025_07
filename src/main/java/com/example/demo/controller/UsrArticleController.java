@@ -46,16 +46,17 @@ public class UsrArticleController {
 		}
 
 		// 권한 체크
-		ResultData loginedMemberAuthCkeckRd = articleService.loginedMemberAuthCkeck(loginedMemberId, article);
+		ResultData loginedMemberAuthCkeckRd = articleService.userCanModify(loginedMemberId, article);
 
-		if(loginedMemberAuthCkeckRd.getResultCode().startsWith("F")) {
+		if (loginedMemberAuthCkeckRd.getResultCode().startsWith("F")) {
 			return ResultData.from("F-A", loginedMemberAuthCkeckRd.getMsg());
 		}
 		articleService.modifyArticle(id, title, body);
 
 		article = articleService.getArticleById(id);
 
-		return ResultData.from(loginedMemberAuthCkeckRd.getResultCode(), loginedMemberAuthCkeckRd.getMsg(), article, "수정한 글");
+		return ResultData.from(loginedMemberAuthCkeckRd.getResultCode(), loginedMemberAuthCkeckRd.getMsg(), article,
+				"수정한 글");
 	}
 
 	@RequestMapping("/usr/article/doDelete")
@@ -79,16 +80,15 @@ public class UsrArticleController {
 		if (article == null) {
 			return ResultData.from("F-1", Ut.f("%d번 글이 없습니다.", id));
 		}
-		
-		// 권한 체크
-		ResultData loginedMemberAuthCkeckRd = articleService.loginedMemberAuthCkeck(loginedMemberId, article);
 
-		if(loginedMemberAuthCkeckRd.getResultCode().startsWith("F")) {
+		// 권한 체크
+		ResultData loginedMemberAuthCkeckRd = articleService.userCanModify(loginedMemberId, article);
+
+		if (loginedMemberAuthCkeckRd.getResultCode().startsWith("F")) {
 			return ResultData.from("F-A", loginedMemberAuthCkeckRd.getMsg());
 		}
-		
-		articleService.deleteArticle(id);
 
+		articleService.deleteArticle(id);
 
 		return ResultData.from("S-1", Ut.f("%d번 글을 삭제했습니다.", id));
 	}
@@ -123,15 +123,23 @@ public class UsrArticleController {
 	}
 
 	@RequestMapping("/usr/article/detail")
-	public String getArticle(int id, Model model) {
+	public String getArticle(HttpSession session, int id, Model model) {
 
-		Article article = articleService.getArticleById(id);
+		// 로그인 체크
+		boolean isLogined = false;
+		int loginedMemberId = -1;
+
+		if (session.getAttribute("loginedMemberId") != null) {
+			isLogined = true;
+			loginedMemberId = (int) session.getAttribute("loginedMemberId");
+		}
+
+	Article article = articleService.getArticleById(loginedMemberId, id);
 //		if (article == null) {
 //			return ResultData.from("F-1", Ut.f("%d번 게시글은 없습니다.", id));
 //		}
 
-		model.addAttribute("article", article);
-		return "/usr/article/detail";
+	model.addAttribute("article",article);return"/usr/article/detail";
 	}
 
 	@RequestMapping("/usr/article/list")

@@ -21,6 +21,7 @@ public class Article {
 	
 	private int memberId;
 	private String extra__writer;
+	private boolean userCanModify;
 	
 	public Article(String title, String body) {
 		this.title = title;

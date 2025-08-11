@@ -1,7 +1,4 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-
-<!-- 공통파일 -->
-<link rel="stylesheet" href="/resource/common.css" />
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <!-- tailwind -->
@@ -9,28 +6,30 @@
 <!-- 폰트어썸 -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" />
 
+<link rel="stylesheet" type="text/css" href="/resource/common.css">
+
 <script src="/resource/common.js" defer="defer"></script>
-
-
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
 <title>${pageTitle }</title>
 </head>
 <body>
+	<header class="border-b">
+		<div class="container mx-auto flex justify-between items-center h-20 px-6">
+			<!-- 로고 -->
+			<a href="/" class="text-2xl font-bold">LOGO</a>
 
-	<header>
-		<div class="flex h-20 items-center text-2xl">
-			<a href="/">LOGO</a>
-			<div class="flex-grow"></div>
-			<ul class="flex border-2 border-gray-800">
-				<li>
-					<a class="hover:underline" href="/">HOME</a>
-				</li>
-				<li>
-					<a class="hover:underline"  href="../article/list">LIST</a>
-				</li>
-			</ul>
+			<!-- 메뉴 -->
+			<nav>
+				<ul class="flex space-x-10 text-lg">
+					<li>
+						<a href="../home/main" class="hover:text-gray-600">HOME</a>
+					</li>
+					<li>
+						<a href="../article/list" class="hover:text-gray-600">LIST</a>
+					</li>
+				</ul>
+			</nav>
 		</div>
 	</header>
