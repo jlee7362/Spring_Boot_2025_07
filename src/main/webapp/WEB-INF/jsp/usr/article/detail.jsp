@@ -29,8 +29,8 @@
 			<th class="p-10 border-2 text-xl">${article.body }</th>
 		</tr>
 		<tr>
-			<th class="px-8 border-2 text-gray-900">Member ID</th>
-			<th class="px-8 border-2 text-xl">${article.memberId }</th>
+			<th class="px-8 border-2 text-gray-900">작성자</th>
+			<th class="px-8 border-2 text-xl">${article.extra__writer }</th>
 		</tr>
 	</table>
 	<div class="flex w-full justify-end">
@@ -46,11 +46,11 @@
            transform transition duration-150 hover:-translate-y-0.5 hover:shadow-lg"
 				href="modify?id=${article.id }">수정</a></c:if>
 			
-			<a
+			<c:if test="${article.userCanDelete}"><a
 				class="mt-4 px-4 py-2 bg-gray-100 rounded 
            hover:bg-gray-300 shadow-md
            transform transition duration-150 hover:-translate-y-0.5 hover:shadow-lg"
-				href="delete?id=${article.id }">삭제</a>
+				href="delete?id=${article.id }">삭제</a></c:if>
 		</nav>
 	</div>
 

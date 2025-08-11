@@ -82,10 +82,10 @@ public class UsrArticleController {
 		}
 
 		// 권한 체크
-		ResultData userCanModify = articleService.userCanModify(loginedMemberId, article);
+		ResultData userCanDelete = articleService.userCanDelete(loginedMemberId, article);
 
-		if (userCanModify.getResultCode().startsWith("F")) {
-			return ResultData.from("F-A", userCanModify.getMsg());
+		if (userCanDelete.getResultCode().startsWith("F")) {
+			return ResultData.from("F-A", userCanDelete.getMsg());
 		}
 
 		articleService.deleteArticle(id);

@@ -39,18 +39,22 @@ public class ArticleService {
 	public Article getForPrintArticle(int loginedMemberId, int id) {
 		Article article = articleRepository.getForPrintArticle(id);
 		
-		updateForPrintData(loginedMemberId, article);
+		controlForPrintData(loginedMemberId, article);
 		
 		return article;
 	}
 	
 
-	private void updateForPrintData(int loginedMemberId, Article article) {
+	private void controlForPrintData(int loginedMemberId, Article article) {
 		if(article == null) {
 			return;
 		}
 		ResultData userCanModifyRd = userCanModify(loginedMemberId, article);
 		article.setUserCanModify(userCanModifyRd.isSuccess());
+		
+		ResultData userCanDeleteRd = userCanDelete(loginedMemberId, article);
+		article.setUserCanDelete(userCanDeleteRd.isSuccess());
+		
 	}
 
 	public void modifyArticle(int id, String title, String body) {
@@ -67,7 +71,15 @@ public class ArticleService {
 			return ResultData.from("F-A", Ut.f("%d번 게시글 권한이 없음.", article.getId()));
 		}
 		
-		return ResultData.from("S-1", Ut.f("%d번 게시글을 수정함", article.getId()));
+		return ResultData.from("S-1", Ut.f("%d번 게시글을 수정 가능", article.getId()));
+	}
+
+	public ResultData userCanDelete(int loginedMemberId, Article article) {
+		if(article.getMemberId()!=loginedMemberId) {
+			return ResultData.from("F-A", Ut.f("%d번 게시글 권한이 없음.", article.getId()));
+		}
+		
+		return ResultData.from("S-1", Ut.f("%d번 게시글을 삭제 가능", article.getId()));
 	}
 
 }
