@@ -8,6 +8,7 @@
 }
 html>body{
 	 font-family: 'GmarketSansMedium';
+	 background-color: rgba(249, 250, 251);
 }
 
 header>.container > nav > ul > li > a{
@@ -30,3 +31,13 @@ header>.container > nav > ul > li:hover > a::after{
   width: 100%;
   background-color: black;
 }
+/* body > header > div > table > tr > th {
+	border-color: rgba(55, 65, 81);
+	border: 4px;
+}
+.box{
+	border: 4px;
+} */
+
+
+

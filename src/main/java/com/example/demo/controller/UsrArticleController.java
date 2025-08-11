@@ -61,7 +61,7 @@ public class UsrArticleController {
 
 	@RequestMapping("/usr/article/doDelete")
 	@ResponseBody
-	public ResultData<Integer> doDelete(HttpSession session, int id) {
+	public String doDelete(HttpSession session, int id) {
 
 		// 로그인 체크
 		boolean isLogined = false;
@@ -72,25 +72,29 @@ public class UsrArticleController {
 			loginedMemberId = (int) session.getAttribute("loginedMemberId");
 		}
 		if (isLogined == false) {
-			return ResultData.from("F-A", "로그인 하고 오세요.");
+//			return ResultData.from("F-A", "로그인 하고 오세요.");
+			return Ut.jsReplace("F-A", "로그인 하고 오세요.", "../member/login");
 		}
 
 		Article article = articleService.getArticleById(id);
 
 		if (article == null) {
-			return ResultData.from("F-1", Ut.f("%d번 글이 없습니다.", id));
+//			return ResultData.from("F-1", Ut.f("%d번 글이 없습니다.", id));
+			return Ut.jsHistoryBack("F-1", Ut.f("%d번 글이 없습니다.", id));
 		}
 
 		// 권한 체크
-		ResultData userCanDelete = articleService.userCanDelete(loginedMemberId, article);
+		ResultData userCanDeleteRd = articleService.userCanDelete(loginedMemberId, article);
 
-		if (userCanDelete.getResultCode().startsWith("F")) {
-			return ResultData.from("F-A", userCanDelete.getMsg());
+		if (userCanDeleteRd.getResultCode().startsWith("F")) {
+//			return ResultData.from("F-A", userCanDelete.getMsg());
+			return Ut.jsHistoryBack("F-A", userCanDeleteRd.getMsg());
 		}
 
 		articleService.deleteArticle(id);
 
-		return ResultData.from("S-1", Ut.f("%d번 글을 삭제했습니다.", id));
+//		return ResultData.from("S-1", Ut.f("%d번 글을 삭제했습니다.", id));
+		return Ut.jsReplace(userCanDeleteRd.getResultCode(), userCanDeleteRd.getMsg(), "../article/list");
 	}
 
 	@RequestMapping("/usr/article/doWrite")

@@ -71,7 +71,7 @@ public class ArticleService {
 			return ResultData.from("F-A", Ut.f("%d번 게시글 권한이 없음.", article.getId()));
 		}
 		
-		return ResultData.from("S-1", Ut.f("%d번 게시글을 수정 가능", article.getId()));
+		return ResultData.from("S-1", Ut.f("%d번 게시글을 수정 됨", article.getId()));
 	}
 
 	public ResultData userCanDelete(int loginedMemberId, Article article) {
@@ -79,7 +79,7 @@ public class ArticleService {
 			return ResultData.from("F-A", Ut.f("%d번 게시글 권한이 없음.", article.getId()));
 		}
 		
-		return ResultData.from("S-1", Ut.f("%d번 게시글을 삭제 가능", article.getId()));
+		return ResultData.from("S-1", Ut.f("%d번 게시글을 삭제 됨", article.getId()));
 	}
 
 }

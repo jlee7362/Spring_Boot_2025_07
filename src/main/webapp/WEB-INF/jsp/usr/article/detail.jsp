@@ -9,28 +9,28 @@
 <div class="flex flex-col items-start w-fit mx-auto justify-self-center" >
 	<table class="justify-self-center border-2 shadow-md">
 		<tr>
-			<th class="px-8 border-2 text-gray-900">ID</th>
-			<th class="px-8 border-2 text-xl">${article.id }번글</th>
+			<th class="px-8 border-2 text-gray-900 border-gray-700">ID</th>
+			<th class="px-8 border-2 text-xl border-gray-700">${article.id }번글</th>
 		</tr>
 		<tr>
-			<th class="px-8 border-2 text-gray-900">Registration Date</th>
-			<th class="px-8 border-2 text-xl">${article.regDate }</th>
+			<th class="px-8 border-2 text-gray-900 border-gray-700">Registration Date</th>
+			<th class="px-8 border-2 text-xl border-gray-700">${article.regDate }</th>
 		</tr>
 		<tr>
-			<th class="px-8 border-2 text-gray-900">Update Date</th>
-			<th class="px-8 border-2 text-xl">${article.updateDate }</th>
+			<th class="px-8 border-2 text-gray-900 border-gray-700">Update Date</th>
+			<th class="px-8 border-2 text-xl border-gray-700">${article.updateDate }</th>
 		</tr>
 		<tr>
-			<th class="px-8 border-2 text-gray-900">Title</th>
-			<th class="px-8 border-2 text-xl">${article.title }</th>
+			<th class="px-8 border-2 text-gray-900 border-gray-700">Title</th>
+			<th class="px-8 border-2 text-xl border-gray-700">${article.title }</th>
 		</tr>
 		<tr>
-			<th class="px-8 py-5 border-2 text-gray-900">Body</th>
-			<th class="p-10 border-2 text-xl">${article.body }</th>
+			<th class="px-8 py-5 border-2 text-gray-900 border-gray-700">Body</th>
+			<th class="p-10 border-2 text-xl border-gray-700">${article.body }</th>
 		</tr>
 		<tr>
-			<th class="px-8 border-2 text-gray-900">작성자</th>
-			<th class="px-8 border-2 text-xl">${article.extra__writer }</th>
+			<th class="px-8 border-2 text-gray-900 border-gray-700">작성자</th>
+			<th class="px-8 border-2 text-xl border-gray-700">${article.extra__writer }</th>
 		</tr>
 	</table>
 	<div class="flex w-full justify-end">
@@ -50,7 +50,7 @@
 				class="mt-4 px-4 py-2 bg-gray-100 rounded 
            hover:bg-gray-300 shadow-md
            transform transition duration-150 hover:-translate-y-0.5 hover:shadow-lg"
-				href="delete?id=${article.id }">삭제</a></c:if>
+				href="doDelete?id=${article.id }">삭제</a></c:if>
 		</nav>
 	</div>
 
