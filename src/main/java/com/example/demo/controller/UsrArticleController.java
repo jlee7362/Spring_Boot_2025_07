@@ -12,7 +12,9 @@ import com.example.demo.service.ArticleService;
 import com.example.demo.util.Ut;
 import com.example.demo.vo.Article;
 import com.example.demo.vo.ResultData;
+import com.example.demo.vo.Rq;
 
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 
 @Controller
@@ -27,16 +29,11 @@ public class UsrArticleController {
 
 	@RequestMapping("/usr/article/doModify")
 	@ResponseBody
-	public ResultData doModify(HttpSession session, int id, String title, String body) {
+	public ResultData doModify(HttpServletRequest req, int id, String title, String body) {
 		// 로그인 체크
-		boolean isLogined = false;
-		int loginedMemberId = -1;
-
-		if (session.getAttribute("loginedMemberId") != null) {
-			isLogined = true;
-			loginedMemberId = (int) session.getAttribute("loginedMemberId");
-		}
-		if (isLogined == false) {
+	
+		Rq rq = new Rq(req);
+		if(rq.isLogined() == false) {
 			return ResultData.from("F-A", "로그인 하고 오세요.");
 		}
 
@@ -46,7 +43,7 @@ public class UsrArticleController {
 		}
 
 		// 권한 체크
-		ResultData userCanModify = articleService.userCanModify(loginedMemberId, article);
+		ResultData userCanModify = articleService.userCanModify(rq.getLoginedMemberId(), article);
 
 		if (userCanModify.getResultCode().startsWith("F")) {
 			return ResultData.from("F-A", userCanModify.getMsg());
@@ -61,18 +58,11 @@ public class UsrArticleController {
 
 	@RequestMapping("/usr/article/doDelete")
 	@ResponseBody
-	public String doDelete(HttpSession session, int id) {
+	public String doDelete(HttpServletRequest req, int id) {
 
 		// 로그인 체크
-		boolean isLogined = false;
-		int loginedMemberId = -1;
-
-		if (session.getAttribute("loginedMemberId") != null) {
-			isLogined = true;
-			loginedMemberId = (int) session.getAttribute("loginedMemberId");
-		}
-		if (isLogined == false) {
-//			return ResultData.from("F-A", "로그인 하고 오세요.");
+		Rq rq = new Rq(req);
+		if(rq.isLogined() == false) {
 			return Ut.jsReplace("F-A", "로그인 하고 오세요.", "../member/login");
 		}
 
@@ -84,7 +74,7 @@ public class UsrArticleController {
 		}
 
 		// 권한 체크
-		ResultData userCanDeleteRd = articleService.userCanDelete(loginedMemberId, article);
+		ResultData userCanDeleteRd = articleService.userCanDelete(rq.getLoginedMemberId(), article);
 
 		if (userCanDeleteRd.getResultCode().startsWith("F")) {
 //			return ResultData.from("F-A", userCanDelete.getMsg());
@@ -99,16 +89,10 @@ public class UsrArticleController {
 
 	@RequestMapping("/usr/article/doWrite")
 	@ResponseBody
-	public ResultData<Article> doWrite(HttpSession session, String title, String body) {
+	public ResultData<Article> doWrite(HttpServletRequest req, String title, String body) {
 		// 로그인 체크
-		boolean isLogined = false;
-		int loginedMemberId = -1;
-
-		if (session.getAttribute("loginedMemberId") != null) {
-			isLogined = true;
-			loginedMemberId = (int) session.getAttribute("loginedMemberId");
-		}
-		if (isLogined == false) {
+		Rq rq = new Rq(req);
+		if(rq.isLogined() == false) {
 			return ResultData.from("F-A", "로그인하고 이용하세요.");
 		}
 
@@ -118,7 +102,7 @@ public class UsrArticleController {
 		if (Ut.isEmptyOrNull(body)) {
 			return ResultData.from("F-2", "내용을 입력하세요");
 		}
-		ResultData writeArticleRd = articleService.writeArticle(loginedMemberId, title, body);
+		ResultData writeArticleRd = articleService.writeArticle(rq.getLoginedMemberId(), title, body);
 
 		int id = (int) writeArticleRd.getData1();
 		Article article = articleService.getArticleById(id);
@@ -127,18 +111,11 @@ public class UsrArticleController {
 	}
 
 	@RequestMapping("/usr/article/detail")
-	public String getArticle(HttpSession session, int id, Model model) {
+	public String getArticle(HttpServletRequest req, int id, Model model) {
 
-		// 로그인 체크
-		boolean isLogined = false;
-		int loginedMemberId = -1;
+		Rq rq = new Rq(req);
 
-		if (session.getAttribute("loginedMemberId") != null) {
-			isLogined = true;
-			loginedMemberId = (int) session.getAttribute("loginedMemberId");
-		}
-
-	Article article = articleService.getForPrintArticle(loginedMemberId, id);
+	Article article = articleService.getForPrintArticle(rq.getLoginedMemberId(), id);
 
 	model.addAttribute("article",article);
 	

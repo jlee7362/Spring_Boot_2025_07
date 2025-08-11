@@ -79,7 +79,6 @@ public class Ut {
 				</script>
 				""",resultMsg);
 		
-		return null;
 	}
 
 	

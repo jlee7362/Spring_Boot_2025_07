@@ -31,13 +31,11 @@ header>.container > nav > ul > li:hover > a::after{
   width: 100%;
   background-color: black;
 }
-/* body > header > div > table > tr > th {
-	border-color: rgba(55, 65, 81);
-	border: 4px;
+body > div > table>tr> th {
+	border-color: red;
+	border: 10px;
 }
 .box{
 	border: 4px;
-} */
-
-
+}
 
