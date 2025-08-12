@@ -103,6 +103,7 @@ WHERE `name` = 'test1' AND `email` = 'test1@gmail.com';
 INSERT INTO `article`
 SET `regDate` = NOW(),
     `updateDate` = NOW(),
+    `memberId` =  CEIL(RAND() * 3),
     `title` = CONCAT('제목', SUBSTRING(RAND() * 1000 FROM 1 FOR 2)),
     `body` = CONCAT('내용', SUBSTRING(RAND() * 1000 FROM 1 FOR 2));
 

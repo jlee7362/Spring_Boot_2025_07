@@ -51,7 +51,7 @@
 		ON a.memberId = m.id
 		ORDER BY a.id DESC
 	</select>
-	
+
 	<select id="getArticles"
 		resultType="com.example.demo.vo.Article">
 		SELECT a.*, m.nickname AS extra__writer
