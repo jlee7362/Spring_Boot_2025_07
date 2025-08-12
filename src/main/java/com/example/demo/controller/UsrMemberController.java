@@ -18,12 +18,14 @@ public class UsrMemberController {
 
 	@Autowired
 	private MemberService memberService;
+	@Autowired
+	private Rq rq;
 	
 	@RequestMapping("/usr/member/doLogout")
 	@ResponseBody
-	public String doLogout(HttpServletRequest req) {
+	public String doLogout() {
 		
-		Rq rq = (Rq)req.getAttribute("rq");
+//		Rq rq = (Rq)req.getAttribute("rq");
 		rq.logout();
 		
 		return Ut.jsReplace("S-1","로그아웃 되었습니다.","/");
@@ -37,7 +39,7 @@ public class UsrMemberController {
 	
 	@RequestMapping("/usr/member/doLogin")
 	@ResponseBody
-	public String doLogin(HttpServletRequest req, String loginId, String loginPw) {
+	public String doLogin(String loginId, String loginPw) {
 		
 		if(Ut.isEmptyOrNull(loginId)) {
 			return Ut.jsHistoryBack("F-2", "아이디를 입력하세요");
@@ -54,7 +56,7 @@ public class UsrMemberController {
 			return Ut.jsHistoryBack("F-5", "비밀번호가 일치하지 않음");
 		}
 		
-		Rq rq = (Rq)req.getAttribute("rq");
+//		Rq rq = (Rq)req.getAttribute("rq");
 		rq.login(member);
 		
 		return Ut.jsReplace("S-1", Ut.f("%s님 환영합니다.", member.getNickname()), "/");

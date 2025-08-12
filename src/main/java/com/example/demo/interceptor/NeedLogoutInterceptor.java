@@ -1,5 +1,6 @@
 package com.example.demo.interceptor;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.HandlerInterceptor;
 
@@ -10,11 +11,13 @@ import jakarta.servlet.http.HttpServletResponse;
 
 @Configuration
 public class NeedLogoutInterceptor implements HandlerInterceptor {
+	@Autowired
+	private Rq rq;
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
 
-		Rq rq = (Rq)request.getAttribute("rq");
+//		Rq rq = (Rq)request.getAttribute("rq");
 		
 		if(rq.isLogined()) {
 			System.out.println("로그아웃 하고 사용하세요. logoutInterceptor");
