@@ -5,13 +5,13 @@
 
 <%@ include file="../common/head.jspf"%>
 
-<section class="justify-self-center border-2 shadow-md rounded-t-3xl ">
+<section class="justify-self-center border-2 shadow-md border-gray-700">
 	<div>
 		<form  class="border-gray-800"action="doLogin" method="post">
 			<table>
 				<tbody>
 					<tr>
-						<th class="">아이디</th>
+						<th>아이디</th>
 						<td>
 							<input name="loginId" type="text" autocomplete="off" placeholder="아이디 입력"/>
 						</td>

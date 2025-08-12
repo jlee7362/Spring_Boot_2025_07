@@ -31,11 +31,3 @@ header>.container > nav > ul > li:hover > a::after{
   width: 100%;
   background-color: black;
 }
-body > div > table>tr> th {
-	border-color: red;
-	border: 10px;
-}
-.box{
-	border: 4px;
-}
-

@@ -22,7 +22,7 @@ public class NeedLoginInterceptor implements HandlerInterceptor{
 		Rq rq = (Rq)request.getAttribute("rq");
 		if(rq.isLogined() == false) { //로그인 안된 상태.
 			
-			rq.printHistoryBack("로그인 하고 이용하세요.");
+			rq.printHistoryBack("로그인 하고 이용하세요.(NeedLoginInterceptor");
 			
 			return false;
 		}

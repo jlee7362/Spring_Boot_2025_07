@@ -40,7 +40,6 @@ public class UsrMemberController {
 		return "/usr/member/login";
 	}
 	
-	
 	@RequestMapping("/usr/member/doLogin")
 	@ResponseBody
 	public String doLogin(HttpSession session, String loginId, String loginPw) {
@@ -55,11 +54,9 @@ public class UsrMemberController {
 		}
 		if(Ut.isEmptyOrNull(loginId)) {
 			return Ut.jsHistoryBack("F-2", "아이디를 입력하세요");
-//			return ResultData.from("F-2", "아이디를 입력하세요");
 		}
 		if(Ut.isEmptyOrNull(loginPw)) {
 			return Ut.jsHistoryBack("F-3", "비밀번호를 입력하세요");
-//			return ResultData.from("F-3", "비밀번호를 입력하세요");
 		}
 		
 		Member member = memberService.getMemberByLoginId(loginId);
