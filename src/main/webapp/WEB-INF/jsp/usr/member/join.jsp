@@ -7,8 +7,8 @@
 
 <section class="justify-self-center border-2 shadow-md border-gray-700">
 	<div>
-		<form  class="border-gray-800"action="doJoin" method="post">
-			<table>
+		<form action="doJoin" method="post">
+			<table class="table">
 				<tbody>
 					<tr>
 						<th>아이디</th>
@@ -48,7 +48,15 @@
 					</tr>
 					<tr>
 						<td>
-							<button type="submit">회원가입</button>
+							<button class="btn btn-neutral btn-outline" type="submit">회원가입</button>
+							<button class="btn btn-neutral">Neutral</button>
+<button class="btn btn-primary">Primary</button>
+<button class="btn btn-secondary">Secondary</button>
+<button class="btn btn-accent">Accent</button>
+<button class="btn btn-info">Info</button>
+<button class="btn btn-success">Success</button>
+<button class="btn btn-warning">Warning</button>
+<button class="btn btn-error">Error</button>
 						</td>
 					</tr>
 				</tbody>

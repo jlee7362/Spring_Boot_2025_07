@@ -7,15 +7,15 @@
 	
 	<h1 class="justify-self-center text-3xl my-6">Article List</h1>
 	<div>
-		<table class="justify-self-center border-2 shadow-md rounded-t-3xl ">
-			<tr>
+		<table class="table rounded-t-3xl ">
+			<tr class="hover:bg-base-300">
 				<th class="px-8 py-5 border-2 border-gray-700">ID</th>
 				<th class="px-8 py-5 border-2 border-gray-700">Registration Date</th>
 				<th class="px-8 py-5 border-2 border-gray-700">Title</th>
 				<th class="px-8 py-5 border-2 border-gray-700">작성자</th>
 			</tr>
 			<c:forEach var="article" items="${articles }">
-				<tr>
+				<tr class="hover:bg-base-300">
 					<th class="p-10 border-2 text-xl border-gray-700">${article.id }</th>
 					<th class="p-10 border-2 text-xl border-gray-700">${article.regDate }</th>
 					<th class="p-10 hover:underline border-2 text-xl border-gray-700"><a href="../article/detail?id=${article.id }">${article.title }</a></th>

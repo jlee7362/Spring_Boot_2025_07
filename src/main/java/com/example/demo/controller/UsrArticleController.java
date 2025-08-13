@@ -1,5 +1,6 @@
 package com.example.demo.controller;
 
+import java.io.IOException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,8 +15,6 @@ import com.example.demo.vo.Article;
 import com.example.demo.vo.ResultData;
 import com.example.demo.vo.Rq;
 
-import jakarta.servlet.http.HttpServletRequest;
-
 @Controller
 public class UsrArticleController {
 
@@ -27,13 +26,16 @@ public class UsrArticleController {
 	public UsrArticleController(ArticleService articleService) {
 		this.articleService = articleService;
 	}
+	
+	
 
 	@RequestMapping("/usr/article/modify")
-	public String showModify(Model model, int id) {
+	public String showModify(Model model, int id) throws IOException {
 		Article article = articleService.getForPrintArticle(rq.getLoginedMemberId(), id);
 		
 		if(article == null) {
-			//todo Ut.jsHistoryBack이 responseBody 가 없어서 안됨.
+			rq.printHistoryBack(Ut.f("%d번 글은 없습니다.", id));
+			return null;
 		}
 
 		model.addAttribute("article",article);
@@ -61,8 +63,7 @@ public class UsrArticleController {
 
 		article = articleService.getArticleById(id);
 
-		return Ut.jsReplace(userCanModify.getResultCode(), userCanModify.getMsg(),
-				"../article/detail?id=" + id);
+		return Ut.jsReplace(userCanModify.getResultCode(), userCanModify.getMsg(),"../article/detail?id="+id);
 	}
 
 	@RequestMapping("/usr/article/doDelete")
@@ -94,25 +95,28 @@ public class UsrArticleController {
 		return Ut.jsReplace(userCanDeleteRd.getResultCode(), userCanDeleteRd.getMsg(), "../article/list");
 	}
 
+	@RequestMapping("/usr/article/write")
+	public String showWrite() {
+		
+		return "/usr/article/write";
+	}
+	
 	@RequestMapping("/usr/article/doWrite")
 	@ResponseBody
-	public ResultData<Article> doWrite(String title, String body) {
-		// 로그인 체크
-//		Rq rq = (Rq)req.getAttribute("rq");
-		
+	public String doWrite(String title, String body) {
 
 		if (Ut.isEmptyOrNull(title)) {
-			return ResultData.from("F-1", "제목을 입력하세요");
+			return Ut.jsHistoryBack("F-1", "제목을 입력하세요");
 		}
 		if (Ut.isEmptyOrNull(body)) {
-			return ResultData.from("F-2", "내용을 입력하세요");
+			return Ut.jsHistoryBack("F-2", "내용을 입력하세요");
 		}
 		ResultData writeArticleRd = articleService.writeArticle(rq.getLoginedMemberId(), title, body);
 
 		int id = (int) writeArticleRd.getData1();
 		Article article = articleService.getArticleById(id);
 
-		return ResultData.newData(writeArticleRd, article, "새로 작성한 글");
+		return Ut.jsReplace(writeArticleRd.getResultCode(), writeArticleRd.getMsg(), "../article/detail?id="+id);
 	}
 
 	@RequestMapping("/usr/article/detail")

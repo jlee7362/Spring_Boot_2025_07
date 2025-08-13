@@ -35,8 +35,8 @@
 	</table>
 	<div class="flex w-full justify-end">
 		<nav class="flex space-x-2">
-			<button type="button"
-				class="mt-4 px-4 py-2 bg-gray-100 rounded 
+					<button
+				class="btn btn-primary mt-4 px-4 py-2 rounded 
            hover:bg-gray-300 shadow-md
            transform transition duration-150 hover:-translate-y-0.5 hover:shadow-lg"
 				onclick="history.back()">뒤로가기</button>

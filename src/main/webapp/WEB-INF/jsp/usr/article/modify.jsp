@@ -25,7 +25,7 @@
 			<tr>
 				<th class="px-8 border-2 text-gray-900">Title</th>
 				<th>
-					<input class="px-8 border-2 text-xl" type="text" placeholder="새 제목"name="title" value="${article.title }" />
+					<input class="input input-primary input-sm" type="text" placeholder="Primary" name="title" value="${article.title }" />
 				</th>
 			</tr>
 			<tr>
@@ -40,7 +40,7 @@
 			</tr>
 		</table>
 			<tr>
-				<input class="px-8 border-2 text-gray-900" type="submit" value="수정"/>
+				<input class="btn btn-soft btn-primary" type="submit" value="수정"/>
 			</tr>
 		</form>
 		

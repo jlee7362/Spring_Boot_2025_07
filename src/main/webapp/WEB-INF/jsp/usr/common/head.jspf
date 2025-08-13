@@ -4,10 +4,11 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <!-- tailwind -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.1.4/tailwind.min.css">
+
 <!-- 폰트어썸 -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" />
 
-<link rel="stylesheet" type="text/css" href="/resource/common.css">
+<link href="https://cdn.jsdelivr.net/npm/daisyui@4.7.2/dist/full.css" rel="stylesheet" type="text/css" />
 
 <script src="/resource/common.js" defer="defer"></script>
 <!DOCTYPE html>
@@ -38,6 +39,9 @@
 						</li>
 					</c:if>
 					<c:if test="${rq.isLogined() }">
+						<li>
+							<a href="../article/write" class="hover:text-gray-600">WRITE</a>
+						</li>
 						<li>
 							<a href="../member/doLogout" class="hover:text-gray-600">LOGOUT</a>
 						</li>
