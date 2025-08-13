@@ -28,30 +28,41 @@ public class UsrArticleController {
 		this.articleService = articleService;
 	}
 
+	@RequestMapping("/usr/article/modify")
+	public String showModify(Model model, int id) {
+		Article article = articleService.getForPrintArticle(rq.getLoginedMemberId(), id);
+		
+		if(article == null) {
+			//todo Ut.jsHistoryBack이 responseBody 가 없어서 안됨.
+		}
+
+		model.addAttribute("article",article);
+		return "/usr/article/modify";
+	}
+	
 	@RequestMapping("/usr/article/doModify")
 	@ResponseBody
-	public ResultData doModify(int id, String title, String body) {
+	public String doModify(int id, String title, String body) {
 		// 로그인 체크
 //		Rq rq = (Rq)req.getAttribute("rq");
-		
 
 		Article article = articleService.getArticleById(id);
 		if (article == null) {
-			return ResultData.from("F-1", Ut.f("%d번 글이 없습니다.", id));
+			return Ut.jsHistoryBack("F-1", Ut.f("%d번 글이 없습니다.", id));
 		}
 
 		// 권한 체크
 		ResultData userCanModify = articleService.userCanModify(rq.getLoginedMemberId(), article);
 
 		if (userCanModify.getResultCode().startsWith("F")) {
-			return ResultData.from("F-A", userCanModify.getMsg());
+			return Ut.jsHistoryBack("F-A", userCanModify.getMsg());
 		}
 		articleService.modifyArticle(id, title, body);
 
 		article = articleService.getArticleById(id);
 
-		return ResultData.from(userCanModify.getResultCode(), userCanModify.getMsg(), article,
-				"수정한 글");
+		return Ut.jsReplace(userCanModify.getResultCode(), userCanModify.getMsg(),
+				"../article/detail?id=" + id);
 	}
 
 	@RequestMapping("/usr/article/doDelete")

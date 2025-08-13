@@ -31,7 +31,3 @@ header>.container > nav > ul > li > a:hover::after{
   width: 100%;
   background-color: black;
 }
-
-body{
-	background-color : text-gray-100;
-}

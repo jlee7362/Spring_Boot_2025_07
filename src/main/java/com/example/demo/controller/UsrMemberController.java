@@ -58,7 +58,6 @@ public class UsrMemberController {
 			return Ut.jsHistoryBack("F-5", "비밀번호가 일치하지 않음");
 		}
 		
-//		Rq rq = (Rq)req.getAttribute("rq");
 		rq.login(member);
 		
 		return Ut.jsReplace("S-1", Ut.f("%s님 환영합니다.", member.getNickname()), "/");
