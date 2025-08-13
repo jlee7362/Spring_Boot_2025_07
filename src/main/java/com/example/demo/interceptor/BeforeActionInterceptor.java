@@ -23,7 +23,8 @@ public class BeforeActionInterceptor implements HandlerInterceptor {
 		
 //		System.out.println("인터셉터 실행 부분");
 //		Rq rq = new Rq(request, response);
-//		request.setAttribute("rq", rq);
+		System.out.println("로그인 중임?"+rq.isLogined());
+		request.setAttribute("rq", rq);
 		rq.initBeforeActionInterceptor();
 		
 		return HandlerInterceptor.super.preHandle(request, response, handler);

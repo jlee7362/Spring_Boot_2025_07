@@ -27,7 +27,7 @@ header>.container > nav > ul > li > a::after{
   background-color: transparent;
   transition: background-color .2s, width .2s;
 }
-header>.container > nav > ul > li:hover > a::after{
+header>.container > nav > ul > li > a:hover::after{
   width: 100%;
   background-color: black;
 }

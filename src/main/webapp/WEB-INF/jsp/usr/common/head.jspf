@@ -30,10 +30,11 @@
 					<li>
 						<a href="../article/list" class="hover:text-gray-600">LIST</a>
 					</li>
-					<li>${!rq.isLogined() }</li>
 					<c:if test="${!rq.isLogined() }">
 						<li>
 							<a href="../member/login" class="hover:text-gray-600">LOGIN</a>
+					
+							<a href="../member/join" class="hover:text-gray-600">JOIN</a>
 						</li>
 					</c:if>
 					<c:if test="${rq.isLogined() }">
@@ -41,6 +42,7 @@
 							<a href="../member/doLogout" class="hover:text-gray-600">LOGOUT</a>
 						</li>
 					</c:if>
+					
 				</ul>
 			</nav>
 		</div>

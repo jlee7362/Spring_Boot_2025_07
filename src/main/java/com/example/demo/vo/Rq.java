@@ -23,16 +23,14 @@ public class Rq{
 	private final HttpServletResponse resp;
 	private final HttpSession session;
 	
-	public Rq(HttpServletRequest req, HttpServletResponse resp, HttpSession session) {
+	public Rq(HttpServletRequest req, HttpServletResponse resp) {
 		this.req = req;
 		this.resp = resp;
-		this.session = session;
+		this.session = req.getSession();
 		
-		HttpSession httpSession = req.getSession();
-
-		if (httpSession.getAttribute("loginedMemberId") != null) {
+		if (session.getAttribute("loginedMemberId") != null) {
 			isLogined = true;
-			loginedMemberId = (int) httpSession.getAttribute("loginedMemberId");
+			loginedMemberId = (int) session.getAttribute("loginedMemberId");
 		}
 	}
 
@@ -41,7 +39,7 @@ public class Rq{
 		resp.setContentType("text/html;charset=UTF-8");
 		println("<script>");
 		println("alert('rq 클래스 메시지: " + msg + "');");
-		println("history.back();");
+		println("location.replace('/');");
 		println("</script>");
 		
 	}
