@@ -5,6 +5,7 @@
 
 <div class="card bg-base-100 shadow">
   <div class="card-body gap-4">
+  <div>${board.toString() }</div>
     <!-- 상단 액션 -->
     <div class="flex flex-col md:flex-row md:items-center gap-3 justify-between">
       <div class="join">
@@ -15,7 +16,6 @@
       <a href="/usr/article/write" class="btn btn-secondary">새 글 작성</a>
       </c:if>
     </div>
-
     <!-- 테이블 -->
     <div class="overflow-x-auto">
       <table class="table table-zebra">

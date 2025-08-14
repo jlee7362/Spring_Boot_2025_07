@@ -80,6 +80,8 @@ SET `regDate` = NOW(),
     
     
 ALTER TABLE `article`ADD COLUMN `memberId` INT UNSIGNED NOT NULL AFTER `updateDate`;
+ALTER TABLE `article`ADD COLUMN `boardId` INT UNSIGNED NOT NULL AFTER `memberId`;
+
 
 UPDATE `article`
 SET `memberId` = 2
@@ -89,6 +91,13 @@ UPDATE `article`
 SET `memberId` = 1
 WHERE `id` IN (3);
 
+UPDATE `article`
+SET `boardId` = 2
+WHERE `id` IN (1,2);
+
+UPDATE `article`
+SET `boardId` = 1
+WHERE `id` IN (3);
 
 SELECT * FROM `article`;
 SELECT * FROM `member`;
@@ -100,10 +109,12 @@ WHERE `name` = 'test1' AND `email` = 'test1@gmail.com';
 
 ###############################################
 # 게시글 데이터 대량 생성
+
 INSERT INTO `article`
 SET `regDate` = NOW(),
     `updateDate` = NOW(),
     `memberId` =  CEIL(RAND() * 3),
+    `boardId` =  CEIL(RAND() * 3),
     `title` = CONCAT('제목', SUBSTRING(RAND() * 1000 FROM 1 FOR 2)),
     `body` = CONCAT('내용', SUBSTRING(RAND() * 1000 FROM 1 FOR 2));
 
@@ -119,4 +130,7 @@ SET `regDate` = NOW(),
     `cellphoneNum` = '010-222-2222';
     `email` = 'test2@gmail.com';
     
+    
+SELECT * FROM `article`;
+SELECT * FROM `member`;
     
