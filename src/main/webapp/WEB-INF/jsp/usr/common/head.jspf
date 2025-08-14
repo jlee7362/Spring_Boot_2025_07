@@ -1,53 +1,48 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<!-- jquery -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<!-- tailwind -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.1.4/tailwind.min.css">
-
-<!-- 폰트어썸 -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" />
-
-<link href="https://cdn.jsdelivr.net/npm/daisyui@4.7.2/dist/full.css" rel="stylesheet" type="text/css" />
-
-<script src="/resource/common.js" defer="defer"></script>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
-<html>
+<html lang="ko">
 <head>
-<title>${pageTitle }</title>
-</head>
-<body>
-	<header class="border-b border-gray-700">
-		<div class="container mx-auto flex justify-between items-center h-20 px-6">
-			<!-- 로고 -->
-			<a href="/" class="text-2xl font-bold">LOGO</a>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>${pageTitle != null ? pageTitle : 'App'}</title>
 
-			<!-- 메뉴 -->
-			<nav>
-				<ul class="flex space-x-10 text-lg">
-					<li>
-						<a href="../home/main" class="hover:text-gray-600">HOME</a>
-					</li>
-					<li>
-						<a href="../article/list" class="hover:text-gray-600">LIST</a>
-					</li>
-					<c:if test="${!rq.isLogined() }">
-						<li>
-							<a href="../member/login" class="hover:text-gray-600">LOGIN</a>
-					
-							<a href="../member/join" class="hover:text-gray-600">JOIN</a>
-						</li>
-					</c:if>
-					<c:if test="${rq.isLogined() }">
-						<li>
-							<a href="../article/write" class="hover:text-gray-600">WRITE</a>
-						</li>
-						<li>
-							<a href="../member/doLogout" class="hover:text-gray-600">LOGOUT</a>
-						</li>
-					</c:if>
-					
-				</ul>
-			</nav>
-		</div>
-	</header>
+  <!-- Tailwind + DaisyUI (CDN) -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdn.jsdelivr.net/npm/daisyui@4.12.10/dist/full.min.css" rel="stylesheet" />
+
+  <!-- jQuery -->
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+  <!-- App Static -->
+  <link rel="stylesheet" href="/resource/common.css" />
+  <script defer src="/resource/common.js"></script>
+</head>
+<body class="min-h-screen bg-base-200 text-base-content">
+  <!-- Navbar -->
+  <header class="navbar bg-base-100 shadow-sm">
+    <div class="flex-1">
+      <a href="/usr/home/main" class="btn btn-ghost text-xl">MyApp</a>
+    </div>
+    <div class="flex-none gap-2">
+      <a href="/usr/home/main" class="btn btn-ghost">Home</a>
+      <a href="/usr/article/list" class="btn btn-ghost">Articles</a>
+      <c:if test="${!rq.isLogined() }">
+      <a href="/usr/member/join" class="btn btn-ghost">Join</a>
+      <a href="/usr/member/login" class="btn btn-primary">Login</a>
+      </c:if>
+      <c:if test="${rq.isLogined() }">
+      <a href="/usr/member/doLogout" class="btn btn-primary">Logout</a>
+      </c:if>
+      <!-- 다크모드 토글 -->
+      <label class="swap swap-rotate ml-2">
+        <input id="themeToggle" type="checkbox" />
+        <svg class="swap-on fill-current w-6 h-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M5.64 17l-.71.71a9 9 0 1012.72-12.72l-.71.71A7 7 0 115.64 17z"/></svg>
+        <svg class="swap-off fill-current w-6 h-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6.76 4.84l-1.8-1.79-1.42 1.41 1.79 1.8 1.43-1.42zM1 13h3v-2H1v2zm10-9h2V1h-2v3zM4.96 19.78l1.8-1.79-1.42-1.41-1.79 1.8 1.41 1.4zM20 13h3v-2h-3v2zm-7 10h2v-3h-2v3zm6.24-4.22l1.41-1.4-1.79-1.8-1.41 1.41 1.79 1.79zM12 6a6 6 0 100 12A6 6 0 0012 6z"/></svg>
+      </label>
+    </div>
+  </header>
+
+  <!-- 페이지 컨테이너 -->
+  <main class="container mx-auto px-4 py-8">
+    <h1 class="text-2xl md:text-3xl font-bold mb-6">${pageTitle}</h1>

@@ -1,28 +1,63 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ page contentType="text/html; charset=UTF-8" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<c:set var="pageTitle" value="Article List" />
+<%@ include file="/WEB-INF/jsp/usr/common/head.jspf"%>
 
-<c:set var="pageTitle" value="ARTICLE LIST"></c:set>
+<div class="card bg-base-100 shadow">
+  <div class="card-body gap-4">
+    <!-- 상단 액션 -->
+    <div class="flex flex-col md:flex-row md:items-center gap-3 justify-between">
+      <div class="join">
+        <input id="searchInput" type="text" class="input input-bordered join-item" placeholder="제목 검색…" />
+        <button id="searchBtn" class="btn btn-primary join-item">검색</button>
+      </div>
+      <c:if test="${rq.isLogined() }">
+      <a href="/usr/article/write" class="btn btn-secondary">새 글 작성</a>
+      </c:if>
+    </div>
 
-	<%@ include file="../common/head.jspf" %>
-	
-	<h1 class="justify-self-center text-3xl my-6">Article List</h1>
-	<div>
-		<table class="table rounded-t-3xl ">
-			<tr class="hover:bg-base-300">
-				<th class="px-8 py-5 border-2 border-gray-700">ID</th>
-				<th class="px-8 py-5 border-2 border-gray-700">Registration Date</th>
-				<th class="px-8 py-5 border-2 border-gray-700">Title</th>
-				<th class="px-8 py-5 border-2 border-gray-700">작성자</th>
-			</tr>
-			<c:forEach var="article" items="${articles }">
-				<tr class="hover:bg-base-300">
-					<th class="p-10 border-2 text-xl border-gray-700">${article.id }</th>
-					<th class="p-10 border-2 text-xl border-gray-700">${article.regDate }</th>
-					<th class="p-10 hover:underline border-2 text-xl border-gray-700"><a href="../article/detail?id=${article.id }">${article.title }</a></th>
-					<th class="p-10 border-2 text-xl border-gray-700">${article.extra__writer }</th>
-				</tr>
+    <!-- 테이블 -->
+    <div class="overflow-x-auto">
+      <table class="table table-zebra">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>등록일</th>
+            <th>제목</th>
+            <th>작성자ID</th>
+          </tr>
+        </thead>
+        <tbody id="articleTbody">
+          <c:forEach var="article" items="${articles}">
+            <tr class="hover cursor-pointer"
+                onclick="location.href='/usr/article/detail?id=${article.id}'">
+              <td>${article.id}</td>
+              <td>${article.regDate}</td>
+              <td class="text-primary">${article.title}</td>
+              <td>${article.memberId}</td>
+            </tr>
+          </c:forEach>
+        </tbody>
+      </table>
+    </div>
 
-			</c:forEach>
-		</table>
-	</div>
-	<%@ include file="../common/foot.jspf" %>
+    <!-- (옵션) 페이징 자리 -->
+    <div class="join self-end">
+      <button class="btn join-item">&laquo;</button>
+      <button class="btn join-item btn-active">1</button>
+      <button class="btn join-item">2</button>
+      <button class="btn join-item">&raquo;</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  $("#searchBtn").on("click", function(){
+    const q = $("#searchInput").val().trim();
+    if(!q) return showToast("검색어를 입력하세요", "warning");
+    // 서버 검색으로 연결하려면 아래 URL 규칙을 컨트롤러에 맞춰 변경
+    location.href = "/usr/article/list?searchKeyword=" + encodeURIComponent(q);
+  });
+</script>
+
+<%@ include file="/WEB-INF/jsp/usr/common/foot.jspf"%>

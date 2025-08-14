@@ -1,58 +1,35 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ page contentType="text/html; charset=UTF-8" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<c:set var="pageTitle" value="Article Detail" />
+<%@ include file="/WEB-INF/jsp/usr/common/head.jspf"%>
 
-<c:set var="pageTitle" value="ARTICLE DETAIL"></c:set>
+<div class="card bg-base-100 shadow">
+  <div class="card-body space-y-4">
+    <div class="flex items-center justify-between">
+      <h2 class="card-title text-2xl">${article.title}</h2>
+      <div class="badge badge-outline">#${article.id}</div>
+    </div>
+    <p class="text-sm text-base-content/70">등록: ${article.regDate} · 수정: ${article.updateDate}</p>
+    <div class="prose max-w-none whitespace-pre-wrap">${article.body}</div>
 
-<%@ include file="../common/head.jspf"%>
-
-<h1 class="justify-self-center text-3xl my-6">Article Detail</h1>
-<div class="flex flex-col items-start w-fit mx-auto justify-self-center" >
-	<table class="justify-self-center border-2 shadow-md">
-		<tr>
-			<th class="px-8 border-2 text-gray-900 border-gray-700">ID</th>
-			<th class="px-8 border-2 text-xl border-gray-700">${article.id }번글</th>
-		</tr>
-		<tr>
-			<th class="px-8 border-2 text-gray-900 border-gray-700">Registration Date</th>
-			<th class="px-8 border-2 text-xl border-gray-700">${article.regDate }</th>
-		</tr>
-		<tr>
-			<th class="px-8 border-2 text-gray-900 border-gray-700">Update Date</th>
-			<th class="px-8 border-2 text-xl border-gray-700">${article.updateDate }</th>
-		</tr>
-		<tr>
-			<th class="px-8 border-2 text-gray-900 border-gray-700">Title</th>
-			<th class="px-8 border-2 text-xl border-gray-700">${article.title }</th>
-		</tr>
-		<tr>
-			<th class="px-8 py-5 border-2 text-gray-900 border-gray-700">Body</th>
-			<th class="p-10 border-2 text-xl border-gray-700">${article.body }</th>
-		</tr>
-		<tr>
-			<th class="px-8 border-2 text-gray-900 border-gray-700">작성자</th>
-			<th class="px-8 border-2 text-xl border-gray-700">${article.extra__writer }</th>
-		</tr>
-	</table>
-	<div class="flex w-full justify-end">
-		<nav class="flex space-x-2">
-					<button
-				class="btn btn-primary mt-4 px-4 py-2 rounded 
-           hover:bg-gray-300 shadow-md
-           transform transition duration-150 hover:-translate-y-0.5 hover:shadow-lg"
-				onclick="history.back()">뒤로가기</button>
-			
-			<c:if test="${article.userCanModify}"><a class="mt-4 px-4 py-2 bg-gray-100 rounded 
-           hover:bg-gray-300 shadow-md
-           transform transition duration-150 hover:-translate-y-0.5 hover:shadow-lg"
-				href="modify?id=${article.id }">수정</a></c:if>
-			
-			<c:if test="${article.userCanDelete}"><a
-				class="mt-4 px-4 py-2 bg-gray-100 rounded 
-           hover:bg-gray-300 shadow-md
-           transform transition duration-150 hover:-translate-y-0.5 hover:shadow-lg"
-				href="doDelete?id=${article.id }">삭제</a></c:if>
-		</nav>
-	</div>
-
+    <div class="divider"></div>
+    <div class="flex gap-2 justify-end">
+    <c:if test="${article.userCanModify}">
+      <a href="/usr/article/modify?id=${article.id}" class="btn btn-warning">수정</a>
+      <button class="btn btn-error"
+              onclick="onDelete(${article.id})">삭제</button>
+              </c:if>
+      <a href="/usr/article/list" class="btn">목록</a>
+    </div>
+  </div>
 </div>
-<%@ include file="../common/foot.jspf"%>
+
+<script>
+ async function onDelete(id){
+   const ok = await confirmAsync("정말 삭제하시겠어요?");
+   if(!ok) return;
+   location.href = "/usr/article/doDelete?id=" + id;
+ }
+</script>
+
+<%@ include file="/WEB-INF/jsp/usr/common/foot.jspf"%>

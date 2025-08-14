@@ -1,40 +1,30 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ page contentType="text/html; charset=UTF-8" %>
+<%@ include file="/WEB-INF/jsp/usr/common/head.jspf"%>
+<c:set var="pageTitle" value="Login" />
 
-<c:set var="pageTitle" value="MEMBER LOGIN"></c:set>
+<div class="hero min-h-[60vh]">
+  <div class="hero-content w-full max-w-md">
+    <div class="card bg-base-100 w-full shadow">
+      <div class="card-body">
+        <form action="/usr/member/doLogin" method="post" data-safe-submit>
+          <div class="form-control">
+            <label class="label"><span class="label-text">아이디</span></label>
+            <input name="loginId" class="input input-bordered" required />
+          </div>
+          <div class="form-control mt-3">
+            <label class="label"><span class="label-text">비밀번호</span></label>
+            <input name="loginPw" type="password" class="input input-bordered" required />
+          </div>
+          <div class="form-control mt-6">
+            <button class="btn btn-primary" type="submit">로그인</button>
+          </div>
+          <div class="text-sm text-right mt-2">
+            <a href="/usr/member/join" class="link">회원가입</a>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
 
-<%@ include file="../common/head.jspf"%>
-
-<section class="justify-self-center border-2 shadow-md border-gray-700">
-	<div>
-		<form  class="border-gray-800"action="doLogin" method="post">
-			<table>
-				<tbody>
-					<tr>
-						<th>아이디</th>
-						<td>
-							<input name="loginId" type="text" autocomplete="off" placeholder="아이디 입력"/>
-						</td>
-					</tr>
-					<tr>
-						<th>비밀번호</th>
-						<td>
-							<input name="loginPw" type="text" autocomplete="off" placeholder="비밀번호 입력"/>
-						</td>
-					</tr>
-					<tr>
-						<td>
-							<button type="submit">로그인</button>
-						</td>
-					</tr>
-				</tbody>
-			</table>
-		</form>
-	</div>
-	<button type="button" onclick="history.back()">뒤로가기</button>
-
-</section>
-
-
-
-<%@ include file="../common/foot.jspf"%>
+<%@ include file="/WEB-INF/jsp/usr/common/foot.jspf"%>

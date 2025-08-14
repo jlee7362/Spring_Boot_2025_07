@@ -1,6 +1,21 @@
+
+  </main>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+  <!-- Toast 영역 -->
+  <div id="toast" class="toast toast-end hidden z-50"></div>
 
-
-
+  <!-- 공통 Confirm 모달 -->
+  <dialog id="confirmModal" class="modal">
+    <div class="modal-box">
+      <h3 class="font-bold text-lg">확인</h3>
+      <p id="confirmMessage" class="py-4">이 작업을 진행할까요?</p>
+      <div class="modal-action">
+        <form method="dialog" class="flex gap-2">
+          <button class="btn btn-outline">취소</button>
+          <button id="confirmOkBtn" class="btn btn-primary">확인</button>
+        </form>
+      </div>
+    </div>
+  </dialog>
 </body>
 </html>

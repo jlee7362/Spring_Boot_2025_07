@@ -1,33 +1,11 @@
 @charset "UTF-8";
-
-@font-face {
-    font-family: 'GmarketSansMedium';
-    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff') format('woff');
-    font-weight: normal;
-    font-style: normal;
+/* 공통 커스텀 */
+:root {
+  --app-max-width: 1100px;
 }
-html>body{
-	 font-family: 'GmarketSansMedium';
-	 background-color: rgba(249, 250, 251);
+.container {
+  max-width: var(--app-max-width);
 }
-
-header>.container > nav > ul > li > a{
-  padding: 0 10px;
-  position:relative;
-  font-weight: bold;
-  color: #1e1e1e;
-}
-header>.container > nav > ul > li > a::after{
-  content:"";
-  position:absolute;
-  bottom: -10px;
-  left: 0;
-  height: 4px;
-  width: 0;
-  background-color: transparent;
-  transition: background-color .2s, width .2s;
-}
-header>.container > nav > ul > li > a:hover::after{
-  width: 100%;
-  background-color: black;
+.table td, .table th {
+  white-space: nowrap;
 }

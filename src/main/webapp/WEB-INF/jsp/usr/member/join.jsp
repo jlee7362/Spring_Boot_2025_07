@@ -1,72 +1,51 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ page contentType="text/html; charset=UTF-8" %>
+<%@ include file="/WEB-INF/jsp/usr/common/head.jspf"%>
+<c:set var="pageTitle" value="Join" />
 
-<c:set var="pageTitle" value="MEMBER JOIN"></c:set>
+<div class="card bg-base-100 shadow max-w-2xl mx-auto">
+  <div class="card-body">
+    <form action="/usr/member/doJoin" method="post" id="joinForm" data-safe-submit class="grid md:grid-cols-2 gap-4">
+      <div class="form-control">
+        <label class="label"><span class="label-text">아이디</span></label>
+        <input name="loginId" class="input input-bordered" required />
+      </div>
+      <div class="form-control">
+        <label class="label"><span class="label-text">비밀번호</span></label>
+        <input name="loginPw" type="text" class="input input-bordered" required/>
+      </div>
+      <div class="form-control">
+        <label class="label"><span class="label-text">이름</span></label>
+        <input name="name" class="input input-bordered" required />
+      </div>
+      <div class="form-control">
+        <label class="label"><span class="label-text">닉네임</span></label>
+        <input name="nickname" class="input input-bordered" required />
+      </div>
+      <div class="form-control">
+        <label class="label"><span class="label-text">휴대폰</span></label>
+        <input name="cellphoneNum" type="text" class="input input-bordered"/>
+      </div>
+      <div class="form-control">
+        <label class="label"><span class="label-text">이메일</span></label>
+        <input name="email" type="text" class="input input-bordered"/>
+      </div>
 
-<%@ include file="../common/head.jspf"%>
+      <div class="md:col-span-2 flex justify-end gap-2 mt-4">
+        <a href="/home/main" class="btn">취소</a>
+        <button class="btn btn-primary" type="submit">회원가입</button>
+      </div>
+    </form>
+  </div>
+</div>
 
-<section class="justify-self-center border-2 shadow-md border-gray-700">
-	<div>
-		<form action="doJoin" method="post">
-			<table class="table">
-				<tbody>
-					<tr>
-						<th>아이디</th>
-						<td>
-							<input name="loginId" type="text" autocomplete="off" placeholder="아이디 입력"/>
-						</td>
-					</tr>
-					<tr>
-						<th>비밀번호</th>
-						<td>
-							<input name="loginPw" type="text" autocomplete="off" placeholder="비밀번호 입력"/>
-						</td>
-					</tr>
-					<tr>
-						<th>이름</th>
-						<td>
-							<input name="name" type="text" autocomplete="off" placeholder="이름 입력"/>
-						</td>
-					</tr>
-					<tr>
-						<th>닉네임</th>
-						<td>
-							<input name="nickname" type="text" autocomplete="off" placeholder="닉네임 입력"/>
-						</td>
-					</tr>
-					<tr>
-						<th>전화번호</th>
-						<td>
-							<input name="cellphoneNum" type="text" autocomplete="on" placeholder="전화번호 입력"/>
-						</td>
-					</tr>
-					<tr>
-						<th>이메일</th>
-						<td>
-							<input name="email" type="text" autocomplete="on" placeholder="이메일 입력"/>
-						</td>
-					</tr>
-					<tr>
-						<td>
-							<button class="btn btn-neutral btn-outline" type="submit">회원가입</button>
-							<button class="btn btn-neutral">Neutral</button>
-<button class="btn btn-primary">Primary</button>
-<button class="btn btn-secondary">Secondary</button>
-<button class="btn btn-accent">Accent</button>
-<button class="btn btn-info">Info</button>
-<button class="btn btn-success">Success</button>
-<button class="btn btn-warning">Warning</button>
-<button class="btn btn-error">Error</button>
-						</td>
-					</tr>
-				</tbody>
-			</table>
-		</form>
-	</div>
-	<button type="button" onclick="history.back()">뒤로가기</button>
+<script>
+  $("#joinForm").on("submit", function(e){
+    const email = $("input[name=email]").val().trim();
+    if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){
+      e.preventDefault();
+      showToast("이메일 형식을 확인해주세요.", "warning");
+    }
+  });
+</script>
 
-</section>
-
-
-
-<%@ include file="../common/foot.jspf"%>
+<%@ include file="/WEB-INF/jsp/usr/common/foot.jspf"%>
