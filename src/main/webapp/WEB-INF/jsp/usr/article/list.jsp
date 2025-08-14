@@ -3,7 +3,7 @@
 <c:set var="pageTitle" value="Article List" />
 <%@ include file="/WEB-INF/jsp/usr/common/head.jspf"%>
 
-<div class="card bg-base-100 shadow">
+<div class="card bg-base-100 shadow mt-10">
   <div class="card-body gap-4">
   <div>게시판 : ${board.code }</div>
     <!-- 상단 액션 -->

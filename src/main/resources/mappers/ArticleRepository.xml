@@ -11,10 +11,9 @@
 		regDate = NOW(),
 		updateDate = NOW(),
 		memberId = #{memberId},
-		title =
-		#{title},
-		body
-		= #{body}
+		`boardId` = #{boardId},
+		title = #{title},
+		body = #{body}
 	</insert>
 
 	<update id="modifyArticle" parameterType="map">
@@ -43,12 +42,16 @@
 		WHERE `id` = #{id}
 	</select>
 
-	<select id="getForPrintArticles"
+	<select id="getForPrintArticles" parameterType="int"
 		resultType="com.example.demo.vo.Article">
 		SELECT a.*, m.nickname AS extra__writer
 		FROM `article` a
 		INNER JOIN `member` m
 		ON a.memberId = m.id
+		INNER JOIN `board` b
+		ON
+		a.boardId = b.id
+		WHERE boardId = #{board.id}
 		ORDER BY a.id DESC
 	</select>
 

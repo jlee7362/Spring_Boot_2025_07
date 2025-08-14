@@ -20,8 +20,8 @@ public class ArticleService {
 		this.articleRepository = articleRepository;
 	}
 
-	public ResultData writeArticle(int memberId, String title, String body) {
-		articleRepository.writeArticle(memberId, title, body);
+	public ResultData writeArticle(int memberId, String title, String body, String boardId) {
+		articleRepository.writeArticle(memberId, title, body, boardId);
 		int id = articleRepository.getLastInsertId();
 		return ResultData.from("S-1", Ut.f("%d번 글이 등록되었습니다.", id),id, "등록된 게시글의 id");
 	}
@@ -80,6 +80,10 @@ public class ArticleService {
 		}
 		
 		return ResultData.from("S-1", Ut.f("%d번 게시글을 삭제 됨", article.getId()));
+	}
+
+	public List<Article> getForPrintArticles(int boardId) {
+		return articleRepository.getForPrintArticles(boardId);
 	}
 
 }

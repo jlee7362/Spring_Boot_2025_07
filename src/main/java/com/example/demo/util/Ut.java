@@ -6,7 +6,7 @@ import java.util.Map;
 public class Ut {
 
 	public static boolean isEmptyOrNull(String str) {
-		return str.isEmpty() || str.trim().length() == 0;
+		return str == null || str.trim().length() == 0;
 	}
 
 	public static boolean isEmpty(Object obj) {

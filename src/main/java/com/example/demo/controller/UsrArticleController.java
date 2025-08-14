@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.example.demo.service.ArticleService;
@@ -107,7 +108,7 @@ public class UsrArticleController {
 	
 	@RequestMapping("/usr/article/doWrite")
 	@ResponseBody
-	public String doWrite(String title, String body) {
+	public String doWrite(String title, String body, String boardId) {
 
 		if (Ut.isEmptyOrNull(title)) {
 			return Ut.jsHistoryBack("F-1", "제목을 입력하세요");
@@ -115,7 +116,12 @@ public class UsrArticleController {
 		if (Ut.isEmptyOrNull(body)) {
 			return Ut.jsHistoryBack("F-2", "내용을 입력하세요");
 		}
-		ResultData writeArticleRd = articleService.writeArticle(rq.getLoginedMemberId(), title, body);
+		if (Ut.isEmptyOrNull(boardId)) {
+			return Ut.jsHistoryBack("F-3", "게시판을 선택하세요");
+		}
+		System.out.println("boardId: " + boardId);
+		
+		ResultData writeArticleRd = articleService.writeArticle(rq.getLoginedMemberId(), title, body, boardId);
 
 		int id = (int) writeArticleRd.getData1();
 		Article article = articleService.getArticleById(id);
@@ -136,9 +142,9 @@ public class UsrArticleController {
 	}
 
 	@RequestMapping("/usr/article/list")
-	public String getArticles(Model model, int boardId) {
+	public String getArticles(Model model,@RequestParam(defaultValue = "1")int boardId) {
 
-		List<Article> articles = articleService.getArticles();
+		List<Article> articles = articleService.getForPrintArticles(boardId);
 		
 		Board board = boardService.getBoardById(boardId);
 
