@@ -142,12 +142,21 @@ public class UsrArticleController {
 	}
 
 	@RequestMapping("/usr/article/list")
-	public String getArticles(Model model,@RequestParam(defaultValue = "1")int boardId) {
+	public String getArticles(Model model,@RequestParam(defaultValue = "1")int boardId, @RequestParam(defaultValue = "1")int page) throws IOException {
 
-		List<Article> articles = articleService.getForPrintArticles(boardId);
+		int articlesCount = articleService.getArticleCount(boardId);
+		int itemsInAPage =  10;
+		
+		List<Article> articles = articleService.getForPrintArticles(boardId, itemsInAPage, page);
 		
 		Board board = boardService.getBoardById(boardId);
-
+		
+		if(board == null) {
+			rq.printHistoryBack("존재하지 않는 게시판");
+			return null;
+		}
+		
+		model.addAttribute("articlesCount",articlesCount);
 		model.addAttribute("articles",articles);
 		model.addAttribute("board",board);
 		

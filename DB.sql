@@ -108,8 +108,12 @@ FROM `member`
 WHERE `name` = 'test1' AND `email` = 'test1@gmail.com';
 
 ###############################################
-# 게시글 데이터 대량 생성
+# 게시글 데이터 대량 생성1 (2배수로 올라감)
+INSERT INTO `article` (`regDate`, `updateDate`, `memberId`, `boardId`, `title`, `body`)
+SELECT NOW(), NOW(), FLOOR(RAND() *2) + 2, FLOOR(RAND()*3)+1, CONCAT('제목__', RAND()), CONCAT('내용__',RAND())
+FROM `article`;
 
+# 게시글 데이터 대량 생성2
 INSERT INTO `article`
 SET `regDate` = NOW(),
     `updateDate` = NOW(),

@@ -42,7 +42,7 @@
 		WHERE `id` = #{id}
 	</select>
 
-	<select id="getForPrintArticles" parameterType="int"
+	<select id="getForPrintArticles" parameterType="map"
 		resultType="com.example.demo.vo.Article">
 		SELECT a.*, m.nickname AS extra__writer
 		FROM `article` a
@@ -51,8 +51,14 @@
 		INNER JOIN `board` b
 		ON
 		a.boardId = b.id
-		WHERE boardId = #{board.id}
+		WHERE 1
+		<if test="boardId != 0" >
+		AND boardId = #{board.id}
+		</if>
 		ORDER BY a.id DESC
+		<if test="limitFrom >= 0" >
+		limit #{limitFrom}, #{limitTake}
+		</if>
 	</select>
 
 	<select id="getArticles"
@@ -62,6 +68,13 @@
 		INNER JOIN `member` m
 		ON a.memberId = m.id
 		ORDER BY a.id DESC
+	</select>
+	
+	
+	<select id="getArticleCount">
+		SELECT COUNT(*) AS cnt
+		FROM `article`
+		WHERE `boardId` = #{boardId}
 	</select>
 
 	<select id="getLastInsertId">
