@@ -10,7 +10,7 @@
 			<tr> | 게시물 수 : ${articlesCount }</tr>
 		</div>
 
-		<!-- 상단 액션 -->
+		상단 액션
 		<div class="flex flex-col md:flex-row md:items-center gap-3 justify-between">
 			<div class="join">
 				<input id="searchInput" type="text" class="input input-bordered join-item" placeholder="제목 검색…" />
@@ -20,7 +20,7 @@
 				<a href="/usr/article/write" class="btn btn-secondary">새 글 작성</a>
 			</c:if>
 		</div>
-		<!-- 테이블 -->
+		테이블
 		<div class="overflow-x-auto">
 			<table class="table table-zebra">
 				<thead>
@@ -49,19 +49,39 @@
 				</tbody>
 			</table>
 		</div>
+		
+		
+		<!-- 동적 페이징-->
 
+<div class="join self-center">
+	<div>
+	<c:set var="paginationLen" value="3"></c:set>
+	<c:set var="startPage" value="${page-paginationLen >= 1 ? page-paginationLen : 1 }"></c:set>
+	<c:set var="endPage" value="${page+paginationLen <= pagesCount ? page  + paginationLen : pagesCount }"></c:set>
+	
+	<a class="btn join-item"  href="?boardId=${boardId }&page=1">&laquo;</a>
+	<c:forEach begin="${startPage }" end="${endPage}" var = "i">
+			
+			<a class="btn ${param.page==i ? 'text-red-500': '' }" href="?boardId=${boardId }&page=${i }">${i}</a>
+			
+			</c:forEach>
+	<a class="btn join-item"  href="?boardId=${boardId }&page=${pagesCount }">&raquo;</a>
+	
+	</div>
+</div>
 		<!-- (옵션) 페이징 자리 -->
 		
 		<div class="join self-center">
-			<button class="btn join-item">&laquo;</button>
+			<a class="btn join-item"  href="?boardId=${boardId }&page=1">&laquo;</a>
+			
 			
 			<c:forEach begin="1" end="${pagesCount }" var = "i">
 			
-			<a class="btn btn-sm ${param.page==i? 'text-red-500': '' }" href="?page=${i }">${i}</a>
-		
+			<a class="btn ${param.page==i ? 'text-red-500': '' }" href="?boardId=${boardId }&page=${i }">${i}</a>
+			
 			</c:forEach>
 			
-			<button class="btn join-item">&raquo;</button>
+			<a class="btn join-item"  href="?boardId=${boardId }&page=${pagesCount }">&raquo;</a>
 		</div>
 	</div>
 </div>
