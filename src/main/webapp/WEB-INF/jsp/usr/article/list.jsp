@@ -59,13 +59,27 @@
 	<c:set var="startPage" value="${page-paginationLen >= 1 ? page-paginationLen : 1 }"></c:set>
 	<c:set var="endPage" value="${page+paginationLen <= pagesCount ? page  + paginationLen : pagesCount }"></c:set>
 	
-	<a class="btn join-item"  href="?boardId=${boardId }&page=1">&laquo;</a>
+	<c:if test="${startPage > 1 }">
+		<a class="btn" href="?boardId=${boardId }&page=1">1</a>
+	</c:if>
+	
+	<c:if test="${startPage > 2 }">
+		<button>...</button>
+	</c:if>
+
 	<c:forEach begin="${startPage }" end="${endPage}" var = "i">
 			
-			<a class="btn ${param.page==i ? 'text-red-500': '' }" href="?boardId=${boardId }&page=${i }">${i}</a>
+			<a class="btn ${page==i ? 'text-red-500': '' }" href="?boardId=${boardId }&page=${i }">${i}</a>
 			
 			</c:forEach>
-	<a class="btn join-item"  href="?boardId=${boardId }&page=${pagesCount }">&raquo;</a>
+
+	
+	<c:if test="${endPage < pagesCount-1}">
+		<button>...</button>
+	</c:if>
+	<c:if test="${endPage < pagesCount}">
+		<a class="btn" href="?boardId=${boardId }&page=${pagesCount}">${pagesCount}</a>
+	</c:if>
 	
 	</div>
 </div>
