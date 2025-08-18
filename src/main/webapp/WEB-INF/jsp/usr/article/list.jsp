@@ -6,11 +6,9 @@
 <div class="card bg-base-100 shadow mt-10">
 	<div class="card-body gap-4">
 		<div>
-			<tr>게시판 : ${board.code }</tr>
+			<tr>게시판 : ${board!=null ? board.code :'전체 게시글'}</tr>
 			<tr> | 게시물 수 : ${articlesCount }</tr>
 		</div>
-
-		상단 액션
 		<div class="flex flex-col md:flex-row md:items-center gap-3 justify-between">
 			<div class="join">
 				<input id="searchInput" type="text" class="input input-bordered join-item" placeholder="제목 검색…" />
@@ -68,11 +66,8 @@
 	</c:if>
 
 	<c:forEach begin="${startPage }" end="${endPage}" var = "i">
-			
-			<a class="btn ${page==i ? 'text-red-500': '' }" href="?boardId=${boardId }&page=${i }">${i}</a>
-			
-			</c:forEach>
-
+		<a class="btn ${page==i ? 'text-red-500': '' }" href="?boardId=${boardId }&page=${i }">${i}</a>
+	</c:forEach>
 	
 	<c:if test="${endPage < pagesCount-1}">
 		<button>...</button>
@@ -81,22 +76,6 @@
 		<a class="btn" href="?boardId=${boardId }&page=${pagesCount}">${pagesCount}</a>
 	</c:if>
 	
-	</div>
-</div>
-		<!-- (옵션) 페이징 자리 -->
-		
-		<div class="join self-center">
-			<a class="btn join-item"  href="?boardId=${boardId }&page=1">&laquo;</a>
-			
-			
-			<c:forEach begin="1" end="${pagesCount }" var = "i">
-			
-			<a class="btn ${param.page==i ? 'text-red-500': '' }" href="?boardId=${boardId }&page=${i }">${i}</a>
-			
-			</c:forEach>
-			
-			<a class="btn join-item"  href="?boardId=${boardId }&page=${pagesCount }">&raquo;</a>
-		</div>
 	</div>
 </div>
 
