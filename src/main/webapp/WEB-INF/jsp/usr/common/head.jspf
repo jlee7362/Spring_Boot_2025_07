@@ -28,7 +28,7 @@
 
 
 		<div class="flex-none gap-2">
-			<a href="/usr/home/main" class="btn btn-ghost">Home</a>
+			<a  href="/usr/home/main" class="btn btn-ghost">Home</a>
 			<div class="dropdown dropdown-hover">
 				<div tabindex="0" role="button" class="btn m-1">Articles</div>
 				<ul tabindex="0" class="dropdown-content menu bg-base-100 rounded-box z-1 w-52 p-2 shadow-sm">

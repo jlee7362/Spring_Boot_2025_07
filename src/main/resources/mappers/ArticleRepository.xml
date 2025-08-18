@@ -64,7 +64,7 @@
 		ON
 		a.boardId = b.id
 		WHERE 1
-		<if test="boardId != null and boardId != 0" >
+		<if test="boardId != 0" >
 		AND boardId = #{boardId}
 		</if>
 		ORDER BY a.id DESC

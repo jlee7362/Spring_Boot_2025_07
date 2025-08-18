@@ -51,10 +51,16 @@
 		</div>
 
 		<!-- (옵션) 페이징 자리 -->
-		<div class="join self-end">
+		
+		<div class="join self-center">
 			<button class="btn join-item">&laquo;</button>
-			<button class="btn join-item btn-active">1</button>
-			<button class="btn join-item">2</button>
+			
+			<c:forEach begin="1" end="${pagesCount }" var = "i">
+			
+			<a class="btn btn-sm ${param.page==i? 'text-red-500': '' }" href="?page=${i }">${i}</a>
+		
+			</c:forEach>
+			
 			<button class="btn join-item">&raquo;</button>
 		</div>
 	</div>
