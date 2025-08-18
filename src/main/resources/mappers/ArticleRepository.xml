@@ -25,6 +25,18 @@
 		</set>
 		WHERE `id`=#{id}
 	</update>
+	
+	
+	<select id="getArticleCount">
+		SELECT COUNT(*) AS cnt
+		FROM `article`
+		WHERE `boardId` = #{boardId}
+	</select>
+
+
+	<select id="getLastInsertId">
+		SELECT LAST_INSERT_ID()
+	</select>
 
 	<select id="getForPrintArticle" parameterType="int"
 		resultType="com.example.demo.vo.Article">
@@ -52,8 +64,8 @@
 		ON
 		a.boardId = b.id
 		WHERE 1
-		<if test="boardId != 0" >
-		AND boardId = #{board.id}
+		<if test="boardId != null and boardId != 0" >
+		AND boardId = #{boardId}
 		</if>
 		ORDER BY a.id DESC
 		<if test="limitFrom >= 0" >
@@ -68,17 +80,6 @@
 		INNER JOIN `member` m
 		ON a.memberId = m.id
 		ORDER BY a.id DESC
-	</select>
-	
-	
-	<select id="getArticleCount">
-		SELECT COUNT(*) AS cnt
-		FROM `article`
-		WHERE `boardId` = #{boardId}
-	</select>
-
-	<select id="getLastInsertId">
-		SELECT LAST_INSERT_ID()
 	</select>
 
 	<delete id="deleteArticle" parameterType="int">
