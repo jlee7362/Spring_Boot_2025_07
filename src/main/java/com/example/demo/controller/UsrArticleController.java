@@ -142,9 +142,9 @@ public class UsrArticleController {
 	}
 
 	@RequestMapping("/usr/article/list")
-	public String getArticles(Model model,@RequestParam(defaultValue = "0")int boardId, @RequestParam(defaultValue = "1")int page) throws IOException {
+	public String getArticles(Model model,@RequestParam(defaultValue = "0")int boardId, @RequestParam(defaultValue = "1")int page, @RequestParam(defaultValue = "title")String searchKeywordTypeCode, @RequestParam(defaultValue = "")String searchKeyword) throws IOException {
 
-		int articlesCount = articleService.getArticleCount(boardId);
+		int articlesCount = articleService.getArticleCount(boardId, searchKeywordTypeCode, searchKeyword);
 		int itemsInAPage =  10;
 		int pagesCount = (int)Math.ceil(articlesCount/(double)itemsInAPage);
 		
@@ -159,6 +159,7 @@ public class UsrArticleController {
 			return null;
 			}
 		}
+		
 		
 		model.addAttribute("articlesCount",articlesCount);
 		model.addAttribute("page",page);

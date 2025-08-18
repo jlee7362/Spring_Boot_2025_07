@@ -10,8 +10,8 @@
 		SELECT *
 		FROM `board`
 		WHERE 1
-		<if test="boardId != 0 and boardId != null" >
-		AND `id`= #{id}
+		<if test="boardId != 0">
+			AND `id`= #{boardId}
 		</if>
 	</select>
 

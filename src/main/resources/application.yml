@@ -6,7 +6,7 @@ spring:
     password: ""  # 비밀번호가 없다면 빈 문자열, 있으면 넣기
   mvc:
     view:
-      prefix: /WEB-INF/jsp
+      prefix: /WEB-INF/jsp/
       suffix: .jsp
 
 mybatis:

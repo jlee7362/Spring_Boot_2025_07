@@ -6,14 +6,14 @@
 <mapper namespace="com.example.demo.repository.ArticleRepository">
 
 	<insert id="writeArticle" parameterType="map">
-		INSERT INTO article
+		INSERT INTO `article`
 		SET
-		regDate = NOW(),
-		updateDate = NOW(),
-		memberId = #{memberId},
+		`regDate` = NOW(),
+		`updateDate` = NOW(),
+		`memberId` = #{memberId},
 		`boardId` = #{boardId},
-		title = #{title},
-		body = #{body}
+		`title` = #{title},
+		`body` = #{body}
 	</insert>
 
 	<update id="modifyArticle" parameterType="map">
@@ -25,16 +25,29 @@
 		</set>
 		WHERE `id`=#{id}
 	</update>
-	
-	
+
+
 	<select id="getArticleCount">
 		SELECT COUNT(*) AS cnt
 		FROM `article`
 		WHERE 1
 		<if test="boardId != 0">
-		`boardId` = #{boardId}
+			AND `boardId` = #{boardId}
 		</if>
-		
+		<if test="searchKeywordTypeCode != ''">
+			<choose>
+				<when test="searchKeywordTypeCode == 'title'">
+					AND `title` LIKE CONCAT('%',#{searchKeyword},'%')
+				</when>
+				<when test="searchKeywordTypeCode == 'body'">
+					AND `body` LIKE CONCAT('%',#{searchKeyword},'%')
+				</when>
+				<otherwise>
+					AND `title` LIKE CONCAT('%',#{searchKeyword},'%') OR `body` LIKE
+					CONCAT('%',#{searchKeyword},'%')
+				</otherwise>
+			</choose>
+		</if>
 	</select>
 
 
@@ -62,18 +75,19 @@
 		resultType="com.example.demo.vo.Article">
 		SELECT a.*, m.nickname AS extra__writer
 		FROM `article` a
-		INNER JOIN `member` m
+		INNER JOIN
+		`member` m
 		ON a.memberId = m.id
 		INNER JOIN `board` b
 		ON
 		a.boardId = b.id
 		WHERE 1
-		<if test="boardId != 0" >
-		AND boardId = #{boardId}
+		<if test="boardId != 0">
+			AND boardId = #{boardId}
 		</if>
 		ORDER BY a.id DESC
-		<if test="limitFrom >= 0" >
-		limit #{limitFrom}, #{limitTake}
+		<if test="limitFrom >= 0">
+			limit #{limitFrom}, #{limitTake}
 		</if>
 	</select>
 
