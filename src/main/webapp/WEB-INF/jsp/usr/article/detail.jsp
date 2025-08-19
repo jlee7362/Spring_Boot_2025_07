@@ -9,7 +9,10 @@
       <h2 class="card-title text-2xl">${article.title}</h2>
       <div class="badge badge-outline">#${article.id}</div>
     </div>
-    <p class="text-sm text-base-content/70">등록: ${article.regDate} · 수정: ${article.updateDate}</p>
+    <p class="text-sm text-base-content/70">등록: ${article.regDate}</p>
+    <c:if test="${article.regDate != article.updateDate }">
+    <p class="text-sm text-base-content/70">수정: ${article.updateDate}</p>
+    </c:if>
 <p class="text-sm text-base-content/70">조회수: ${article.hitCount}</p>
     <div class="prose max-w-none whitespace-pre-wrap">${article.body}</div>
 

@@ -1,5 +1,7 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <c:set var="pageTitle" value="Modify Article" />
+
 <%@ include file="/WEB-INF/jsp/usr/common/head.jspf"%>
 
 <div class="card bg-base-100 shadow">

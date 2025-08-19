@@ -34,5 +34,6 @@ public class ResultData<DT> {
 	public static <DT>ResultData<DT> newData(ResultData rd, DT newData, String dataName) {
 		return from(rd.getResultCode(),rd.getMsg(), newData, dataName);
 	}
+	
 
 }
