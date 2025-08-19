@@ -28,8 +28,10 @@
 
 
 	<select id="getArticleCount">
-		SELECT COUNT(*) AS cnt
-		FROM `article`
+		SELECT COUNT(*) AS cnt, m.nickname AS extra__writer
+		FROM `article` AS a
+		INNER JOIN `member` AS m
+		ON a.memberId = m.id
 		WHERE 1
 		<if test="boardId != 0">
 			AND `boardId` = #{boardId}
@@ -41,6 +43,9 @@
 				</when>
 				<when test="searchKeywordTypeCode == 'body'">
 					AND `body` LIKE CONCAT('%',#{searchKeyword},'%')
+				</when>
+				<when test="searchKeywordTypeCode == 'nickname'">
+					AND `nickname` LIKE CONCAT('%',#{searchKeyword},'%')
 				</when>
 				<otherwise>
 					AND `title` LIKE CONCAT('%',#{searchKeyword},'%') OR `body` LIKE
@@ -88,13 +93,16 @@
 		<if test="searchKeywordTypeCode != ''">
 			<choose>
 				<when test="searchKeywordTypeCode == 'title'">
-					AND a.`title` LIKE CONCAT('%',#{searchKeyword},'%')
+					AND `title` LIKE CONCAT('%',#{searchKeyword},'%')
 				</when>
 				<when test="searchKeywordTypeCode == 'body'">
-					AND a.`body` LIKE CONCAT('%',#{searchKeyword},'%')
+					AND `body` LIKE CONCAT('%',#{searchKeyword},'%')
+				</when>
+				<when test="searchKeywordTypeCode == 'nickname'">
+					AND `nickname` LIKE CONCAT('%',#{searchKeyword},'%')
 				</when>
 				<otherwise>
-					AND a.`title` LIKE CONCAT('%',#{searchKeyword},'%') OR a.`body` LIKE
+					AND `title` LIKE CONCAT('%',#{searchKeyword},'%') OR a.`body` LIKE
 					CONCAT('%',#{searchKeyword},'%')
 				</otherwise>
 			</choose>

@@ -15,6 +15,18 @@ $(function () {
   }
 });
 
+//게시글 검색카테고리 유지
+$('select[data-value]').each(function(index, el){
+	const $el = $(el);
+	
+	defaultValue = $el.attr('data-value').trim();
+	
+	if(defaultValue.length > 0){
+		$el.val(defaultValue);
+	}
+});
+
+
 // Toast 헬퍼
 window.showToast = function (message, type = "info", ms = 2500) {
   const $toast = $("#toast");
