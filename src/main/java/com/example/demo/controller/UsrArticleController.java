@@ -31,8 +31,6 @@ public class UsrArticleController {
 	public UsrArticleController(ArticleService articleService) {
 		this.articleService = articleService;
 	}
-	
-	
 
 	@RequestMapping("/usr/article/modify")
 	public String showModify(Model model, int id) throws IOException {
@@ -130,11 +128,23 @@ public class UsrArticleController {
 	}
 
 	@RequestMapping("/usr/article/detail")
-	public String getArticle(int id, Model model) {
+	public String getArticle(int id, Model model) throws IOException{
 
-	articleService.increaseHitCount(id);
+	ResultData increaseHitCountRd = articleService.increaseHitCount(id);
+	
+	if(increaseHitCountRd.isFail()) {
+		rq.printHistoryBack(increaseHitCountRd.getMsg());
+		return null;
+	}
 	
 	Article article = articleService.getForPrintArticle(rq.getLoginedMemberId(), id);
+	
+//	throws IOException (추가 해야 작동)
+//	if(article == null) {
+//		rq.printHistoryBack("존재하지 않는 게시판");
+//		return null;
+//		}
+	
 
 	model.addAttribute("article",article);
 	

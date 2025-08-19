@@ -1,5 +1,6 @@
 package com.example.demo.service;
 
+import java.io.IOException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,13 +9,17 @@ import org.springframework.stereotype.Service;
 import com.example.demo.repository.ArticleRepository;
 import com.example.demo.util.Ut;
 import com.example.demo.vo.Article;
+import com.example.demo.vo.Board;
 import com.example.demo.vo.ResultData;
+import com.example.demo.vo.Rq;
 
 @Service
 public class ArticleService {
 
 	@Autowired
 	private ArticleRepository articleRepository;
+	@Autowired
+	private Rq rq;
 
 	public ArticleService(ArticleRepository articleRepository) {
 		this.articleRepository = articleRepository;
@@ -36,7 +41,8 @@ public class ArticleService {
 		return article;
 	}
 	
-	public Article getForPrintArticle(int loginedMemberId, int id) {
+	public Article getForPrintArticle(int loginedMemberId, int id){
+		
 		Article article = articleRepository.getForPrintArticle(id);
 		
 		controlForPrintData(loginedMemberId, article);
@@ -95,9 +101,14 @@ public class ArticleService {
 		return articleRepository.getArticleCount(boardId,searchKeywordTypeCode,searchKeyword);
 	}
 
-	public void increaseHitCount(int id) {
-		articleRepository.increaseHitCount(id);
+	public ResultData increaseHitCount(int id) {
 		
+		int affectedRow = articleRepository.increaseHitCount(id);
+		
+		if(affectedRow == 0) {
+			return ResultData.from("F-1", "해당 게시글 없음ResultData", id, "id");
+		}
+		return ResultData.from("S-1", "조회수 증가", id, "id");
 	}
 
 }
