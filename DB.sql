@@ -12,6 +12,8 @@ CREATE TABLE `article` (
 );
 
 
+
+
 # 회원 테이블 생성
 CREATE TABLE `member` (
     `id` INT PRIMARY KEY AUTO_INCREMENT,
@@ -123,6 +125,7 @@ UPDATE `article`
 SET `memberId` = 3
 WHERE `id` IN (4,5);
 
+
 ALTER TABLE `article` ADD COLUMN `boardId` INT UNSIGNED NOT NULL AFTER `memberId`;
 UPDATE `article` 
 SET `boardId` = 1
@@ -133,6 +136,12 @@ WHERE `id` IN (3,4);
 UPDATE `article` 
 SET `boardId` = 3
 WHERE `id` IN (5);
+
+ALTER TABLE `article` ADD COLUMN `hitCount` INT UNSIGNED NOT NULL DEFAULT 0 AFTER `body`;
+
+UPDATE `article`
+SET `hitCount` = `hitCount`+1
+WHERE `id` = 3;
 
 SELECT *
 FROM `article`;
@@ -147,8 +156,8 @@ FROM `article` a
 INNER JOIN `member` m
 ON a.memberId = m.id
 WHERE a.`id` = 1
-
-
+	
+		
 SELECT *
 FROM `board`
 WHERE `id` = 1;
@@ -166,6 +175,9 @@ SELECT a.*, m.nickname AS extra__writer
 SELECT COUNT(*) AS cnt
 		FROM `article`
 		WHERE `title` LIKE CONCAT('%','777','%')
+		
+
+		
 
 ###############################################
 # 게시글 데이터 대량 생성1 (2배수로 올라감)
