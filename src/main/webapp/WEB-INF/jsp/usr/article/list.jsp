@@ -56,6 +56,7 @@
 						<th>Registration Date</th>
 						<th>Title</th>
 						<th>Writer</th>
+						<th>Views</th>
 					</tr>
 				</thead>
 				<tbody id="articleTbody">
@@ -65,6 +66,7 @@
 							<td>${article.regDate}</td>
 							<td class="text-primary">${article.title}</td>
 							<td>${article.extra__writer}</td>
+							<td>${article.hitCount}</td>
 						</tr>
 					</c:forEach>
 					<c:if test="${empty articles }">

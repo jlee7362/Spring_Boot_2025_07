@@ -10,8 +10,10 @@
       <div class="badge badge-outline">#${article.id}</div>
     </div>
     <p class="text-sm text-base-content/70">등록: ${article.regDate} · 수정: ${article.updateDate}</p>
+<p class="text-sm text-base-content/70">조회수: ${article.hitCount}</p>
     <div class="prose max-w-none whitespace-pre-wrap">${article.body}</div>
 
+    
     <div class="divider"></div>
     <div class="flex gap-2 justify-end">
     <c:if test="${article.userCanModify}">
