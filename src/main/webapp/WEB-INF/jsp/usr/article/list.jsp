@@ -6,8 +6,10 @@
 <div class="card bg-base-100 shadow mt-10">
 	<div class="card-body gap-4">
 		<div>
-			<tr>게시판 : ${board!=null ? board.code :'전체 게시글'}</tr>
-			<tr> | 게시물 수 : ${articlesCount }</tr>
+			<tr>게시판 : ${board!=null ? board.code :'전체 게시글'}
+			</tr>
+			<tr>| 게시물 수 : ${articlesCount }
+			</tr>
 		</div>
 		<div class="flex flex-col md:flex-row md:items-center gap-3 justify-between">
 			<div class="join">
@@ -47,49 +49,53 @@
 				</tbody>
 			</table>
 		</div>
-		
-		
-		<!-- 동적 페이징-->
 
-<div class="join self-center">
-	<div>
-	<c:set var="paginationLen" value="3"></c:set>
-	<c:set var="startPage" value="${page-paginationLen >= 1 ? page-paginationLen : 1 }"></c:set>
-	<c:set var="endPage" value="${page+paginationLen <= pagesCount ? page  + paginationLen : pagesCount }"></c:set>
-	
-	<c:if test="${startPage > 1 }">
-		<a class="btn" href="?boardId=${boardId }&page=1">1</a>
-	</c:if>
-	
-	<c:if test="${startPage > 2 }">
-		<button>...</button>
-	</c:if>
+		<div class="join justify-center">
+			<div class="btn-group">
+				<c:set var="paginationLen" value="3"/>
+				<c:set var="startPage" value="${page - paginationLen >= 1 ? page - paginationLen : 1 }"/>
+				<c:set var="endPage" value="${page + paginationLen < pagesCount ? page + paginationLen : pagesCount }"></c:set>
+				<c:set var="baseUri" value="?boardId=${boardId}&"/>
+				<c:set var="baseUri" value="${baseUri}searchKeywordTypeCode=${searchKeywordTypeCode}&"/>
+				<c:set var="baseUri" value="${baseUri}searchKeyword=${searchKeyword}&"/>
+				
+				<c:if test="${startPage > 1 }">
+					<a class="btn" href="${baseUri}&page=1">1</a>
 
-	<c:forEach begin="${startPage }" end="${endPage}" var = "i">
-		<a class="btn ${page==i ? 'text-red-500': '' }" href="?boardId=${boardId }&page=${i }">${i}</a>
-	</c:forEach>
-	
-	<c:if test="${endPage < pagesCount-1}">
-		<button>...</button>
-	</c:if>
-	<c:if test="${endPage < pagesCount}">
-		<a class="btn" href="?boardId=${boardId }&page=${pagesCount}">${pagesCount}</a>
-	</c:if>
-	
-	</div>
-</div>
+				</c:if>
+				<c:if test="${startPage > 2 }">
+					<button>...</button>
+				</c:if>
 
-<script>
-	$("#searchBtn").on(
-			"click",
-			function() {
-				const q = $("#searchInput").val().trim();
-				if (!q)
-					return showToast("검색어를 입력하세요", "warning");
-				// 서버 검색으로 연결하려면 아래 URL 규칙을 컨트롤러에 맞춰 변경
-				location.href = "/usr/article/list?searchKeyword="
-						+ encodeURIComponent(q);
-			});
-</script>
 
-<%@ include file="/WEB-INF/jsp/usr/common/foot.jspf"%>
+				<c:forEach begin="${startPage }" end="${endPage }" var="i">
+					<a class="btn ${page==i ? 'text-red-500' :'' }" href="${baseUri}&page=${i}">${i}</a>
+				</c:forEach>
+
+				<c:if test="${endPage < pagesCount-1}">
+					<button>...</button>
+				</c:if>
+
+				<c:if test="${endPage < pagesCount}">
+
+					<a class="btn" href="${baseUri}&page=${pagesCount}">${pagesCount }</a>
+				</c:if>
+
+
+			</div>
+		</div>
+
+		<script>
+			$("#searchBtn").on(
+					"click",
+					function() {
+						const q = $("#searchInput").val().trim();
+						if (!q)
+							return showToast("검색어를 입력하세요", "warning");
+						// 서버 검색으로 연결하려면 아래 URL 규칙을 컨트롤러에 맞춰 변경
+						location.href = "/usr/article/list?searchKeyword="
+								+ encodeURIComponent(q);
+					});
+		</script>
+
+		<%@ include file="/WEB-INF/jsp/usr/common/foot.jspf"%>

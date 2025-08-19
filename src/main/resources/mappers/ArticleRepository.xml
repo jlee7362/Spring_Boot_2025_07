@@ -85,6 +85,20 @@
 		<if test="boardId != 0">
 			AND boardId = #{boardId}
 		</if>
+		<if test="searchKeywordTypeCode != ''">
+			<choose>
+				<when test="searchKeywordTypeCode == 'title'">
+					AND a.`title` LIKE CONCAT('%',#{searchKeyword},'%')
+				</when>
+				<when test="searchKeywordTypeCode == 'body'">
+					AND a.`body` LIKE CONCAT('%',#{searchKeyword},'%')
+				</when>
+				<otherwise>
+					AND a.`title` LIKE CONCAT('%',#{searchKeyword},'%') OR a.`body` LIKE
+					CONCAT('%',#{searchKeyword},'%')
+				</otherwise>
+			</choose>
+		</if>
 		ORDER BY a.id DESC
 		<if test="limitFrom >= 0">
 			limit #{limitFrom}, #{limitTake}
