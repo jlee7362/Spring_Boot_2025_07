@@ -11,7 +11,7 @@
 			<tr>| 게시물 수 : ${articlesCount }
 			</tr>
 		</div>
-		<div class="flex flex-col md:flex-row md:items-center gap-3 justify-between">
+		<!-- <div class="flex flex-col md:flex-row md:items-center gap-3 justify-between">
 			<div class="join">
 				<input id="searchInput" type="text" class="input input-bordered join-item" placeholder="제목 검색…" />
 				<button id="searchBtn" class="btn btn-primary join-item">검색</button>
@@ -19,16 +19,41 @@
 			<c:if test="${rq.isLogined() }">
 				<a href="/usr/article/write" class="btn btn-secondary">새 글 작성</a>
 			</c:if>
+		</div> -->
+		<div class="flex justify-end">
+			<div class="flex">
+				<form action="">
+					<input type="hidden" name="boardId" value="${boardId }"/>
+					<div class="flex">
+					<select class="select select-sm select-boardered max-w-xs" name="searchKeywordTypeCode">
+						<option value="title">제목</option>
+						<option value="body">내용</option>
+						<option value="title, body">제목 + 내용</option>
+						<option value="nickname">작성자</option>
+					</select>
+					
+					<label class="ml-3 input input-boardered input-sm flex items-center gap-2">
+					<input type="text" placeholder="Search" name="searchKeyword" value="${param.searchKeyword }"/>
+					<button type="submit"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" class="h-4 w-4 opacity-70">
+    <path fill-rule="evenodd"
+									d="M9.965 11.026a5 5 0 1 1 1.06-1.06l2.755 2.754a.75.75 0 1 1-1.06 1.06l-2.755-2.754ZM10.5 7a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Z"
+									clip-rule="evenodd" />
+  </svg></button>
+					
+					</label>
+					</div>
+				</form>
+			</div>
 		</div>
-		테이블
+
 		<div class="overflow-x-auto">
 			<table class="table table-zebra">
 				<thead>
 					<tr>
 						<th>ID</th>
-						<th>등록일</th>
-						<th>제목</th>
-						<th>작성자ID</th>
+						<th>Registration Date</th>
+						<th>Title</th>
+						<th>Writer</th>
 					</tr>
 				</thead>
 				<tbody id="articleTbody">
@@ -37,7 +62,7 @@
 							<td>${article.id}</td>
 							<td>${article.regDate}</td>
 							<td class="text-primary">${article.title}</td>
-							<td>${article.memberId}</td>
+							<td>${article.extra__writer}</td>
 						</tr>
 					</c:forEach>
 					<c:if test="${empty articles }">
@@ -52,13 +77,13 @@
 
 		<div class="join justify-center">
 			<div class="btn-group">
-				<c:set var="paginationLen" value="3"/>
-				<c:set var="startPage" value="${page - paginationLen >= 1 ? page - paginationLen : 1 }"/>
+				<c:set var="paginationLen" value="3" />
+				<c:set var="startPage" value="${page - paginationLen >= 1 ? page - paginationLen : 1 }" />
 				<c:set var="endPage" value="${page + paginationLen < pagesCount ? page + paginationLen : pagesCount }"></c:set>
-				<c:set var="baseUri" value="?boardId=${boardId}&"/>
-				<c:set var="baseUri" value="${baseUri}searchKeywordTypeCode=${searchKeywordTypeCode}&"/>
-				<c:set var="baseUri" value="${baseUri}searchKeyword=${searchKeyword}&"/>
-				
+				<c:set var="baseUri" value="?boardId=${boardId}&" />
+				<c:set var="baseUri" value="${baseUri}searchKeywordTypeCode=${searchKeywordTypeCode}&" />
+				<c:set var="baseUri" value="${baseUri}searchKeyword=${searchKeyword}&" />
+
 				<c:if test="${startPage > 1 }">
 					<a class="btn" href="${baseUri}&page=1">1</a>
 
@@ -85,7 +110,7 @@
 			</div>
 		</div>
 
-		<script>
+		<!-- 	<script>
 			$("#searchBtn").on(
 					"click",
 					function() {
@@ -96,6 +121,6 @@
 						location.href = "/usr/article/list?searchKeyword="
 								+ encodeURIComponent(q);
 					});
-		</script>
+		</script> -->
 
 		<%@ include file="/WEB-INF/jsp/usr/common/foot.jspf"%>
