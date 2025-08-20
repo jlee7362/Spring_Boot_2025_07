@@ -31,7 +31,7 @@
       </div>
 
       <div class="md:col-span-2 flex justify-end gap-2 mt-4">
-        <a href="/home/main" class="btn">취소</a>
+        <a href="/usr/home/main" class="btn">취소</a>
         <button class="btn btn-primary" type="submit">회원가입</button>
       </div>
     </form>

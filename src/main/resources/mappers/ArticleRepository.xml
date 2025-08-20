@@ -32,6 +32,12 @@
 		WHERE `id` = ${id};
 	</update>
 
+	<select id="getArticleHitCount" parameterType="int">
+		SELECT hitCount
+		FROM `article`
+		WHERE `id` = #{id}
+	</select>
+
 	<select id="getArticleCount">
 		SELECT COUNT(*) AS cnt, m.nickname AS extra__writer
 		FROM `article` AS a
@@ -53,7 +59,8 @@
 					AND `nickname` LIKE CONCAT('%',#{searchKeyword},'%')
 				</when>
 				<otherwise>
-					AND `title` LIKE CONCAT('%',#{searchKeyword},'%') OR `body` LIKE
+					AND `title` LIKE CONCAT('%',#{searchKeyword},'%') OR
+					`body` LIKE
 					CONCAT('%',#{searchKeyword},'%')
 				</otherwise>
 			</choose>
@@ -107,7 +114,8 @@
 					AND `nickname` LIKE CONCAT('%',#{searchKeyword},'%')
 				</when>
 				<otherwise>
-					AND `title` LIKE CONCAT('%',#{searchKeyword},'%') OR a.`body` LIKE
+					AND `title` LIKE CONCAT('%',#{searchKeyword},'%') OR
+					a.`body` LIKE
 					CONCAT('%',#{searchKeyword},'%')
 				</otherwise>
 			</choose>

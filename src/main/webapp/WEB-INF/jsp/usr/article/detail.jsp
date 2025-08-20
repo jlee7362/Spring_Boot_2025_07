@@ -3,6 +3,34 @@
 <c:set var="pageTitle" value="Article Detail" />
 <%@ include file="/WEB-INF/jsp/usr/common/head.jspf"%>
 
+<script>
+let $id = parseInt('${param.id}');
+console.log('$id : '+$id);
+</script>
+
+<script>
+function ArticleDetail__doIncreaseHitCount(){
+	$.get('../article/hitCount', {
+		id : $id,
+		ajaxMode : 'Y'
+	}, function(data){
+		console.log('data : ' + data);
+		console.log('data.data1 : ' + data.data1);
+		console.log('data.msg : ' + data.msg);
+		$('.article-detail__hit-count').html(data.data1);
+	}, 'json'); 
+	
+}
+
+$(function(){
+	ArticleDetail__doIncreaseHitCount();
+setTimeout(ArticleDetail__doIncreaseHitCount, 2000);
+
+})
+
+</script>
+
+
 <div class="card bg-base-100 shadow">
   <div class="card-body space-y-4">
     <div class="flex items-center justify-between">
@@ -14,6 +42,12 @@
     <p class="text-sm text-base-content/70">수정: ${article.updateDate}</p>
     </c:if>
 <p class="text-sm text-base-content/70">조회수: ${article.hitCount}</p>
+
+
+<p class="text-sm text-base-content/70">조회수(Ajax): </p>
+<span class="article-detail__hit-count">${article.hitCount}</span>
+
+
     <div class="prose max-w-none whitespace-pre-wrap">${article.body}</div>
 
     

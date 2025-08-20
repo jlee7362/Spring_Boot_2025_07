@@ -128,27 +128,28 @@ public class UsrArticleController {
 	}
 
 	@RequestMapping("/usr/article/detail")
-	public String getArticle(int id, Model model) throws IOException{
-
-	ResultData increaseHitCountRd = articleService.increaseHitCount(id);
-	
-	if(increaseHitCountRd.isFail()) {
-		rq.printHistoryBack(increaseHitCountRd.getMsg());
-		return null;
-	}
+	public String getArticle(int id, Model model){
 	
 	Article article = articleService.getForPrintArticle(rq.getLoginedMemberId(), id);
-	
-//	throws IOException (추가 해야 작동)
-//	if(article == null) {
-//		rq.printHistoryBack("존재하지 않는 게시판");
-//		return null;
-//		}
-	
 
 	model.addAttribute("article",article);
 	
 	return"/usr/article/detail";
+	}
+	
+	@RequestMapping("/usr/article/hitCount")
+	@ResponseBody
+	public ResultData doincreaseHitCountRd(int id) throws IOException {
+		
+		ResultData increaseHitCountRd = articleService.increaseHitCount(id);
+		
+		if(increaseHitCountRd.isFail()) {
+			rq.printHistoryBack(increaseHitCountRd.getMsg());
+			return null;
+		}
+		return ResultData.newData(increaseHitCountRd, articleService.getArticleHitCount(id), "hitCouint");
+		
+		
 	}
 
 	@RequestMapping("/usr/article/list")
