@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html lang="ko">
@@ -28,7 +28,7 @@
 
 
 		<div class="flex-none gap-2">
-			<a  href="/usr/home/main" class="btn btn-ghost">Home</a>
+			<a  href="/usr/home/main" class="btn btn-ghost">홈</a>
 			<div class="dropdown dropdown-hover">
 				<div tabindex="0" role="button" class="btn m-1"><a href="/usr/article/list?boardId=0">List</a></div>
 				<ul tabindex="0" class="dropdown-content menu bg-base-100 rounded-box z-1 w-52 p-2 shadow-sm">

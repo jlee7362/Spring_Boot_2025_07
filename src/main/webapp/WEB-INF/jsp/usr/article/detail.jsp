@@ -24,8 +24,6 @@ function ArticleDetail__doIncreaseHitCount(){
 
 $(function(){
 	ArticleDetail__doIncreaseHitCount();
-setTimeout(ArticleDetail__doIncreaseHitCount, 2000);
-
 })
 
 </script>

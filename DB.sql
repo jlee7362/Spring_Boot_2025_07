@@ -41,6 +41,8 @@ CREATE TABLE `board`(
     `delDate` DATETIME COMMENT '탈퇴 날짜'
 );
 
+
+
 INSERT INTO `board`
 SET `regDate` = NOW(),
     `updateDate` = NOW(),
@@ -176,8 +178,92 @@ SELECT COUNT(*) AS cnt
 		FROM `article`
 		WHERE `title` LIKE CONCAT('%','777','%')
 		
+################################################################
+#좋아요 테이블 생성, 데이터 5개 입력
+CREATE TABLE `reactionPoint` (
+	`id` INT PRIMARY KEY AUTO_INCREMENT,
+	`regDate` DATETIME NOT NULL,
+	`updateDate` DATETIME NOT NULL,
+	`memberId` INT NOT NULL,
+	`relTypeCode` CHAR(50) NOT NULL COMMENT '관련 데이터 타입코드',
+	`relId` INT NOT NULL COMMENT '관련 데이터 번호',
+	`point` INT NOT NULL
+);
 
-		
+# 1번 회원이 3번글이 좋아요.
+INSERT INTO `reactionPoint` 
+SET`regDate`= NOW(),
+	`updateDate`= NOW(),
+	`memberId`= 1,
+	`relTypeCode`= 'article',
+	`relId`= 3,
+	`point`= 1;
+	
+# 1번 회원이 4번글이 싫어요.
+INSERT INTO `reactionPoint` 
+SET`regDate`= NOW(),
+	`updateDate`= NOW(),
+	`memberId`= 1,
+	`relTypeCode`= 'article',
+	`relId`= 4,
+	`point`= -1;
+	
+# 2번 회원이 3번글이 싫어요.
+INSERT INTO `reactionPoint` 
+SET`regDate`= NOW(),
+	`updateDate`= NOW(),
+	`memberId`= 2,
+	`relTypeCode`= 'article',
+	`relId`= 3,
+	`point`= -1;
+
+# 2번 회원이 4번글이 좋아요.
+INSERT INTO `reactionPoint` 
+SET`regDate`= NOW(),
+	`updateDate`= NOW(),
+	`memberId`= 2,
+	`relTypeCode`= 'article',
+	`relId`= 4,
+	`point`= 1;
+
+# 3번 회원이 3번글이 좋아요.
+INSERT INTO `reactionPoint` 
+SET`regDate`= NOW(),
+	`updateDate`= NOW(),
+	`memberId`= 3,
+	`relTypeCode`= 'article',
+	`relId`= 3,
+	`point`= 1;
+	
+# 3번 회원이 4번글이 좋아요.
+INSERT INTO `reactionPoint` 
+SET`regDate`= NOW(),
+	`updateDate`= NOW(),
+	`memberId`= 3,
+	`relTypeCode`= 'article',
+	`relId`= 4,
+	`point`= 1;
+################################################################
+
+SELECT *
+FROM `article` a
+INNER JOIN `member` m
+ON a.`memberId` = m.id
+JOIN `reactionPoint` rp
+ON a.id = rp.relId AND rp.relTypeCode = 'article';
+
+#서브쿼리
+SELECT a.*, IFNULL(SUM(rp.point), 0) AS 'extra__sumReactionPoint', 
+IFNULL(SUM(IF(rp.point > 0, rp.point,0)),0) AS 'extra__goodReactionPoint',
+IFNULL(SUM(IF(rp.point<0, rp.point,0)),0) AS 'extra__badReactionPoint'
+FROM(SELECT a.*, m.nickname AS extra__writer
+	FROM `article` a
+	INNER JOIN `member` m
+	ON a.memberId = m.id) AS a
+LEFT JOIN `reactionPoint` AS rp
+ON a.id = rp.relId AND rp.relTypeCode='article'
+GROUP BY a.id;
+
 
 ###############################################
 # 게시글 데이터 대량 생성1 (2배수로 올라감)
