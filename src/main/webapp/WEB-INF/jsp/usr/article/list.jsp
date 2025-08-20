@@ -57,6 +57,9 @@
 						<th>Title</th>
 						<th>Writer</th>
 						<th>Views</th>
+						<th>Like</th>
+						<th>DisLike</th>
+						<th>Sum</th>
 					</tr>
 				</thead>
 				<tbody id="articleTbody">
@@ -67,6 +70,9 @@
 							<td class="text-primary">${article.title}</td>
 							<td>${article.extra__writer}</td>
 							<td>${article.hitCount}</td>
+							<td>${article.extra__goodReactionPoint}</td>
+							<td>${article.extra__badReactionPoint}</td>
+							<td>${article.extra__sumReactionPoint}</td>
 						</tr>
 					</c:forEach>
 					<c:if test="${empty articles }">

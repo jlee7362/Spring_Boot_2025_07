@@ -26,6 +26,11 @@ public class Article {
 	private boolean userCanModify;
 	private boolean userCanDelete;
 	
+	private String extra__sumReactionPoint;
+	private String extra__goodReactionPoint;
+	private String extra__badReactionPoint;
+	
+	
 	public Article(String title, String body) {
 		this.title = title;
 		this.body = body;

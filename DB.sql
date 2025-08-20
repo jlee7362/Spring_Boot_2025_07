@@ -264,6 +264,17 @@ LEFT JOIN `reactionPoint` AS rp
 ON a.id = rp.relId AND rp.relTypeCode='article'
 GROUP BY a.id;
 
+# 조인쿼리
+SELECT a.*, IFNULL(SUM(rp.point), 0) AS 'extra__sumReactionPoint', 
+IFNULL(SUM(IF(rp.point > 0, rp.point,0)),0) AS 'extra__goodReactionPoint',
+IFNULL(SUM(IF(rp.point<0, rp.point,0)),0) AS 'extra__badReactionPoint'
+FROM `article` a
+INNER JOIN `member` m
+ON a.memberId = m.id
+LEFT JOIN `reactionPoint` AS rp
+ON a.id = rp.relId AND rp.relTypeCode='article'
+GROUP BY a.id
+HAVING a.id = 3;
 
 ###############################################
 # 게시글 데이터 대량 생성1 (2배수로 올라감)
