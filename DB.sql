@@ -276,6 +276,32 @@ ON a.id = rp.relId AND rp.relTypeCode='article'
 GROUP BY a.id
 HAVING a.id = 3;
 
+############################################
+#<좋아요, 싫어요> ->게시글 저장
+# update join -> 기존 게시글에 '좋아요' '싫어요' article table에 수정.
+ALTER TABLE `article` ADD COLUMN `goodReactionPoint` INT UNSIGNED NOT NULL DEFAULT 0;
+ALTER TABLE `article` ADD COLUMN `badReactionPoint` INT UNSIGNED NOT NULL DEFAULT 0;
+
+SELECT *
+FROM `article`a
+INNER JOIN `reactionPoint` rp
+ON a.id = rp.relId;
+
+
+#######################################
+#article테이블에 RP 칼럼 추가, update join
+UPDATE `article` AS a
+INNER JOIN (
+	SELECT rp.relTypeCode, rp.relId, 
+	SUM(IF(rp.point >0, rp.point,0)) AS goodReactionPoint,
+	SUM(IF(rp.point <0, rp.point * -1,0)) AS badReactionPoint
+	FROM `reactionPoint` rp
+	GROUP BY rp.relTypeCode, rp.relId	
+) AS rp_sum
+ON a.id = rp_sum.relId
+SET a.goodReactionPoint = rp_sum.goodReactionPoint,
+	a.badReactionPoint = rp_sum.badReactionPoint;
+
 ###############################################
 # 게시글 데이터 대량 생성1 (2배수로 올라감)
 INSERT INTO `article` (`regDate`, `updateDate`, `memberId`, `boardId`, `title`, `body`)
