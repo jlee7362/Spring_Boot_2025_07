@@ -28,27 +28,47 @@ $(function(){
 
 </script>
 
-
-<div class="card bg-base-100 shadow">
-	<div class="card-body space-y-4">
+<table>
+<div class="bg-base-100 shadow">
+	<div class="space-y-4">
 		<div class="flex items-center justify-between">
 			<h2 class="card-title text-2xl">${article.title}</h2>
 			<div class="badge badge-outline">#${article.id}</div>
 		</div>
-		<p class="text-sm text-base-content/70">등록: ${article.regDate}</p>
-		<c:if test="${article.regDate != article.updateDate }">
-			<p class="text-sm text-base-content/70">수정: ${article.updateDate}</p>
-		</c:if>
-		<p class="text-sm text-base-content/70">조회수: ${article.hitCount}</p>
-
-
-		<p class="text-sm text-base-content/70">조회수(Ajax) : <span class="article-detail__hit-count">${article.hitCount}</span></p>
+		<p class="text-sm text-base-content/70"> </p>
+			<tr>
+				<th>등록:</th>
+				<td>${article.regDate}</td>
+			</tr>
+			<c:if test="${article.regDate != article.updateDate }">
+			<tr>
+				<th>수정:</th>
+				<td>${article.updateDate}</td>
+			</tr>
+			</c:if>
+			<tr>
+				<th>조회수:</th>
+				<td>${article.hitCount}</td>
+			</tr>
+			<tr>
+				<th>조회수(Ajax) : </th>
+				<td class="article-detail__hit-count">${article.hitCount}</td>
+			</tr>
+			<tr>
+				<th>SUM : </th>
+				<td>${userCanReaction}</td>
+			</tr>	
+			<tr>
+			<th>LIKE / DISLIKE </th>
+			<td class="flex gap-2">
+				<a href="/usr/reactionPoint/doGoodReaction?relTypeCode=article&relId=${article.id }&replaceUri=${rq.currentUri}" class="btn btn-sm btn-primary">LIKE: ${article.goodReactionPoint}</a>
+				<a class="btn btn-sm btn-error">DISLIKE:${article.badReactionPoint}</a>
+			</td>
+			
+		</tr>
+			
+</table>
 		
-		<p class="text-sm text-base-content/70">LIKE : <span class="">${article.goodReactionPoint}</span></p>
-		
-		<p class="text-sm text-base-content/70">DISLIKE : <span class="">${article.badReactionPoint}</span></p>
-		
-		<p class="text-sm text-base-content/70">SUM : <span class="">${userCanReaction}</span></p>
 
 		<div class="prose max-w-none whitespace-pre-wrap">${article.body}</div>
 

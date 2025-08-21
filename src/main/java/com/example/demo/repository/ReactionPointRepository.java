@@ -7,4 +7,6 @@ public interface ReactionPointRepository {
 
 	public int getSumReactionPoint(int loginedMemberId, String relTypeCode, int relId);
 
+	public int increaseReactionPoint(int loginedMemberId, String relTypeCode, int relId);
+
 }

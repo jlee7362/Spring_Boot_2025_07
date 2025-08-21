@@ -64,5 +64,15 @@ public class Rq{
 		System.out.println("initBeforeActionInterceptor");
 		
 	}
-
+	public String getCurrentUri() {
+		String currentUri = req.getRequestURI();
+		String queryString = req.getQueryString();
+		
+		if(currentUri!=null && queryString!=null) {
+			queryString+="?"+queryString;
+			
+		}
+		return currentUri;
+		
+	}
 }
