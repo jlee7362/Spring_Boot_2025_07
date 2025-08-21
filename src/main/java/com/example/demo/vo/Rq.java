@@ -68,6 +68,9 @@ public class Rq{
 		String currentUri = req.getRequestURI();
 		String queryString = req.getQueryString();
 		
+		System.out.println("currentUri" + currentUri);
+		System.out.println("queryString" + queryString);
+		
 		if(currentUri!=null && queryString!=null) {
 			queryString+="?"+queryString;
 			

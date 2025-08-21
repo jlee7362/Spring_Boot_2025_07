@@ -22,6 +22,7 @@ public class UsrReactionPointController {
 	@RequestMapping("/usr/reactionPoint/doGoodReaction")
 	@ResponseBody
 	public String doGoodReaction(String relTypeCode, int relId, String replaceUri) {
+		System.out.println("replaceUri" + replaceUri);
 		
 		int userReaction = reactionPointService.userCanReaction(rq.getLoginedMemberId(),relTypeCode, relId);
 		if(userReaction==1) {
@@ -29,6 +30,7 @@ public class UsrReactionPointController {
 		}
 		
 		ResultData reactionRd = reactionPointService.increaseReactionPoint(rq.getLoginedMemberId(),relTypeCode, relId);
+		
 		
 		return Ut.jsReplace(reactionRd.getResultCode(), reactionRd.getMsg(), replaceUri);
 		
