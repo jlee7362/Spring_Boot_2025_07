@@ -70,8 +70,8 @@
 							<td class="text-primary">${article.title}</td>
 							<td>${article.extra__writer}</td>
 							<td>${article.hitCount}</td>
-							<td>${article.extra__goodReactionPoint}</td>
-							<td>${article.extra__badReactionPoint}</td>
+							<td>${article.goodReactionPoint}</td>
+							<td>${article.badReactionPoint}</td>
 							<td>${article.extra__sumReactionPoint}</td>
 						</tr>
 					</c:forEach>

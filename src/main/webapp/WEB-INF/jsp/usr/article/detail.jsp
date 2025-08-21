@@ -44,11 +44,11 @@ $(function(){
 
 		<p class="text-sm text-base-content/70">조회수(Ajax) : <span class="article-detail__hit-count">${article.hitCount}</span></p>
 		
-		<p class="text-sm text-base-content/70">LIKE : <span class="">${article.extra__goodReactionPoint}</span></p>
+		<p class="text-sm text-base-content/70">LIKE : <span class="">${article.goodReactionPoint}</span></p>
 		
-		<p class="text-sm text-base-content/70">DISLIKE : <span class="">${article.extra__badReactionPoint}</span></p>
+		<p class="text-sm text-base-content/70">DISLIKE : <span class="">${article.badReactionPoint}</span></p>
 		
-		<p class="text-sm text-base-content/70">SUM : <span class="">${article.extra__sumReactionPoint}</span></p>
+		<p class="text-sm text-base-content/70">SUM : <span class="">${userCanReaction}</span></p>
 
 		<div class="prose max-w-none whitespace-pre-wrap">${article.body}</div>
 

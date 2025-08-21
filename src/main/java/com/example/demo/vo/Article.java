@@ -18,17 +18,17 @@ public class Article {
 	private String body;
 	private LocalDateTime regDate;
 	private LocalDateTime updateDate;
+	private String goodReactionPoint;
+	private String badReactionPoint;
 	
 	private int memberId;
 	private String extra__writer;
 	private int hitCount;
+	private String extra__sumReactionPoint;
 	
 	private boolean userCanModify;
 	private boolean userCanDelete;
 	
-	private String extra__sumReactionPoint;
-	private String extra__goodReactionPoint;
-	private String extra__badReactionPoint;
 	
 	
 	public Article(String title, String body) {

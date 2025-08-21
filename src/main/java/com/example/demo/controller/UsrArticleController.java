@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.example.demo.service.ArticleService;
 import com.example.demo.service.BoardService;
+import com.example.demo.service.ReactionPointService;
 import com.example.demo.util.Ut;
 import com.example.demo.vo.Article;
 import com.example.demo.vo.Board;
@@ -25,6 +26,8 @@ public class UsrArticleController {
 	private ArticleService articleService;
 	@Autowired
 	private BoardService boardService;
+	@Autowired
+	private ReactionPointService reactionPointService;
 	@Autowired
 	private Rq rq;
 
@@ -130,9 +133,14 @@ public class UsrArticleController {
 	@RequestMapping("/usr/article/detail")
 	public String getArticle(int id, Model model){
 	
-	Article article = articleService.getForPrintArticle(rq.getLoginedMemberId(), id);
+		Article article = articleService.getForPrintArticle(rq.getLoginedMemberId(), id);
+	
+		//-1은 싫어요, 0 표현 안 함, 1 좋아요, -2 로그인 안함.
+		int userCanReaction = reactionPointService.userCanReaction(rq.getLoginedMemberId(), "article", id);
+		
 
-	model.addAttribute("article",article);
+		model.addAttribute("userCanReaction",userCanReaction);
+		model.addAttribute("article",article);
 	
 	return"/usr/article/detail";
 	}

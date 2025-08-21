@@ -75,15 +75,10 @@
 
 	<select id="getForPrintArticle" parameterType="int"
 		resultType="com.example.demo.vo.Article">
-		SELECT a.*, m.nickname AS extra__writer, IFNULL(SUM(rp.point), 0) AS
-		'extra__sumReactionPoint',
-		IFNULL(SUM(IF(rp.point &gt; 0, rp.point,0)),0) AS 'extra__goodReactionPoint',
-		IFNULL(SUM(IF(rp.point &lt; 0, rp.point,0)),0) AS 'extra__badReactionPoint'
+		SELECT a.*, m.nickname AS extra__writer
 		FROM `article` a
 		INNER JOIN `member` m
 		ON a.memberId = m.id
-		LEFT JOIN `reactionPoint` AS rp
-		ON a.id = rp.relId AND rp.relTypeCode='article'
 		WHERE a.id = #{id};
 	</select>
 
@@ -97,18 +92,10 @@
 	<select id="getForPrintArticles" parameterType="map"
 		resultType="com.example.demo.vo.Article">
 		
-		SELECT a.*,m.nickname AS extra__writer, IFNULL(SUM(rp.point), 0) AS
-		'extra__sumReactionPoint',
-		IFNULL(SUM(IF(rp.point &gt; 0, rp.point,0)),0) AS 'extra__goodReactionPoint',
-		IFNULL(SUM(IF(rp.point &lt; 0, rp.point,0)),0) AS 'extra__badReactionPoint'
+		SELECT a.*,m.nickname AS extra__writer
 		FROM `article` a
 		INNER JOIN `member` m
 		ON a.memberId = m.id
-		LEFT JOIN `reactionPoint` AS rp
-		ON a.id = rp.relId AND rp.relTypeCode='article'
-		INNER JOIN `board` b
-		ON
-		a.boardId = b.id
 		WHERE 1
 		<if test="boardId != 0">
 			AND boardId = #{boardId}
