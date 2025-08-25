@@ -2,6 +2,7 @@ package com.example.demo;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 
 import com.example.demo.interceptor.BeforeActionInterceptor;
@@ -20,13 +21,27 @@ public class WebMvcConfigurer implements org.springframework.web.servlet.config.
 
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
-
-		registry.addInterceptor(beforeActionInterceptor).addPathPatterns("/**"); // 모든 요청이 들어가기 전에 인터셉터 실행하겠다.
 		
-		registry.addInterceptor(needLoginInterceptor).addPathPatterns("/usr/article/doModify").addPathPatterns("/usr/article/doDelete").addPathPatterns("/usr/article/doWrite").addPathPatterns("/usr/member/doLogout"); 
-		registry.addInterceptor(needLogoutInterceptor).addPathPatterns("/usr/article/login").addPathPatterns("/usr/member/doLogin").addPathPatterns("/usr/member/doJoin"); 
+		InterceptorRegistration ir;
+		ir = registry.addInterceptor(beforeActionInterceptor);
+		ir.addPathPatterns("/**");
+		ir.addPathPatterns("/fauvicon.ico");
+		ir.excludePathPatterns("/resources/**");
+		ir.excludePathPatterns("/error");
 		
+		ir=registry.addInterceptor(needLoginInterceptor);
+		ir.addPathPatterns("/usr/article/doModify");
+		ir.addPathPatterns("/usr/article/doDelete");
+		ir.addPathPatterns("/usr/article/doWrite");
+		ir.addPathPatterns("/usr/member/doLogout");
+		ir.addPathPatterns("/usr/reactionPoint/doGoodReaction");
+		ir.addPathPatterns("/usr/reactionPoint/doBadReaction");
 		
+		ir=registry.addInterceptor(needLogoutInterceptor);
+		ir.addPathPatterns("/usr/article/login");
+		ir.addPathPatterns("/usr/member/doLogin");
+		ir.addPathPatterns("/usr/member/join");
+		ir.addPathPatterns("/usr/member/doJoin");
 	}
 
 }
