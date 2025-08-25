@@ -9,4 +9,6 @@ public interface ReactionPointRepository {
 
 	public int increaseReactionPoint(int loginedMemberId, String relTypeCode, int relId);
 
+	public void deleteReactionPoint(int loginedMemberId, String relTypeCode, int relId);
+
 }

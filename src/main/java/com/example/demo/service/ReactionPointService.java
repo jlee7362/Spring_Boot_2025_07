@@ -19,12 +19,18 @@ public class ReactionPointService {
         this.articleService = articleService;
     }
 
-	public int userCanReaction(int loginedMemberId, String relTypeCode, int relId) {
+	public ResultData userCanReaction(int loginedMemberId, String relTypeCode, int relId) {
 		//로그인 안한 상태
 		if (loginedMemberId == 0) {
-			return -2;
+			return ResultData.from("F-L", "로그인 해야 반응할 수 있어");
 		}
-		return reactionPointRepository.getSumReactionPoint(loginedMemberId,relTypeCode,relId);
+		
+		 int sumReactionPointByMemberId = reactionPointRepository.getSumReactionPoint(loginedMemberId,relTypeCode,relId);
+		 
+		 if (sumReactionPointByMemberId != 0) {
+			 return ResultData.from("F-1", "추천 불가능", sumReactionPointByMemberId, "sumReactionPointByMemberId");
+		 }
+		return ResultData.from("S-1", "추천 가능", sumReactionPointByMemberId, "sumReactionPointByMemberId");
 	}
 
 	public ResultData increaseReactionPoint(int loginedMemberId, String relTypeCode, int relId) {
@@ -43,6 +49,17 @@ public class ReactionPointService {
 		}
 		
 		return ResultData.from("S-1", "좋아요.");
+	}
+
+	public ResultData deleteGoodReactionPoint(int loginedMemberId, String relTypeCode, int relId) {
+		reactionPointRepository.deleteReactionPoint(loginedMemberId,relTypeCode,relId);
+		switch(relTypeCode) {
+		case "article" :
+			articleService.decreaseGoodReactionPoint(relId);
+			break;
+		
+		}
+		return ResultData.from("S-1", "좋아요 취소됨.");
 	}
 
 }

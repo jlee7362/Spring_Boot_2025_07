@@ -123,8 +123,18 @@ public class ArticleService {
 			return ResultData.from("F-1", "없는 게시글");
 			
 		}
-		return ResultData.from("S-1", "게시글 좋아요 갱신됨.");
+		return ResultData.from("S-1", "좋아요 증가");
 		
+	}
+
+	public ResultData decreaseGoodReactionPoint(int relId) {
+		int affectedRow = articleRepository.decreaseGoodReactionPoint(relId);
+		
+		if(affectedRow == 0) {
+			return ResultData.from("F-1", "없는 게시글");
+			
+		}
+		return ResultData.from("S-1", "좋아요 감소");
 	}
 
 }

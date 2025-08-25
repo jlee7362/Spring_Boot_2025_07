@@ -136,10 +136,9 @@ public class UsrArticleController {
 		Article article = articleService.getForPrintArticle(rq.getLoginedMemberId(), id);
 	
 		//-1은 싫어요, 0 표현 안 함, 1 좋아요, -2 로그인 안함.
-		int userCanReaction = reactionPointService.userCanReaction(rq.getLoginedMemberId(), "article", id);
-		
+		ResultData userCanReactionRd = reactionPointService.userCanReaction(rq.getLoginedMemberId(), "article", id);
 
-		model.addAttribute("userCanReaction",userCanReaction);
+//		model.addAttribute("userCanReaction",userCanReaction);
 		model.addAttribute("article",article);
 	
 	return"/usr/article/detail";
