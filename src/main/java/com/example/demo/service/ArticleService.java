@@ -136,5 +136,28 @@ public class ArticleService {
 		}
 		return ResultData.from("S-1", "좋아요 감소");
 	}
+	
+	public ResultData increaseBadReactionPoint(int relId) {
+		int affectedRow = articleRepository.increaseBadReactionPoint(relId);
+		
+		if(affectedRow == 0) {
+			return ResultData.from("F-1", "없는 게시글");
+			
+		}
+		return ResultData.from("S-1", "싫어요 증가");
+		
+	}
+
+	public ResultData decreaseBadReactionPoint(int relId) {
+		int affectedRow = articleRepository.decreaseBadReactionPoint(relId);
+		
+		if(affectedRow == 0) {
+			return ResultData.from("F-1", "없는 게시글");
+			
+		}
+		return ResultData.from("S-1", "싫어요 감소");
+		
+	}
+
 
 }

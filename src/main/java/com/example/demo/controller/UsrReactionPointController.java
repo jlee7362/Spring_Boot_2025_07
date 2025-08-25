@@ -34,10 +34,34 @@ public class UsrReactionPointController {
 			return Ut.jsReplace("S-1", "좋아요 취소.",replaceUri);
 		}
 		if(userReaction == -1) {
-			
+			//이미 싫어요 한 상태
 		}
 		
-		ResultData reactionRd = reactionPointService.increaseReactionPoint(rq.getLoginedMemberId(),relTypeCode, relId);
+		ResultData reactionRd = reactionPointService.addGoodReactionPoint(rq.getLoginedMemberId(),relTypeCode, relId);
+		
+		
+		return Ut.jsReplace(reactionRd.getResultCode(), reactionRd.getMsg(), replaceUri);
+		
+	}
+	@RequestMapping("/usr/reactionPoint/doBadReaction")
+	@ResponseBody
+	public String doBadReaction(String relTypeCode, int relId, String replaceUri) {
+		System.out.println("replaceUri : " + replaceUri);
+		
+		ResultData userReactionRd = reactionPointService.userCanReaction(rq.getLoginedMemberId(),relTypeCode, relId);
+				
+		int userReaction = (int)userReactionRd.getData1(); //-1: 싫어요, 0:반응안함, 1: 좋아요
+		
+		if(userReaction == -1) {
+			//싫어요 이미 한 상태 -> 좋아요 취소
+			reactionPointService.deleteBadReactionPoint(rq.getLoginedMemberId(),relTypeCode, relId);
+			return Ut.jsReplace("S-1", "싫어요 취소.",replaceUri);
+		}
+		if(userReaction == 1) {
+			//이미 좋아요 한 상태
+		}
+		
+		ResultData reactionRd = reactionPointService.addBadReactionPoint(rq.getLoginedMemberId(),relTypeCode, relId);
 		
 		
 		return Ut.jsReplace(reactionRd.getResultCode(), reactionRd.getMsg(), replaceUri);

@@ -63,7 +63,7 @@ $(function(){
 			<th>LIKE / DISLIKE </th>
 			<td class="flex gap-2">
 				<a href="/usr/reactionPoint/doGoodReaction?relTypeCode=article&relId=${article.id }&replaceUri=${rq.getCurrentUri()}" class="btn btn-sm btn-primary">LIKE: ${article.goodReactionPoint}</a>
-				<a class="btn btn-sm btn-error">DISLIKE:${article.badReactionPoint}</a>
+				<a href="/usr/reactionPoint/doBadReaction?relTypeCode=article&relId=${article.id }&replaceUri=${rq.getCurrentUri()}" class="btn btn-sm btn-error">DISLIKE:${article.badReactionPoint}</a>
 			</td>
 			
 		</tr>
