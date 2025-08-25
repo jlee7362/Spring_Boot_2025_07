@@ -31,7 +31,7 @@ public class UsrArticleController {
 	@Autowired
 	private Rq rq;
 
-	public UsrArticleController(ArticleService articleService) {
+	UsrArticleController(ArticleService articleService) {
 		this.articleService = articleService;
 	}
 

@@ -16,18 +16,20 @@ import lombok.Setter;
 @Setter
 @Component
 @Scope(value = "request", proxyMode = ScopedProxyMode.TARGET_CLASS)
-public class Rq{
-	private boolean isLogined;
-	private int loginedMemberId;
+public class Rq {
+
+	private boolean isLogined = false;
+	private int loginedMemberId = 0;
+
 	private final HttpServletRequest req;
 	private final HttpServletResponse resp;
 	private final HttpSession session;
-	
+
 	public Rq(HttpServletRequest req, HttpServletResponse resp) {
 		this.req = req;
 		this.resp = resp;
 		this.session = req.getSession();
-		
+
 		if (session.getAttribute("loginedMemberId") != null) {
 			isLogined = true;
 			loginedMemberId = (int) session.getAttribute("loginedMemberId");
@@ -35,47 +37,50 @@ public class Rq{
 	}
 
 	public void printHistoryBack(String msg) throws IOException {
-		
+
 		resp.setContentType("text/html;charset=UTF-8");
 		println("<script>");
-		println("alert('rq 클래스 메시지: " + msg + "');");
+		println("alert('rq 클래스 메시지 : " + msg + "');");
 		println("history.back();");
 		println("</script>");
 		
 		resp.getWriter().flush();
 		resp.getWriter().close();
-		
 	}
-	
+
 	public void println(String str) throws IOException {
 		print(str + "\n");
 	}
+
 	public void print(String str) throws IOException {
 		resp.getWriter().append(str);
 	}
+
 	public void logout() {
 		session.removeAttribute("loginedMemberId");
 	}
+
 	public void login(Member member) {
 		session.setAttribute("loginedMemberId", member.getId());
 	}
 
 	public void initBeforeActionInterceptor() {
-		System.out.println("initBeforeActionInterceptor");
-		
+
+		System.err.println("initBeforeActionInterceptor 실행됨");
+
 	}
+	
 	public String getCurrentUri() {
+		
 		String currentUri = req.getRequestURI();
 		String queryString = req.getQueryString();
 		
-		System.out.println("currentUri" + currentUri);
-		System.out.println("queryString" + queryString);
-		
-		if(currentUri!=null && queryString!=null) {
-			queryString+="?"+queryString;
-			
+		if(currentUri != null && queryString != null) {
+			currentUri += "?" + queryString;
 		}
+		
 		return currentUri;
 		
 	}
+
 }

@@ -22,7 +22,7 @@ public class UsrReactionPointController {
 	@RequestMapping("/usr/reactionPoint/doGoodReaction")
 	@ResponseBody
 	public String doGoodReaction(String relTypeCode, int relId, String replaceUri) {
-		System.out.println("replaceUri" + replaceUri);
+		System.out.println("replaceUri : " + replaceUri);
 		
 		int userReaction = reactionPointService.userCanReaction(rq.getLoginedMemberId(),relTypeCode, relId);
 		if(userReaction==1) {

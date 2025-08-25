@@ -32,6 +32,13 @@
 		WHERE
 		`id` = ${id};
 	</update>
+	
+	<update id="increaseGoodReactionPoint" parameterType="int">
+		UPDATE `article`
+		SET `goodReactionPoint` = `goodReactionPoint` +1
+		WHERE `id` =#{relID};
+	</update>
+	
 
 	<select id="getArticleHitCount" parameterType="int">
 		SELECT hitCount
