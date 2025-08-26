@@ -4,8 +4,10 @@
 <%@ include file="/WEB-INF/jsp/usr/common/head.jspf"%>
 
 <script>
-let $id = parseInt('${param.id}');
-console.log('$id : '+$id);
+	let $id = parseInt('${param.id}');
+	//console.log('$id : '+$id);
+	let isAlreadyAddGoodRp =${isAlreadyAddGoodRp};
+	let isAlreadyAddBadRp =${isAlreadyAddBadRp};
 </script>
 
 <script>
@@ -28,6 +30,22 @@ $(function(){
 })
 
 </script>
+
+<script>
+function checkRP(){
+	if(isAlreadyAddGoodRp==true){
+		$('#likeButton').toggleClass('btn-outline');
+	}
+	if(isAlreadyAddBadRp==true){
+		$('#disLikeButton').toggleClass('btn-outline');
+	}
+	
+}
+$(function(){
+	checkRP();
+})
+</script>
+
 
 <table>
 <div class="bg-base-100 shadow">
@@ -62,8 +80,10 @@ $(function(){
 			<tr>
 			<th>LIKE / DISLIKE </th>
 			<td class="flex gap-2">
-				<a href="/usr/reactionPoint/doGoodReaction?relTypeCode=article&relId=${article.id }&replaceUri=${rq.getCurrentUri()}" class="btn btn-sm btn-primary">LIKE: ${article.goodReactionPoint}</a>
-				<a href="/usr/reactionPoint/doBadReaction?relTypeCode=article&relId=${article.id }&replaceUri=${rq.getCurrentUri()}" class="btn btn-sm btn-error">DISLIKE:${article.badReactionPoint}</a>
+				<!-- <a href="/usr/reactionPoint/doGoodReaction?relTypeCode=article&relId=${article.id }&replaceUri=${rq.getCurrentUri()}" class="article-detail__doGoodReaction btn btn-sm btn-primary">LIKE: ${article.goodReactionPoint}</a> -->
+				<button id="likeButton" class="btn btn-sm btn-primary btn-outline" onclick="">LIKE</button>
+				<!-- <a href="/usr/reactionPoint/doBadReaction?relTypeCode=article&relId=${article.id }&replaceUri=${rq.getCurrentUri()}" class="btn btn-sm btn-error">DISLIKE:${article.badReactionPoint}</a> -->
+				<button id="disLikeButton" class="btn btn-sm btn-error btn-outline" onclick="">DISLIKE</button>
 			</td>
 			
 		</tr>

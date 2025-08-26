@@ -92,6 +92,23 @@ public class ReactionPointService {
 		
 	}
 
+	public boolean isAlreadyAddGoodRp(int loginedMemberId, int relId, String relTypeCode) {
+		int sumReactionPointByMemberId = reactionPointRepository.getSumReactionPoint(loginedMemberId,relTypeCode,relId);
+		if(sumReactionPointByMemberId > 0) {
+			return true;
+		}
+		return false;
+		
+	}
+
+	public boolean isAlreadyAddBadRp(int loginedMemberId, int relId, String relTypeCode) {
+		int sumReactionPointByMemberId = reactionPointRepository.getSumReactionPoint(loginedMemberId,relTypeCode,relId);
+		if(sumReactionPointByMemberId < 0) {
+			return true;
+		}
+		return false;
+	}
+
 	
 
 }
