@@ -56,6 +56,19 @@
 		SET `badReactionPoint` = `badReactionPoint` - 1
 		WHERE `id` = #{relID};
 	</update>
+	
+	<select id="getGoodRp" parameterType="int">
+		SELECT goodReactionPoint
+		FROM `article`
+		WHERE `id` = #{relId}
+	</select>
+	
+	<select id="getBadRp" parameterType="int">
+		SELECT badReactionPoint
+		FROM `article`
+		WHERE `id` = #{relId}
+	</select>
+	
 
 	<select id="getArticleHitCount" parameterType="int">
 		SELECT hitCount

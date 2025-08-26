@@ -159,5 +159,15 @@ public class ArticleService {
 		
 	}
 
+	public int getGoodRp(int relId) {
+		
+		return articleRepository.getGoodRp(relId);
+	}
+
+	public int getBadRp(int relId) {
+		
+		return articleRepository.getBadRp(relId);
+	}
+
 
 }

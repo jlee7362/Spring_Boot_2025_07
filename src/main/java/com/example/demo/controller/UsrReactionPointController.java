@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.example.demo.service.ArticleService;
 import com.example.demo.service.ReactionPointService;
 import com.example.demo.util.Ut;
 import com.example.demo.vo.ResultData;
@@ -15,13 +16,15 @@ public class UsrReactionPointController {
 	
 	@Autowired
     private ReactionPointService reactionPointService;
+	@Autowired
+	private ArticleService articleService;
 	
 	@Autowired
 	private Rq rq;
 
 	@RequestMapping("/usr/reactionPoint/doGoodReaction")
 	@ResponseBody
-	public String doGoodReaction(String relTypeCode, int relId, String replaceUri) {
+	public ResultData doGoodReaction(String relTypeCode, int relId, String replaceUri) {
 		System.out.println("replaceUri : " + replaceUri);
 		
 		ResultData userReactionRd = reactionPointService.userCanReaction(rq.getLoginedMemberId(),relTypeCode, relId);
@@ -31,16 +34,25 @@ public class UsrReactionPointController {
 		if(userReaction == 1) {
 			//좋아요 이미 한 상태 -> 좋아요 취소
 			reactionPointService.deleteGoodReactionPoint(rq.getLoginedMemberId(),relTypeCode, relId);
-			return Ut.jsReplace("S-1", "좋아요 취소.",replaceUri);
+			
+			//좋아요 취소한 결과 데이터 리턴
+			int goodRp = articleService.getGoodRp(relId);
+			int badRp = articleService.getBadRp(relId);
+			
+			return ResultData.from("S-1", "좋아요 취소", goodRp, "좋아요 개수", badRp, "싫어요 개수");
+//			return Ut.jsReplace("S-1", "좋아요 취소.",replaceUri);
 		}
 		if(userReaction == -1) {
 			//이미 싫어요 한 상태
 		}
-		
+		//좋아요 한 결과 데이터 리턴
 		ResultData reactionRd = reactionPointService.addGoodReactionPoint(rq.getLoginedMemberId(),relTypeCode, relId);
+		int goodRp = articleService.getGoodRp(relId);
+		int badRp = articleService.getBadRp(relId);
 		
 		
-		return Ut.jsReplace(reactionRd.getResultCode(), reactionRd.getMsg(), replaceUri);
+		return ResultData.from("S-1", "좋아요", goodRp, "좋아요 개수", badRp, "싫어요 개수");
+//		return Ut.jsReplace(reactionRd.getResultCode(), reactionRd.getMsg(), replaceUri);
 		
 	}
 	@RequestMapping("/usr/reactionPoint/doBadReaction")
@@ -55,6 +67,7 @@ public class UsrReactionPointController {
 		if(userReaction == -1) {
 			//싫어요 이미 한 상태 -> 좋아요 취소
 			reactionPointService.deleteBadReactionPoint(rq.getLoginedMemberId(),relTypeCode, relId);
+			
 			return Ut.jsReplace("S-1", "싫어요 취소.",replaceUri);
 		}
 		if(userReaction == 1) {
