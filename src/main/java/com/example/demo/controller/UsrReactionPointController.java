@@ -43,7 +43,14 @@ public class UsrReactionPointController {
 //			return Ut.jsReplace("S-1", "좋아요 취소.",replaceUri);
 		}
 		if(userReaction == -1) {
-			//이미 싫어요 한 상태
+			//이미 싫어요 한 상태 -> 싫어요 취소 후 좋아요
+			reactionPointService.deleteBadReactionPoint(rq.getLoginedMemberId(), relTypeCode, relId);
+			reactionPointService.addGoodReactionPoint(rq.getLoginedMemberId(), relTypeCode, relId);
+			//좋아요,싫어요 결과 데이터 리턴
+			int goodRp = articleService.getGoodRp(relId);
+			int badRp = articleService.getBadRp(relId);
+			
+			return ResultData.from("S-3", "싫어요 취소 및 좋아요", goodRp, "좋아요 개수", badRp, "싫어요 개수");
 		}
 		//좋아요 한 결과 데이터 리턴
 		ResultData reactionRd = reactionPointService.addGoodReactionPoint(rq.getLoginedMemberId(),relTypeCode, relId);
@@ -51,13 +58,13 @@ public class UsrReactionPointController {
 		int badRp = articleService.getBadRp(relId);
 		
 		
-		return ResultData.from("S-1", "좋아요", goodRp, "좋아요 개수", badRp, "싫어요 개수");
+		return ResultData.from("S-2", "좋아요", goodRp, "좋아요 개수", badRp, "싫어요 개수");
 //		return Ut.jsReplace(reactionRd.getResultCode(), reactionRd.getMsg(), replaceUri);
 		
 	}
 	@RequestMapping("/usr/reactionPoint/doBadReaction")
 	@ResponseBody
-	public String doBadReaction(String relTypeCode, int relId, String replaceUri) {
+	public ResultData doBadReaction(String relTypeCode, int relId, String replaceUri) {
 		System.out.println("replaceUri : " + replaceUri);
 		
 		ResultData userReactionRd = reactionPointService.userCanReaction(rq.getLoginedMemberId(),relTypeCode, relId);
@@ -68,16 +75,32 @@ public class UsrReactionPointController {
 			//싫어요 이미 한 상태 -> 좋아요 취소
 			reactionPointService.deleteBadReactionPoint(rq.getLoginedMemberId(),relTypeCode, relId);
 			
-			return Ut.jsReplace("S-1", "싫어요 취소.",replaceUri);
+			//싫어요 취소한 결과 데이터 리턴
+			int goodRp = articleService.getGoodRp(relId);
+			int badRp = articleService.getBadRp(relId);
+			
+			return ResultData.from("S-1", "싫어요 취소", goodRp, "좋아요 개수", badRp, "싫어요 개수");
+//			return Ut.jsReplace("S-1", "좋아요 취소.",replaceUri);
+
 		}
 		if(userReaction == 1) {
-			//이미 좋아요 한 상태
+			//이미 좋아요 한 상태 -> 좋아요 취소 후 싫어요
+			reactionPointService.deleteGoodReactionPoint(rq.getLoginedMemberId(), relTypeCode, relId);
+			reactionPointService.addBadReactionPoint(rq.getLoginedMemberId(), relTypeCode, relId);
+			//좋아요,싫어요 결과 데이터 리턴
+			int goodRp = articleService.getGoodRp(relId);
+			int badRp = articleService.getBadRp(relId);
+			
+			return ResultData.from("S-3", "좋아요 취소 및 싫어요", goodRp, "좋아요 개수", badRp, "싫어요 개수");
 		}
 		
 		ResultData reactionRd = reactionPointService.addBadReactionPoint(rq.getLoginedMemberId(),relTypeCode, relId);
+		int goodRp = articleService.getGoodRp(relId);
+		int badRp = articleService.getBadRp(relId);
 		
 		
-		return Ut.jsReplace(reactionRd.getResultCode(), reactionRd.getMsg(), replaceUri);
+		return ResultData.from("S-2", "싫어요", goodRp, "좋아요 개수", badRp, "싫어요 개수");
+//		return Ut.jsReplace(reactionRd.getResultCode(), reactionRd.getMsg(), replaceUri);
 		
 	}
 	
