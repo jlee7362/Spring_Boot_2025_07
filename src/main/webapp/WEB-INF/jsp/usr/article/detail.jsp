@@ -183,12 +183,15 @@ $(function(){
 					<button id="disLikeButton" class="btn btn-sm btn-error btn-outline" onclick="doBadReaction(${param.id})">DISLIKE
 						<span class="disLikeCount">${article.badReactionPoint}</span></button>
 				</td>
-
 			</tr>
 </table>
 
+	
+
 
 <div class="prose max-w-none whitespace-pre-wrap">${article.body}</div>
+
+
 
 
 <div class="divider"></div>

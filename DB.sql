@@ -301,6 +301,131 @@ INNER JOIN (
 ON a.id = rp_sum.relId
 SET a.goodReactionPoint = rp_sum.goodReactionPoint,
 	a.badReactionPoint = rp_sum.badReactionPoint;
+	
+###############################################
+# reply댓글 테이블 + 더미 5개
+CREATE TABLE `reply` (
+	`id` INT PRIMARY KEY AUTO_INCREMENT,
+	`regDate` DATETIME NOT NULL,
+	`updateDate` DATETIME NOT NULL,
+	`memberId` INT NOT NULL,
+	`relTypeCode` CHAR(50) NOT NULL COMMENT '관련 데이터 타입코드',
+	`relId` INT NOT NULL COMMENT '관련 데이터 번호',
+	`body` TEXT NOT NULL
+);
+
+INSERT INTO `reply`
+SET `regDate` = NOW(),
+    `updateDate` = NOW(),
+    `memberId`  = 1,
+    `relTypeCode`  = 'article',
+    `relId` = 1,
+    `body` = '댓글1';
+    
+INSERT INTO `reply`
+SET `regDate` = NOW(),
+    `updateDate` = NOW(),
+    `memberId`  = 2,
+    `relTypeCode`  = 'article',
+    `relId` = 2,
+    `body` = '댓글2';
+    
+INSERT INTO `reply`
+SET `regDate` = NOW(),
+    `updateDate` = NOW(),
+    `memberId`  = 2,
+    `relTypeCode`  = 'article',
+    `relId` = 1,
+    `body` = '댓글3';
+    
+INSERT INTO `reply`
+SET `regDate` = NOW(),
+    `updateDate` = NOW(),
+    `memberId`  = 1,
+    `relTypeCode`  = 'article',
+    `relId` = 2,
+    `body` = '댓글4';
+    
+INSERT INTO `reply`
+SET `regDate` = NOW(),
+    `updateDate` = NOW(),
+    `memberId`  = 2,
+    `relTypeCode`  = 'article',
+    `relId` = 1,
+    `body` = '댓글5';
+	
+SELECT *
+FROM `reply`;
+SELECT *
+FROM `reactionPoint`;
+
+#댓글 테이블에 좋아요 관련 칼럼 추가
+ALTER TABLE `reply` ADD COLUMN `goodReactionPoint` INT UNSIGNED NOT NULL DEFAULT 0;
+ALTER TABLE `reply` ADD COLUMN `badReactionPoint` INT UNSIGNED NOT NULL DEFAULT 0;
+
+INSERT INTO `reactionPoint`
+SET `regDate` = NOW(),
+    `updateDate` = NOW(),
+    `memberId`  = 1,
+    `relTypeCode`  = 'reply',
+    `relId` = 1,
+    `point` = 1;
+    
+INSERT INTO `reactionPoint`
+SET `regDate` = NOW(),
+    `updateDate` = NOW(),
+    `memberId`  = 1,
+    `relTypeCode`  = 'reply',
+    `relId` = 2,
+    `point` = 1;
+    
+INSERT INTO `reactionPoint`
+SET `regDate` = NOW(),
+    `updateDate` = NOW(),
+    `memberId`  = 2,
+    `relTypeCode`  = 'reply',
+    `relId` = 1,
+    `point` = 1;
+    
+INSERT INTO `reactionPoint`
+SET `regDate` = NOW(),
+    `updateDate` = NOW(),
+    `memberId`  = 2,
+    `relTypeCode`  = 'reply',
+    `relId` = 2,
+    `point` = 1;    
+    
+INSERT INTO `reactionPoint`
+SET `regDate` = NOW(),
+    `updateDate` = NOW(),
+    `memberId`  = 1,
+    `relTypeCode`  = 'reply',
+    `relId` = 3,
+    `point` = -1; 
+INSERT INTO `reactionPoint`
+SET `regDate` = NOW(),
+    `updateDate` = NOW(),
+    `memberId`  = 2,
+    `relTypeCode`  = 'reply',
+    `relId` = 1,
+    `point` = -1;	
+    
+#######################################
+#기존 댓글의 좋아요, 싫어요 데이터 추출해서 댓글 테이블로 갱신
+UPDATE `reply` AS r
+INNER JOIN (
+	SELECT rp.relTypeCode, rp.relId, 
+	SUM(IF(rp.point >0, rp.point,0)) AS goodReactionPoint,
+	SUM(IF(rp.point <0, rp.point * -1,0)) AS badReactionPoint
+	FROM `reactionPoint` rp
+	GROUP BY rp.relTypeCode, rp.relId	
+) AS rp_sum
+ON r.id = rp_sum.relId
+SET r.goodReactionPoint = rp_sum.goodReactionPoint,
+    r.badReactionPoint = rp_sum.badReactionPoint;
+    
+SELECT *
+FROM `reply`;
 
 ###############################################
 # 게시글 데이터 대량 생성1 (2배수로 올라감)
