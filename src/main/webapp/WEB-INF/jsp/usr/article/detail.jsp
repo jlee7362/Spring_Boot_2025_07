@@ -12,6 +12,13 @@
 
 <script>
 function ArticleDetail__doIncreaseHitCount(){
+	const localStorageKey  = 'article__'+$id+'__alreadyViewed';
+	console.log("localStorageKey : "+localStorageKey);
+	if(localStorage.getItem(localStorageKey)){
+		return;
+	}
+	localStorage.setItem(localStorageKey, true);
+	
 	$.get('../article/hitCount', {
 		id : $id,
 		ajaxMode : 'Y'
@@ -23,8 +30,8 @@ function ArticleDetail__doIncreaseHitCount(){
 }
 
 $(function(){
-	<!-- ArticleDetail__doIncreaseHitCount(); -->
-	  setTimeout(ArticleDetail__doIncreaseHitCount,2000);
+	//ArticleDetail__doIncreaseHitCount();
+	  setTimeout(ArticleDetail__doIncreaseHitCount,500);
 })
 
 </script>
@@ -41,6 +48,7 @@ $(function(){
 		}
 		
 	}
+	
 	function doGoodReaction(articleId){
 		
 		if(${!isLogined}){

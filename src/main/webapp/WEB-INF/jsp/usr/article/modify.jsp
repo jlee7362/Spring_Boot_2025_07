@@ -4,6 +4,15 @@
 
 <%@ include file="/WEB-INF/jsp/usr/common/head.jspf"%>
 
+
+<script>
+ async function onDelete(id){
+   const ok = await confirmAsync("정말 삭제하시겠어요?");
+   if(!ok) return;
+   location.href = "/usr/article/doDelete?id=" + id;
+ }
+</script>
+
 <div class="card bg-base-100 shadow">
   <div class="card-body">
     <form action="/usr/article/doModify" method="post" data-safe-submit>
@@ -20,10 +29,12 @@
 
       <div class="flex gap-2 justify-end">
         <a href="/usr/article/detail?id=${article.id}" class="btn">취소</a>
-        <button type="submit" class="btn btn-primary">수정</button>
+        <button type="submit" class="btn btn-primary btn-outline">수정</button>
+        <button class="btn btn-error btn-outline" onclick="onDelete(${article.id})">삭제</button>
       </div>
     </form>
   </div>
 </div>
+
 
 <%@ include file="/WEB-INF/jsp/usr/common/foot.jspf"%>

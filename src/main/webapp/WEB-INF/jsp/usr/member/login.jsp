@@ -18,7 +18,6 @@
             <input name="loginPw" type="password" class="input input-bordered" required />
           </div>
           <div class="form-control mt-6">
-           <input type="hidden" name="replaceUri" value="${param.replaceUri}">
             <button class="btn btn-primary" type="submit">로그인</button>
           </div>
           <div class="text-sm text-right mt-2">
