@@ -42,6 +42,13 @@ $(function(){
 		
 	}
 	function doGoodReaction(articleId){
+		
+		if(${!isLogined}){
+			alert('로그인하고 이용하세요.');
+			location.replace('/usr/member/login');
+			return;
+		}
+		
 		$.ajax({
 			url : '/usr/reactionPoint/doGoodReaction',
 			type : 'post',
@@ -163,10 +170,8 @@ $(function(){
 			<tr>
 				<th>LIKE / DISLIKE</th>
 				<td class="flex gap-2">
-					<!-- <a href="/usr/reactionPoint/doGoodReaction?relTypeCode=article&relId=${article.id }&replaceUri=${rq.getCurrentUri()}" class="article-detail__doGoodReaction btn btn-sm btn-primary">LIKE: ${article.goodReactionPoint}</a> -->
 					<button id="likeButton" class="btn btn-sm btn-primary btn-outline" onclick="doGoodReaction(${param.id})">LIKE
 						<span class="likeCount">${article.goodReactionPoint}</span></button>
-					<!-- <a href="/usr/reactionPoint/doBadReaction?relTypeCode=article&relId=${article.id }&replaceUri=${rq.getCurrentUri()}" class="btn btn-sm btn-error">DISLIKE:${article.badReactionPoint}</a> -->
 					<button id="disLikeButton" class="btn btn-sm btn-error btn-outline" onclick="doBadReaction(${param.id})">DISLIKE
 						<span class="disLikeCount">${article.badReactionPoint}</span></button>
 				</td>

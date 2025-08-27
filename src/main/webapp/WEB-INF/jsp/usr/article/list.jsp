@@ -59,7 +59,6 @@
 						<th>Views</th>
 						<th>Like</th>
 						<th>DisLike</th>
-						<th>Sum</th>
 					</tr>
 				</thead>
 				<tbody id="articleTbody">
@@ -72,7 +71,6 @@
 							<td>${article.hitCount}</td>
 							<td>${article.goodReactionPoint}</td>
 							<td>${article.badReactionPoint}</td>
-							<td>${article.extra__sumReactionPoint}</td>
 						</tr>
 					</c:forEach>
 					<c:if test="${empty articles }">
