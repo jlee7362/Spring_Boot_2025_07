@@ -11,4 +11,6 @@ public interface ReplyRepository {
 
 		public List<Reply> getForPrintReplies(String relTypeCode, int relId);
 
+		public int doReply(String relTypeCode, int relId, int memberId, String body);
+
 }

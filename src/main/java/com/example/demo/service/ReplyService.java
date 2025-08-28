@@ -18,4 +18,13 @@ public class ReplyService {
 		return replies;
 	}
 
+	public void doReply(String relTypeCode, int relId, int memberId, String body) {
+		
+		switch(relTypeCode) {
+		case "article" :
+			replyRepository.doReply("article", relId, memberId, body);
+			break;
+		}
+	}
+
 }

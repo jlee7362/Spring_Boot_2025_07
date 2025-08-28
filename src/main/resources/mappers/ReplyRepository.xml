@@ -14,12 +14,12 @@
 	
 	</select>
 	
-	<insert id="writeReply">
+	<insert id="doReply">
 		INSERT INTO `reply`
 		SET `regDate` = NOW(),
   		`updateDate` = NOW(),
-    	`memberId`  = 2,
-   		`relTypeCode`  = 'article',
+    	`memberId`  = #{memberId},
+   		`relTypeCode`  = #{relTypeCode},
     	`relId` = #{relId},
     	`body` = #{body}
 	</insert>

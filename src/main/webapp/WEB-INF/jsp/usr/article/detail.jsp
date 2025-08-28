@@ -178,10 +178,14 @@ $(function(){
 			<tr>
 				<th>LIKE / DISLIKE</th>
 				<td class="flex gap-2">
-					<button id="likeButton" class="btn btn-sm btn-primary btn-outline" onclick="doGoodReaction(${param.id})">LIKE
-						<span class="likeCount">${article.goodReactionPoint}</span></button>
-					<button id="disLikeButton" class="btn btn-sm btn-error btn-outline" onclick="doBadReaction(${param.id})">DISLIKE
-						<span class="disLikeCount">${article.badReactionPoint}</span></button>
+					<button id="likeButton" class="btn btn-sm btn-primary btn-outline" onclick="doGoodReaction(${param.id})">
+						LIKE
+						<span class="likeCount">${article.goodReactionPoint}</span>
+					</button>
+					<button id="disLikeButton" class="btn btn-sm btn-error btn-outline" onclick="doBadReaction(${param.id})">
+						DISLIKE
+						<span class="disLikeCount">${article.badReactionPoint}</span>
+					</button>
 				</td>
 			</tr>
 </table>
@@ -189,6 +193,15 @@ $(function(){
 
 <div class="mt-6">
 	<h2 class="text-lg font-bold mb-4">댓글</h2>
+	
+	<form action="/usr/doReply" method="post" >
+	<input type="hidden" name="relId" value="${article.id}" />
+	<input type="hidden" name="memberId" value="1" />
+	<input type="hidden" name="relTypeCode" value="article" />
+	 <input name="body" type="text" class="input input-bordered"/>
+	 
+	<button class="btn btn-primary" type="submit">작성</button>
+	</form>
 
 	<div class="space-y-4">
 		<c:forEach var="reply" items="${replies}">
@@ -206,6 +219,11 @@ $(function(){
 				</div>
 			</div>
 		</c:forEach>
+		<c:if test="${empty replies}">
+			<div class="card bg-base-200 shadow-md">
+				<div class="card-body p-6 text-center text-md text-gray-400">💬 아직 댓글이 없습니다.</div>
+			</div>
+		</c:if>
 	</div>
 </div>
 <div class="divider"></div>

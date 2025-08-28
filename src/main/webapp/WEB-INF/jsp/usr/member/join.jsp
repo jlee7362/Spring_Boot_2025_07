@@ -4,7 +4,7 @@
 
 <div class="card bg-base-100 shadow max-w-2xl mx-auto">
   <div class="card-body">
-    <form action="/usr/member/doJoin" method="post" id="joinForm" data-safe-submit class="grid md:grid-cols-2 gap-4">
+    <form action="/usr/member/doJoin"id="joinForm" data-safe-submit class="grid md:grid-cols-2 gap-4">
       <div class="form-control">
         <label class="label"><span class="label-text">아이디</span></label>
         <input name="loginId" class="input input-bordered" required />
