@@ -190,9 +190,18 @@ $(function(){
 
 
 <div class="prose max-w-none whitespace-pre-wrap">${article.body}</div>
-
-
-
+<table>
+				<c:forEach var="reply" items="${replies}">
+						<tr class="hover cursor-pointer" onclick="location.href='/usr/article/detail?id=${reply.id}'">
+							<td>${reply.id}</td>
+							<td>${reply.regDate}</td>
+							<td>${reply.extra__writer}</td>
+							<td>${reply.body}</td>
+							<td>${reply.goodReactionPoint}</td>
+							<td>${reply.badReactionPoint}</td>
+						</tr>
+					</c:forEach>
+</table>
 
 <div class="divider"></div>
 <div class="flex gap-2 justify-end">

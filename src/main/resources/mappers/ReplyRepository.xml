@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.demo.repository.ReplyRepository">
+
+	<select id="getReplies" parameterType="map" resultType="com.example.demo.vo.Reply">
+		SELECT r.*, m.nickname AS extra__writer
+		FROM `reply` r
+		INNER JOIN member m
+		on r.memberId = m.id
+		WHERE r.relTypeCode = #{relTypeCode} AND r.relId = #{relId}
+	
+	</select>
+	
+	<insert id="writeReply">
+		INSERT INTO `reply`
+		SET `regDate` = NOW(),
+  		`updateDate` = NOW(),
+    	`memberId`  = 2,
+   		`relTypeCode`  = 'article',
+    	`relId` = #{relId},
+    	`body` = #{body}
+	</insert>
+
+</mapper>
