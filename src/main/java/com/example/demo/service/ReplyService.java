@@ -13,8 +13,9 @@ public class ReplyService {
 	@Autowired
 	private  ReplyRepository replyRepository;
 
-	public List<Reply> getReplies(String relTypeCode, int id) {
-		return replyRepository.getReplies(relTypeCode, id);
+	public List<Reply> getForPrintReplies(String relTypeCode, int id) {
+		List<Reply> replies = replyRepository.getForPrintReplies(relTypeCode,id);
+		return replies;
 	}
 
 }

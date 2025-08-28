@@ -5,7 +5,7 @@
 
 <mapper namespace="com.example.demo.repository.ReplyRepository">
 
-	<select id="getReplies" parameterType="map" resultType="com.example.demo.vo.Reply">
+	<select id="getForPrintReplies" parameterType="map" resultType="com.example.demo.vo.Reply">
 		SELECT r.*, m.nickname AS extra__writer
 		FROM `reply` r
 		INNER JOIN member m

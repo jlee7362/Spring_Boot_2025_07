@@ -186,23 +186,28 @@ $(function(){
 			</tr>
 </table>
 
-	
 
+<div class="mt-6">
+	<h2 class="text-lg font-bold mb-4">댓글</h2>
 
-<div class="prose max-w-none whitespace-pre-wrap">${article.body}</div>
-<table>
-				<c:forEach var="reply" items="${replies}">
-						<tr class="hover cursor-pointer" onclick="location.href='/usr/article/detail?id=${reply.id}'">
-							<td>${reply.id}</td>
-							<td>${reply.regDate}</td>
-							<td>${reply.extra__writer}</td>
-							<td>${reply.body}</td>
-							<td>${reply.goodReactionPoint}</td>
-							<td>${reply.badReactionPoint}</td>
-						</tr>
-					</c:forEach>
-</table>
-
+	<div class="space-y-4">
+		<c:forEach var="reply" items="${replies}">
+			<div class="card bg-base-200 shadow-md">
+				<div class="card-body p-4">
+					<div class="flex justify-between items-center">
+						<span class="font-semibold text-sm">${reply.extra__writer}</span>
+						<span class="text-xs text-gray-400">${reply.regDate}</span>
+					</div>
+					<p class="mt-2 text-sm">${reply.body}</p>
+					<div class="mt-3 flex gap-3 text-xs">
+						<span class="badge badge-outline badge-success">👍 ${reply.goodReactionPoint}</span>
+						<span class="badge badge-outline badge-error">👎 ${reply.badReactionPoint}</span>
+					</div>
+				</div>
+			</div>
+		</c:forEach>
+	</div>
+</div>
 <div class="divider"></div>
 <div class="flex gap-2 justify-end">
 	<c:if test="${article.userCanModify}">

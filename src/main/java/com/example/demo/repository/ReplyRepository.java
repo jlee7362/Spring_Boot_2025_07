@@ -9,6 +9,6 @@ import com.example.demo.vo.Reply;
 @Mapper
 public interface ReplyRepository {
 
-		public List<Reply> getReplies(String relTypeCode, int relId);
+		public List<Reply> getForPrintReplies(String relTypeCode, int relId);
 
 }
