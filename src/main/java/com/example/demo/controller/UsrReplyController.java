@@ -18,14 +18,6 @@ public class UsrReplyController {
 	
 	@Autowired
 	private Rq rq;
-
-//	@RequestMapping("/usr/doReply")
-//	@ResponseBody
-//	public void doReply(String relTypeCode, int relId, int memberId, String body) {
-//		
-//		replyService.doReply(relTypeCode, relId, memberId, body);
-//
-//	}
 	
 	@RequestMapping("/usr/reply/doWrite")
 	@ResponseBody

@@ -129,10 +129,12 @@
 	<select id="getForPrintArticles" parameterType="map"
 		resultType="com.example.demo.vo.Article">
 		
-		SELECT a.*,m.nickname AS extra__writer
+		SELECT a.*,m.nickname AS extra__writer, IFNULL(COUNT(r.id), 0) AS replyCount
 		FROM `article` a
 		INNER JOIN `member` m
 		ON a.memberId = m.id
+		LEFT JOIN `reply` r
+		ON a.id = r.relId
 		WHERE 1
 		<if test="boardId != 0">
 			AND boardId = #{boardId}
@@ -161,6 +163,7 @@
 			limit #{limitFrom}, #{limitTake}
 		</if>
 	</select>
+	
 
 	<select id="getArticles"
 		resultType="com.example.demo.vo.Article">

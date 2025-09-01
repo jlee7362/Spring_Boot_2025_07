@@ -18,6 +18,8 @@ public class Article {
 	private LocalDateTime updateDate;
 	private String goodReactionPoint;
 	private String badReactionPoint;
+	private int replyCount;
+
 	
 	private int memberId;
 	private String extra__writer;

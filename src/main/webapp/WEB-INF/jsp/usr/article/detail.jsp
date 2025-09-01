@@ -217,7 +217,7 @@ $(function(){
 					<tr>
 						<th>댓글 내용 입력</th>
 						<td>
-							<textarea class="input input-bordered input-sm w-full max-w-xs" name="body" autocomplete="off" type="text"
+							<textarea class="textarea textarea-primary input input-bordered input-sm w-full max-w-xs" name="body" autocomplete="off" class="textarea"
 								placeholder="댓글 입력란"></textarea>
 						</td>
 						<td>

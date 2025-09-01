@@ -59,6 +59,7 @@
 						<th>Views</th>
 						<th>Like</th>
 						<th>DisLike</th>
+						<th>Reply</th>
 					</tr>
 				</thead>
 				<tbody id="articleTbody">
@@ -71,6 +72,7 @@
 							<td>${article.hitCount}</td>
 							<td>${article.goodReactionPoint}</td>
 							<td>${article.badReactionPoint}</td>
+							<td>${article.replyCount}</td>
 						</tr>
 					</c:forEach>
 					<c:if test="${empty articles }">
