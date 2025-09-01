@@ -11,7 +11,7 @@
 		INNER JOIN member m
 		on r.memberId = m.id
 		WHERE r.relTypeCode = #{relTypeCode} AND r.relId = #{relId}
-	
+		ORDER BY r.relId DESC
 	</select>
 	
 	<select id="getLastInsertId">

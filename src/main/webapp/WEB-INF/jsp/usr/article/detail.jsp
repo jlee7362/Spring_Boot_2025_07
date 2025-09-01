@@ -190,22 +190,26 @@ $(function(){
 			</tr>
 </table>
 
+<script>
+	function replyWrite__submit(form){
+		console.log('form.body : ', form.body );
+		console.log('form.body.value : ', form.body.value);
+		
+		if(form.body.value.length < 3){
+			alert("3글자 이상 입력하세요.");
+			form.body.focus();
+			return;
+		}
+		form.submit();
+	}
+</script>
+
 
 <div class="mt-6">
-	<!-- <h2 class="text-lg font-bold mb-4">댓글</h2>
-	
-	<form action="/usr/doReply" method="post" >
-		<input type="hidden" name="relId" value="${article.id}" />
-		<input type="hidden" name="memberId" value="1" />
-		<input type="hidden" name="relTypeCode" value="article" />
-		<input name="body" type="text" class="input input-bordered"/>
-		 
-		<button class="btn btn-primary" type="submit">작성</button>
-	</form> -->
-	<!-- 선생님 버전 -->
+
 	<section>
 	<c:if test="${rq.isLogined() }">
-		<form action="../reply/doWrite" method="post">
+		<form action="../reply/doWrite" method="post" onsubmit="replyWrite__submit(this); return false;">
 			<input type="hidden" name="relTypeCode" value="article" />
 			<input type="hidden" name="relId" value="${article.id }" />
 			<table class="table" border="1" style="width: 100%;">
@@ -227,7 +231,7 @@ $(function(){
 		</form>
 </c:if>
 <c:if test="${!rq.isLogined() }">
-<div style="text-align: center; margin-top: 5px;"> 댓글 작성을 하려면 <a href="../member/login" class="btn btn-primary btn-xs">로그인</a>이 필요합니다.</div>
+<div style="text-align: center; margin-top: 20px;"> 댓글 작성을 하려면 <a href="../member/login" class="btn btn-primary btn-xs">로그인</a>이 필요합니다.</div>
 </c:if>
 	</section>
 
