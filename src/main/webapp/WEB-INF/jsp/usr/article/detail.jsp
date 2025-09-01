@@ -192,16 +192,44 @@ $(function(){
 
 
 <div class="mt-6">
-	<h2 class="text-lg font-bold mb-4">댓글</h2>
+	<!-- <h2 class="text-lg font-bold mb-4">댓글</h2>
 	
 	<form action="/usr/doReply" method="post" >
-	<input type="hidden" name="relId" value="${article.id}" />
-	<input type="hidden" name="memberId" value="1" />
-	<input type="hidden" name="relTypeCode" value="article" />
-	 <input name="body" type="text" class="input input-bordered"/>
-	 
-	<button class="btn btn-primary" type="submit">작성</button>
-	</form>
+		<input type="hidden" name="relId" value="${article.id}" />
+		<input type="hidden" name="memberId" value="1" />
+		<input type="hidden" name="relTypeCode" value="article" />
+		<input name="body" type="text" class="input input-bordered"/>
+		 
+		<button class="btn btn-primary" type="submit">작성</button>
+	</form> -->
+	<!-- 선생님 버전 -->
+	<section>
+	<c:if test="${rq.isLogined() }">
+		<form action="../reply/doWrite" method="post">
+			<input type="hidden" name="relTypeCode" value="article" />
+			<input type="hidden" name="relId" value="${article.id }" />
+			<table class="table" border="1" style="width: 100%;">
+				<tbody>
+					<tr>
+						<th>댓글 내용 입력</th>
+						<td>
+							<textarea class="input input-bordered input-sm w-full max-w-xs" name="body" autocomplete="off" type="text"
+								placeholder="댓글 입력란"></textarea>
+						</td>
+						<td>
+							<button class="btn btn-outline btn-sm">작성</button>
+						</td>
+					</tr>
+
+				</tbody>
+			</table>
+
+		</form>
+</c:if>
+<c:if test="${!rq.isLogined() }">
+<div style="text-align: center; margin-top: 5px;"> 댓글 작성을 하려면 <a href="../member/login" class="btn btn-primary btn-xs">로그인</a>이 필요합니다.</div>
+</c:if>
+	</section>
 
 	<div class="space-y-4">
 		<c:forEach var="reply" items="${replies}">

@@ -14,7 +14,11 @@
 	
 	</select>
 	
-	<insert id="doReply">
+	<select id="getLastInsertId">
+		SELECT LAST_INSERT_ID();
+	</select>
+	
+	<insert id="doWrite">
 		INSERT INTO `reply`
 		SET `regDate` = NOW(),
   		`updateDate` = NOW(),
