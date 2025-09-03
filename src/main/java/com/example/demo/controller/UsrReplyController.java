@@ -1,12 +1,16 @@
 package com.example.demo.controller;
 
+import java.io.IOException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.example.demo.service.ReplyService;
 import com.example.demo.util.Ut;
+import com.example.demo.vo.Article;
 import com.example.demo.vo.Reply;
 import com.example.demo.vo.ResultData;
 import com.example.demo.vo.Rq;
@@ -20,12 +24,10 @@ public class UsrReplyController {
 	@Autowired
 	private Rq rq;
 	
+	
 	@RequestMapping("/usr/reply/doWrite")
 	@ResponseBody
 	public String doWrite(int relId, String relTypeCode, String body) {
-//		System.out.println("relId : "+relId);
-//		System.out.println("relTypeCode : "+relTypeCode);
-//		System.out.println("body : "+body);
 		if(Ut.isEmptyOrNull(body)) {
 			return Ut.jsHistoryBack("F-1", "내용 입력하세요.");
 		}
@@ -55,6 +57,14 @@ public class UsrReplyController {
 		replyService.deleteReply(id);
 
 		return Ut.jsReplace(userCanDeleteRd.getResultCode(), userCanDeleteRd.getMsg(),"../article/detail?id="+articleId);
+		
+	}
+	@RequestMapping("/usr/reply/doModify")
+	@ResponseBody
+	public String doModify(int id, String body) {
+		
+
+		return "수정 된 댓글입니다.";
 		
 	}
 	
