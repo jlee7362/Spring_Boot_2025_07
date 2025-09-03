@@ -234,7 +234,25 @@ $(function(){
 <div style="text-align: center; margin-top: 20px;"> 댓글 작성을 하려면 <a href="../member/login" class="btn btn-primary btn-xs">로그인</a>이 필요합니다.</div>
 </c:if>
 	</section>
+<script>
 
+function toggleModifybtn(){
+	$('#modify-btn').hide();
+	$('#save-btn').show();
+	$('#reply-body').hide();
+	$('#modify-form').show();
+	
+	
+}
+function doModifyReply(){
+	$('#modify-btn').show();
+	$('#save-btn').hide();
+	$('#reply-body').show();
+	$('#modify-form').hide();
+	
+}
+
+</script>
 	<div class="space-y-4">
 		<c:forEach var="reply" items="${replies}">
 			<div class="card bg-base-200 shadow-md">
@@ -243,11 +261,16 @@ $(function(){
 						<span class="font-semibold text-sm">${reply.extra__writer}</span>
 						<span class="text-xs text-gray-400">${reply.regDate}</span>
 					</div>
-					<p class="mt-2 text-sm">${reply.body}</p>
+					<p class="mt-2 text-sm"id="reply-body">${reply.body}</p>
+					
+					<form class="textarea textarea-primary input input-bordered input-sm w-full max-w-xs"action="#" style="display:none;" id="modify-form">
+						<input type="text" value="${reply.body }"/>
+					</form>
 					<div class="mt-3 flex gap-3 text-xs">
 						<span class="badge badge-outline badge-success">👍 ${reply.goodReactionPoint}</span>
 						<span class="badge badge-outline badge-error">👎 ${reply.badReactionPoint}</span>
-						<button onclick="../reply/modify?id=${reply.id}">수정</button>
+						<button onclick="toggleModifybtn()" id="modify-btn">수정</button>
+						<button onclick="doModifyReply() "id="save-btn" style="display:none;">저장</button>
 						<a href="../reply/doDelete?id=${reply.id}&articleId=${article.id}">삭제</button>
 					</div>
 				</div>
