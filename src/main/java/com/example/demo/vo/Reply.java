@@ -13,6 +13,7 @@ public class Reply {
     private int id;
     private String regDate;
     private String updateDate;
+    
     private int memberId;
     private String relTypeCode;
     private int relId;

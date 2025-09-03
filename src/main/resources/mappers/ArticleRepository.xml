@@ -174,7 +174,7 @@
 		ORDER BY a.id DESC
 	</select>
 
-	<delete id="deleteArticle" parameterType="int">
+	<delete id="deleteReply" parameterType="int">
 		DELETE FROM article
 		WHERE id = #{id}
 	</delete>

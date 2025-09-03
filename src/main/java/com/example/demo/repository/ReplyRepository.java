@@ -15,4 +15,8 @@ public interface ReplyRepository {
 
 		public void doWrite(int memberId, int relId, String relTypeCode, String body);
 
+		public Reply getReplyById(int id);
+
+		public void deleteReply(int id);
+
 }

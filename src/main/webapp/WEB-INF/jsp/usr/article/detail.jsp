@@ -247,6 +247,8 @@ $(function(){
 					<div class="mt-3 flex gap-3 text-xs">
 						<span class="badge badge-outline badge-success">👍 ${reply.goodReactionPoint}</span>
 						<span class="badge badge-outline badge-error">👎 ${reply.badReactionPoint}</span>
+						<button onclick="../reply/modify?id=${reply.id}">수정</button>
+						<a href="../reply/doDelete?id=${reply.id}&articleId=${article.id}">삭제</button>
 					</div>
 				</div>
 			</div>

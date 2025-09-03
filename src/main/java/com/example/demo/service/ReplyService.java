@@ -29,4 +29,23 @@ public class ReplyService {
 		return ResultData.from("S-1", Ut.f("%d번 댓글이 등록되었습니다.", id), id, "등록 된 댓글의 아이디");
 	}
 
+	public Reply getReplyById(int id) {
+		Reply reply = replyRepository.getReplyById(id);
+		return reply;
+	}
+
+	public ResultData userCanDelete(int loginedMemberId, Reply reply) {
+		if(reply.getMemberId()!=loginedMemberId) {
+			return ResultData.from("F-A", Ut.f("%d번 댓글 권한이 없음.", reply.getId()));
+		}
+		
+		return ResultData.from("S-1", Ut.f("%d번 댓글을 삭제 됨", reply.getId()));
+		 
+	}
+
+	public void deleteReply(int id) {
+		replyRepository.deleteReply(id);
+		
+	}
+
 }
