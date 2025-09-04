@@ -61,25 +61,25 @@ public class UsrReplyController {
 	}
 	@RequestMapping("/usr/reply/doModify")
 	@ResponseBody
-	public Reply doModify(int id, String body) {
+	public String doModify(int id, String body) {
 		
 		//댓글 유무체
 		Reply reply = replyService.getReplyById(id);
 		if (reply == null) {
-//			return Ut.jsHistoryBack("F-1", Ut.f("%d번 글이 없습니다.", id));
+			return Ut.jsHistoryBack("F-1", Ut.f("%d번 글이 없습니다.", id));
 		}
 
 		// 권한 체크
 		ResultData userCanModify = replyService.userCanModify(rq.getLoginedMemberId(), reply);
 
 		if (userCanModify.getResultCode().startsWith("F")) {
-//			return Ut.jsHistoryBack("F-A", userCanModify.getMsg());
+			return Ut.jsHistoryBack("F-A", userCanModify.getMsg());
 		}
 		replyService.modifyReply(id, body);
 
 		reply = replyService.getReplyById(id);
 
-		return reply;
+		return reply.getBody();
 		
 	}
 	

@@ -231,7 +231,7 @@ $(function(){
 		</form>
 </c:if>
 <c:if test="${!rq.isLogined() }">
-<div style="text-align: center; margin-top: 20px;"> 댓글 작성을 하려면 <a href="../member/login" class="btn btn-primary btn-xs">로그인</a>이 필요합니다.</div>
+<div style="text-align: center; margin-top: 20px;"> 댓글 작성을 하려면 <a href="${rq.getLoginUri() }" class="btn btn-primary btn-xs">로그인</a>이 필요합니다.</div>
 </c:if>
 	</section>
 <script>
@@ -258,15 +258,13 @@ function doModifyReply(replyId){
 	$.post({
 		url : action,
 		type: 'GET',
-		dataType: 'json',
 		data: {
 			id : replyId,
 			body : text
 		}, success: function(data){
 			$('#modify-btn-'+ replyId).show();
 			$('#save-btn-'+ replyId).hide();
-			$('#reply-body-'+ replyId).text(data.body);
-			console.log('data : '+ data.body);
+			$('#reply-body-'+ replyId).text(data);
 			$('#reply-body-'+ replyId).show();
 			$('#modify-form-'+ replyId).hide();
 			
@@ -287,7 +285,7 @@ function doModifyReply(replyId){
 					</div>
 					<p class="mt-2 text-sm"id="reply-body-${reply.id }">${reply.body}</p>
 					
-					<form class="textarea textarea-primary input input-bordered input-sm w-full max-w-xs"action="/usr/reply/doModify" style="display:none;" id="modify-form-${reply.id }">
+					<form class="textarea textarea-primary input input-bordered input-sm w-full max-w-xs" action="#" style="display:none;" id="modify-form-${reply.id }" onsubmit="return false">
 						<input name="reply-text-${reply.id }" type="text" value="${reply.body }"/>
 					</form>
 					
@@ -299,7 +297,7 @@ function doModifyReply(replyId){
 							<button onclick="doModifyReply('${reply.id }') "id="save-btn-${reply.id }" style="display:none;">저장</button>
 						</c:if>
 						<c:if test="${reply.userCanDelete }">
-						<a href="../reply/doDelete?id=${reply.id}&articleId=${article.id}">삭제</a>
+						<a onclick="if(confirm('정말 삭제?')==false) return false;" href="../reply/doDelete?id=${reply.id}&articleId=${article.id}">삭제</a>
 						</c:if>
 					</div>
 				</div>

@@ -25,17 +25,6 @@ public class ReplyService {
 		
 		return replies;
 	}
-	private void controlForPrintData(int loginedMemberId, Reply reply) {
-		if(reply == null) {
-			return;
-		}
-		ResultData userCanModifyRd = userCanModify(loginedMemberId, reply);
-		reply.setUserCanModify(userCanModifyRd.isSuccess());
-		
-		ResultData userCanDeleteRd = userCanDelete(loginedMemberId, reply);
-		reply.setUserCanDelete(userCanDeleteRd.isSuccess());
-		
-	}
 
 	public ResultData doWrite(int memberId, int relId, String relTypeCode, String body) {
 		
@@ -49,6 +38,19 @@ public class ReplyService {
 	public Reply getReplyById(int id) {
 		Reply reply = replyRepository.getReplyById(id);
 		return reply;
+	}
+	
+
+	private void controlForPrintData(int loginedMemberId, Reply reply) {
+		if(reply == null) {
+			return;
+		}
+		ResultData userCanModifyRd = userCanModify(loginedMemberId, reply);
+		reply.setUserCanModify(userCanModifyRd.isSuccess());
+		
+		ResultData userCanDeleteRd = userCanDelete(loginedMemberId, reply);
+		reply.setUserCanDelete(userCanDeleteRd.isSuccess());
+		
 	}
 
 	public ResultData userCanDelete(int loginedMemberId, Reply reply) {

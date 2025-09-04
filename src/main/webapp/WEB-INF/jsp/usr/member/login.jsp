@@ -7,8 +7,8 @@
   <div class="hero-content w-full max-w-md">
     <div class="card bg-base-100 w-full shadow">
       <div class="card-body">
-        <form action="/usr/member/doLogin" method="post" data-safe-submit>
-        
+        <form action="/usr/member/doLogin" method="post">
+			<input type="hidden" name="afterLoginUri" value="${param.afterLoginUri }"/>
           <div class="form-control">
             <label class="label"><span class="label-text">아이디</span></label>
             <input name="loginId" class="input input-bordered" required />
