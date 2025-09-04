@@ -256,7 +256,7 @@ function doModifyReply(replyId){
 	console.log('action: '+ action);
 	
 	$.post({
-		url : action,
+		url : '/usr/reply/doModify',
 		type: 'GET',
 		data: {
 			id : replyId,
@@ -294,7 +294,7 @@ function doModifyReply(replyId){
 						<span class="badge badge-outline badge-error">👎 ${reply.badReactionPoint}</span>
 						<c:if test="${reply.userCanModify }">
 							<button onclick="toggleModifybtn('${reply.id }')" id="modify-btn-${reply.id }">수정</button>
-							<button onclick="doModifyReply('${reply.id }') "id="save-btn-${reply.id }" style="display:none;">저장</button>
+							<button onclick="doModifyReply('${reply.id }')" id="save-btn-${reply.id }" style="display:none;">저장</button>
 						</c:if>
 						<c:if test="${reply.userCanDelete }">
 						<a onclick="if(confirm('정말 삭제?')==false) return false;" href="../reply/doDelete?id=${reply.id}&articleId=${article.id}">삭제</a>
