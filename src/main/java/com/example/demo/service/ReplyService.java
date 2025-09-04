@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.example.demo.repository.ReplyRepository;
 import com.example.demo.util.Ut;
+import com.example.demo.vo.Article;
 import com.example.demo.vo.Reply;
 import com.example.demo.vo.ResultData;
 
@@ -15,9 +16,25 @@ public class ReplyService {
 	@Autowired
 	private  ReplyRepository replyRepository;
 
-	public List<Reply> getForPrintReplies(String relTypeCode, int id) {
-		List<Reply> replies = replyRepository.getForPrintReplies(relTypeCode,id);
+	public List<Reply> getForPrintReplies(int loginedMemberId, String relTypeCode, int relId) {
+		List<Reply> replies = replyRepository.getForPrintReplies(relTypeCode,relId);
+		
+		for(Reply reply : replies) {
+			controlForPrintData(loginedMemberId, reply);
+		}
+		
 		return replies;
+	}
+	private void controlForPrintData(int loginedMemberId, Reply reply) {
+		if(reply == null) {
+			return;
+		}
+		ResultData userCanModifyRd = userCanModify(loginedMemberId, reply);
+		reply.setUserCanModify(userCanModifyRd.isSuccess());
+		
+		ResultData userCanDeleteRd = userCanDelete(loginedMemberId, reply);
+		reply.setUserCanDelete(userCanDeleteRd.isSuccess());
+		
 	}
 
 	public ResultData doWrite(int memberId, int relId, String relTypeCode, String body) {
@@ -42,9 +59,23 @@ public class ReplyService {
 		return ResultData.from("S-1", Ut.f("%d번 댓글을 삭제 됨", reply.getId()));
 		 
 	}
+	
+	public ResultData userCanModify(int loginedMemberId, Reply reply) {
+		if(reply.getMemberId()!=loginedMemberId) {
+			return ResultData.from("F-A", Ut.f("%d번 게시글 권한이 없음.", reply.getId()));
+		}
+		
+		return ResultData.from("S-1", Ut.f("%d번 게시글을 수정 됨", reply.getId()));
+	}
+	
 
 	public void deleteReply(int id) {
 		replyRepository.deleteReply(id);
+		
+	}
+
+	public void modifyReply(int id, String body) {
+		replyRepository.modifyReply(id, body);
 		
 	}
 

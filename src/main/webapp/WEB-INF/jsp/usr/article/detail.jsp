@@ -258,13 +258,15 @@ function doModifyReply(replyId){
 	$.post({
 		url : action,
 		type: 'GET',
+		dataType: 'json',
 		data: {
 			id : replyId,
 			body : text
 		}, success: function(data){
 			$('#modify-btn-'+ replyId).show();
 			$('#save-btn-'+ replyId).hide();
-			$('#reply-body-'+ replyId).text(data);
+			$('#reply-body-'+ replyId).text(data.body);
+			console.log('data : '+ data.body);
 			$('#reply-body-'+ replyId).show();
 			$('#modify-form-'+ replyId).hide();
 			
@@ -292,9 +294,13 @@ function doModifyReply(replyId){
 					<div class="mt-3 flex gap-3 text-xs">
 						<span class="badge badge-outline badge-success">👍 ${reply.goodReactionPoint}</span>
 						<span class="badge badge-outline badge-error">👎 ${reply.badReactionPoint}</span>
-						<button onclick="toggleModifybtn('${reply.id }')" id="modify-btn-${reply.id }">수정</button>
-						<button onclick="doModifyReply('${reply.id }') "id="save-btn-${reply.id }" style="display:none;">저장</button>
+						<c:if test="${reply.userCanModify }">
+							<button onclick="toggleModifybtn('${reply.id }')" id="modify-btn-${reply.id }">수정</button>
+							<button onclick="doModifyReply('${reply.id }') "id="save-btn-${reply.id }" style="display:none;">저장</button>
+						</c:if>
+						<c:if test="${reply.userCanDelete }">
 						<a href="../reply/doDelete?id=${reply.id}&articleId=${article.id}">삭제</a>
+						</c:if>
 					</div>
 				</div>
 			</div>

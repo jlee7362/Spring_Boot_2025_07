@@ -22,4 +22,7 @@ public class Reply {
 	private String badReactionPoint;
 
     private String extra__writer;
+    
+    private boolean userCanModify;
+	private boolean userCanDelete;
 }
