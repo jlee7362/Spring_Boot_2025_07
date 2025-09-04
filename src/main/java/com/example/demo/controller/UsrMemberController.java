@@ -52,10 +52,15 @@ public class UsrMemberController {
 		}
 		
 		Member member = memberService.getMemberByLoginId(loginId);
+		
+		System.out.println("로그인 pw : "+loginPw);
+		System.out.println("로그인 pw(sha256) : "+Ut.sha256(loginPw));
+		
+		
 		if(member == null) {
 			return Ut.jsHistoryBack("F-4", Ut.f("%s는 없는 아이디입니다.", loginId));
 		}
-		if(member.getLoginPw().equals(loginPw)==false) {
+		if(member.getLoginPw().equals(Ut.sha256(loginPw))==false) {
 			return Ut.jsHistoryBack("F-5", "비밀번호가 일치하지 않음");
 		}
 		
